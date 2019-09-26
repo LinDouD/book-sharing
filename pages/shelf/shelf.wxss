@@ -1,0 +1,82 @@
+/* pages/shelf/shelf.wxss */
+
+page{
+    width: 100%;
+    height: 100%;
+}
+.container{
+    width: 100%;
+    height: 100%;
+}
+.nav {
+    height: 80rpx;
+    width: 80%;
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 80rpx;
+    background: #f7f7f7;
+    font-size: 16px;
+    white-space: nowrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+.nav-item {
+    width: 20%;
+    display: inline-block;
+    text-align: center;
+}
+.nav-item.active{
+    color: #2f65bb;
+}
+.tab-box{
+    background: greenyellow;
+    padding-top: 200rpx;
+    height: 100%;
+    box-sizing: border-box;
+}
+.tab-content{
+    overflow-y: scroll;
+}
+
+/*  时间/字母  */
+.section {
+    height: 80rpx;
+    width: 15%;
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 80rpx;
+    background: #fae5e5;
+    font-size: 16px;
+    white-space: nowrap;
+    position: fixed;
+    top: 0;
+    left: 85%;
+    z-index: 99;
+    text-align: center
+}
+
+/*书籍*/
+.box{
+  margin-top: 100rpx;
+  display: flex;
+  justify-content: space-between; 
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.box .book{
+  width: 30%;
+  margin-bottom: 40rpx;
+  color: #666;
+}
+
+.box .book .progress{
+  font-size: 24rpx;
+  margin-bottom: 10rpx;
+  color: #999;
+}
+.book image{
+  width: 100%;
+}

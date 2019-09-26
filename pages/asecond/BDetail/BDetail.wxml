@@ -1,0 +1,17 @@
+<view class='row info'>
+  <view class='col-4'>
+    <image mode='widthFix'  class='cover box-shadow' src='../../../magic/book/beego.png'></image>
+  </view>
+  <view class='col-8'>
+    <text class='ellipsis-2row font-lv1'>Beego开发手册</text>
+   
+    <view class='mgt-15rpx font-lv3 color-semi'>分类：科技</view>
+    
+  </view>
+</view>
+
+
+
+<view class='intro font-lv3 color-grey'>
+    beego 是一个快速开发 Go 应用的 HTTP 框架，他可以用来快速开发 API、Web 及后端服务等各种应用，是一个 RESTful 的框架，主要设计灵感来源于 tornado、sinatra 和 flask 这三个框架，但是结合了 Go 本身的一些特性（interface、struct 嵌入等）而设计的一个框架。
+</view>

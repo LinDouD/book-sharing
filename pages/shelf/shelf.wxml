@@ -1,0 +1,86 @@
+<!--pages/shelf/shelf.wxml-->
+<view>
+    <!-- tab导航栏 -->
+    <!-- scroll-left属性可以控制滚动条位置 -->
+    <!-- scroll-with-animation滚动添加动画过渡 -->
+    <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}" >
+        <block wx:for="{{navData}}" wx:for-index="idx" wx:for-item="navItem" wx:key="idx">
+            <view class="nav-item {{currentTab == idx ?'active':''}}"  data-current="{{idx}}" bindtap="switchNav">{{navItem.text}}</view>
+        </block>  
+    </scroll-view>
+
+     <!-- tab导航栏 右边时间/字母-->
+
+<view class="section">
+  
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker">
+      {{array[index]}}
+    </view>
+  </picker>
+</view>
+
+    <!-- 页面内容 -->
+    <!-->
+    <swiper current="{{currentTab}}" duration="300" bindchange="switchTab">      
+        <swiper-item wx:for="{{[0,1,2,3,4,5,6]}}" wx:for-index="idx" wx:for-item="tabItem"  wx:key="idx" class="tab-content">
+           <text> {{tabItem}}</text>
+           
+        </swiper-item>
+    </swiper>
+<-->
+    
+</view>
+
+
+ <!--书籍-->
+<view>
+ <view class='base-padding base-margin-bttom'>
+
+  <view class='box'>  
+    <navigator url='/pages/asecond/BDetail/BDetail' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/beego.png'></image>
+     
+      <view class='font-lv3  ellipsis-2row'>Beego开发手册</view>
+    </navigator>
+
+    <navigator url='/pages/asecond/BDetail/BDetail' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/goweb.jpeg'></image>
+     
+      <view class='font-lv3  ellipsis-2row'>Go Web编程</view>
+    </navigator>
+
+    <navigator url='/pages/asecond/BDetail/BDetail' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/http2.png'></image>
+      
+      <view class='font-lv3  ellipsis-2row'>http2详解</view>
+    </navigator>
+
+    <navigator url='/pages/asecond/BDetail/BDetail' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/grpc.png'></image>
+     
+      <view class='font-lv3  ellipsis-2row'>Go-gRPC</view>
+    </navigator>
+
+    <navigator url='/pages/asecond/BDetail/BDetail' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/shell.jpeg'></image>
+     
+      <view class='font-lv3  ellipsis-2row'>Shell编程范例</view>
+    </navigator>
+
+    <navigator url='/pages/asecond/BDetail/BDetail' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/es6.jpeg'></image>
+      
+      <view class='font-lv3  ellipsis-2row'>ECMAScript 6 入门</view>
+    </navigator>
+
+    <!--  为了使之对齐，如果不是3的倍数，余数是多少，则就补多少个book-empty  -->
+    <!--  最后这里哪怕添加三个空的book-empty，对布局也不会有影响，因为没有高度...  -->
+    <view class='book book-empty text-muted'></view>
+    <view class='book book-empty text-muted'></view>
+
+
+  </view>
+</view>
+</view>
+

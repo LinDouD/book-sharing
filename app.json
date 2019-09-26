@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/shelf/shelf",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/BC/BC",
+    "pages/scan/scan",
+    "pages/PC/PC",
+    "pages/asecond/BDetail/BDetail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "2f65bb",
+    "navigationBarTitleText": "享书",
+    "navigationBarTextStyle": "black",
+    "backgroundColorBottom": "#78f"
+  },
+  "tabBar": {
+    "backgroundColor": "#2f65bb",
+    "color": "#111",
+    "selectedColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/shelf/shelf",
+        "iconPath": "magic/aShelficon.png",
+        "selectedIconPath": "magic/aSelected.png",
+        "text": "书架"
+      },
+      {
+        "pagePath": "pages/BC/BC",
+        "iconPath": "magic/aBCicon.png",
+        "selectedIconPath": "magic/aSelected.png",
+        "text": "图书圈"
+      },
+      {
+        "pagePath": "pages/scan/scan",
+        "iconPath": "magic/aScanicon.png",
+        "selectedIconPath": "magic/aSelected.png",
+        "text": "扫一扫"
+      },
+      {
+        "pagePath": "pages/PC/PC",
+        "iconPath": "magic/aPCicon.png",
+        "selectedIconPath": "magic/aSelected.png",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

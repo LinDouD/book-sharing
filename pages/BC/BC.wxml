@@ -1,0 +1,87 @@
+<!--pages/BC/BC.wxml-->
+
+<!--  搜索框  -->
+<view class='search '>
+  <label>
+    <icon type='search'></icon>
+    <input type='search' placeholder="请输入搜索关键字"/>
+  </label>
+</view>
+
+
+<!--  推荐  -->
+<view class='panel base-padding recommend base-margin-bottom'>
+  <view class='panel-heading'>
+    <view class='panel-title font-lv1 strong'>我的图书圈 
+      <button class='pull-right font-lv3 color-link' type="primary" bindtap="modalinput">创建图书圈</button>
+       <modal id="modal" hidden="{{hiddenmodalput}}" title="创建图书圈" confirm-text="创建"  cancle-text="取消"   bindcancel="cancel"  bindconfirm="confirm">
+       <input type='text'placeholder="请输入内容" auto-focus/>
+        <input type='text' placeholder='简介' auto-focus/>
+        </modal>
+
+      
+    </view>
+  </view>
+
+  <view class='panel-body'>
+
+    <navigator url="/pages/intro/intro">
+      <image mode='widthFix'  class='box-shadow cover' src='../../magic/BookCircle/circle1.png'/>
+      <view class='font-lv3 ellipsis-2row mgt-15rpx'>深夜阅读</view>
+    </navigator>
+   
+    <navigator url="/pages/intro/intro">
+      <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle2.png'/>
+      <view class='font-lv3 ellipsis-2row mgt-15rpx'>旅途好书</view>
+    </navigator>
+
+    <navigator url="/pages/intro/intro">
+      <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle3.png'/>
+      <view class='font-lv3 ellipsis-2row mgt-15rpx'>少儿读物</view>
+    </navigator>
+
+  </view>
+</view>
+
+
+<!--  各种分类的书籍的展示  -->
+
+<view class='panel base-padding base-margin-bottom cate-data'>
+
+  <view class='panel-heading'>
+    <view class='panel-title font-lv1 strong'>其他图书圈 </view>
+  </view>
+  <view class='panel-body'>
+      <view class='row'>
+        <view class='row-left'>
+          <navigator url="/pages/intro/intro">
+            <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle4.png'/>
+          </navigator>
+        </view>
+        <view class='row-right'>
+          <navigator url='/pages/intro/intro' class='ellipsis-1row font-lv2'>有限理性阅读圈</navigator>
+    
+          <view class='text-muted ellipsis-3row desc'>世界的本质是什么，人类可以认识到世界的本质吗，存在某种可以描述世界存在的本质吗。欢迎加入有限理性图书圈，共同分享相关书籍。
+          </view>
+        </view>
+      </view>
+
+
+      <view class='row'>
+        <view class='row-left'>
+          <navigator url="/pages/intro/intro">
+            <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle5.png'/>
+          </navigator>
+        </view>
+        <view class='row-right'>
+          <navigator url="/pages/intro/intro" class='ellipsis-1row font-lv2'>田野调查阅读圈</navigator>
+      
+          <view class='text-muted ellipsis-3row desc'>田野调查是社会学课不可缺少的实证调研手段，欢迎分享田野调查经历。
+        </view>
+        </view>
+      </view>
+
+
+
+ </view>
+</view>
