@@ -9,19 +9,32 @@
 </view>
 
 
-<!--  推荐  -->
+<!--  我的图书圈  -->
 <view class='panel base-padding recommend base-margin-bottom'>
   <view class='panel-heading'>
     <view class='panel-title font-lv1 strong'>我的图书圈 
-      <button class='pull-right font-lv3 color-link' type="primary" bindtap="modalinput">创建图书圈</button>
-       <modal id="modal" hidden="{{hiddenmodalput}}" title="创建图书圈" confirm-text="创建"  cancle-text="取消"   bindcancel="cancel"  bindconfirm="confirm">
-       <input type='text'placeholder="请输入内容" auto-focus/>
-        <input type='text' placeholder='简介' auto-focus/>
-        </modal>
 
-      
+<button class='pull-right font-lv3 color-link' type="primary" bindtap='showModal2'>创建图书圈</button>
+<modal hidden="{{hiddenModal2}}" title="创建图书圈" confirm-text="提交" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
+    <input placeholder='图书圈标题' bindinput='input'/>
+    <text>\n</text>
+    <input placeholder='图书圈介绍' bindinput='input'/>
+  
+  <view class="section">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker pk1 color-link">
+      {{array[index]}}
+    </view>
+  </picker>
+  </view>
+    
+</modal>
+
     </view>
   </view>
+
+
+
 
   <view class='panel-body'>
 

@@ -7,10 +7,7 @@
 
 <view class="con intro" style="margin-bottom:10px;">
   <view class="cen">
-   <button class='font-lv3 color-link'  bindtap='showModal' style='width:40%; margin-right:60px;margin-left:-40px;'>申请借阅</button>
-   <modal hidden="{{hiddenModal}}" title="申请借阅" confirm-text="申请" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
-      <input placeholder='借阅陈述' bindinput='input'/>  
-   </modal>
+   <button class='font-lv3 color-link'  bindtap='showModal' style='width:40%; margin-right:60px;margin-left:-40px;'>正在审核</button>
 
  <view class="section">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">

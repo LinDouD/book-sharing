@@ -1,20 +1,9 @@
-/* pages/asecond/BDetail/BDetail.wxss */
+/* pages/scan/scResult/scResult.wxss */
+
 
 /*  info  */
 page{
   padding-bottom: 120rpx;
-}
-
-
-.con{
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-.cen{
-  display:flex;                    
-  justify-content: center; 
-  align-items: center;
 }
 
 .cate-row .font-lv3{display: inline-block;margin-right: 30rpx;}

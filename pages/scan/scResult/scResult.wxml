@@ -1,0 +1,18 @@
+<!--pages/scan/scResult/scResult.wxml-->
+
+<view class="container">
+
+    <image style="width: 200px; margin-bottom:20px;" mode='aspectFit'  src='../../../magic/book/starts.png'></image>
+
+    <text class='ellipsis-2row font-lv1'>人类群星闪耀时</text>
+    <view class='mgt-15rpx font-lv3 color-semi' style="margin-bottom:10px;">作者：史蒂芬·茨威格</view> 
+      <view class="section">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker pk1 color-link ellipsis-2row font-lv1">
+      {{array[index]}}
+    </view>
+  </picker>
+  </view>
+
+
+</view>

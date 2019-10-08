@@ -31,6 +31,11 @@ swiper-item{
   font-size: 32rpx;
   padding-left: 90rpx;
 }
+.pk1{
+  text-align: center;
+  font-size: 32rpx
+}
+
 
 
 .recommend .panel-body{

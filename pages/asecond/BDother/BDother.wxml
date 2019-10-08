@@ -4,6 +4,7 @@
 <view class="cen">
   <image style="width: 150px; margin-bottom:10px;"  src='../../../magic/book/starts.png'></image>
 </view>
+</view>
 
 <view class="con intro" style="margin-bottom:10px;">
   <view class="cen">
@@ -11,15 +12,6 @@
    <modal hidden="{{hiddenModal}}" title="申请借阅" confirm-text="申请" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
       <input placeholder='借阅陈述' bindinput='input'/>  
    </modal>
-
- <view class="section">
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-    <view class="picker pk1 color-link">
-      {{array[index]}}
-    </view>
-  </picker>
-  </view>
-</view>
 
 </view>
 </view>

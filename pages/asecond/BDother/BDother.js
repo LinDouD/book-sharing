@@ -6,25 +6,9 @@ Page({
   data: {
     hiddenModal: true,
     input: null,
-    array: ['公开', '私密'],
-    objectArray: [
-      {
-        id: 0,
-        name: '公开'
-      },
-      {
-        id: 1,
-        name: '私密'
-      }
-    ],
-    index: 0,
+    
   },
-  bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      index: e.detail.value
-    })
-  },
+  
   input: function (e) {
     this.setData({ input: e.detail.value })
   },

@@ -1,2 +1,3 @@
 <!--pages/scan/scan.wxml-->
 <text>pages/scan/scan.wxml</text>
+<button bindtap="scRT" >scan</button>

@@ -5,8 +5,12 @@
     "pages/logs/logs",
     "pages/BC/BC",
     "pages/scan/scan",
+    "pages/scan/scResult/scResult",
     "pages/PC/PC",
-    "pages/asecond/BDetail/BDetail"
+    "pages/asecond/BDetail/BDetail",
+    "pages/asecond/BDself/BDself",
+    "pages/asecond/BDother/BDother"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
