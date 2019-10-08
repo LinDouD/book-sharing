@@ -25,17 +25,17 @@
 
   <view class='panel-body'>
 
-    <navigator url="/pages/intro/intro">
+    <navigator>
       <image mode='widthFix'  class='box-shadow cover' src='../../magic/BookCircle/circle1.png'/>
       <view class='font-lv3 ellipsis-2row mgt-15rpx'>深夜阅读</view>
     </navigator>
    
-    <navigator url="/pages/intro/intro">
+    <navigator >
       <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle2.png'/>
       <view class='font-lv3 ellipsis-2row mgt-15rpx'>旅途好书</view>
     </navigator>
 
-    <navigator url="/pages/intro/intro">
+    <navigator >
       <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle3.png'/>
       <view class='font-lv3 ellipsis-2row mgt-15rpx'>少儿读物</view>
     </navigator>
