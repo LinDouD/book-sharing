@@ -5,12 +5,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    qRCodeMsg:''
   },
+  getQRCode:function(){
+    var _this=this;
+    wx.scanCode({  //扫描API
+      success:function(res){
+        console.log(res); //输出回调信息
+        _this.setData({
+          qRCodeMsg:res.result
+        });
+        wx.showToast({
+          title: '成功',
+          duration:2000
+        })
 
-  scRT:function(){
-    wx.navigateTo({
-      url: '/pages/scan/scResult/scResult',
+      }
     })
   },
 
