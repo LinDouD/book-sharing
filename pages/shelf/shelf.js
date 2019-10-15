@@ -233,7 +233,9 @@ Page({
   goToDetailPage: function (e) {
     var isbn = e.currentTarget.id;
     wx.navigateTo({
-      url: '/pages/asecond/BDetail/BDetail?id=' + isbn
+     // url: '/pages/asecond/BDetail/BDetail?id=' + isbn
+
+      url: '/pages/asecond/BDself/BDself?id=' + isbn
     });
   },
 
