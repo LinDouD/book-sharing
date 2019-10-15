@@ -44,19 +44,19 @@
       <view class='font-lv3  ellipsis-2row'>人类群星闪耀时</view>
     </navigator>
 
-    <navigator url='/pages/asecond/BDself/BDself' class='book text-muted'>
+    <navigator url='/pages/asecond/posting/posting' class='book text-muted'>
       <image mode='widthFix' class='box-shadow cover' src='../../magic/book/goweb.jpeg'></image>
      
       <view class='font-lv3  ellipsis-2row'>Go Web编程</view>
     </navigator>
 
-    <navigator url='/pages/asecond/BDself/BDself' class='book text-muted'>
+    <navigator url='/pages/asecond/BDother/BDother' class='book text-muted'>
       <image mode='widthFix' class='box-shadow cover' src='../../magic/book/http2.png'></image>
       
       <view class='font-lv3  ellipsis-2row'>http2详解</view>
     </navigator>
 
-    <navigator url='/pages/asecond/BDself/BDself' class='book text-muted'>
+    <navigator url='/pages/scan/scResult/scResult' class='book text-muted'>
       <image mode='widthFix' class='box-shadow cover' src='../../magic/book/grpc.png'></image>
      
       <view class='font-lv3  ellipsis-2row'>Go-gRPC</view>

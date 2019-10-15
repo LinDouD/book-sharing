@@ -9,7 +9,8 @@
     "pages/PC/PC",
     "pages/asecond/BDetail/BDetail",
     "pages/asecond/BDself/BDself",
-    "pages/asecond/BDother/BDother"
+    "pages/asecond/BDother/BDother",
+    "pages/asecond/posting/posting"
 
   ],
   "window": {
