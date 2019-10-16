@@ -1,5 +1,15 @@
 /* pages/shelf/shelf.wxss */
 
+.auth-btn{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(255, 255, 255, 0)
+}
+
 page{
     width: 100%;
     height: 100%;
@@ -10,7 +20,7 @@ page{
 }
 .nav {
     height: 80rpx;
-    width: 80%;
+    width: 85%;
     box-sizing: border-box;
     overflow: hidden;
     line-height: 80rpx;
@@ -21,6 +31,7 @@ page{
     top: 0;
     left: 0;
     z-index: 99;
+    
 }
 .nav-item {
     width: 20%;
@@ -43,7 +54,7 @@ page{
 /*  时间/字母  */
 .section {
     height: 80rpx;
-    width: 15%;
+    width: 20%;
     box-sizing: border-box;
     overflow: hidden;
     line-height: 80rpx;
@@ -54,22 +65,27 @@ page{
     top: 0;
     left: 85%;
     z-index: 99;
-    text-align: center
+    text-align: center;
+    margin-left: -20rpx;
+    
 }
 
 /*书籍*/
 .box{
-  margin-top: 100rpx;
+  margin-top: 120rpx;
   display: flex;
   justify-content: space-between; 
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
+  
 }
 .box .book{
-  width: 30%;
+  width:30%;
   margin-bottom: 40rpx;
   color: #666;
+  
+   
 }
 
 .box .book .progress{
