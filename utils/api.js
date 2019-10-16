@@ -10,7 +10,9 @@ var api = {
   asecond: {
     bdetail: _api_root + 'asecond/bdetail',
   },
-
+  bookcircle:{
+    mybookcircle: _api_root +'bookCircle',
+  },
 
   applogin: {
     login: _api_root + 'login',

@@ -14,7 +14,7 @@
   <view class='panel-heading'>
     <view class='panel-title font-lv1 strong'>我的图书圈 
 
-<button class='pull-right font-lv3 color-link' type="primary" bindtap='showModal2'>创建图书圈</button>
+  <button class='pull-right font-lv3 color-link' type="primary" bindtap='showModal2'>创建图书圈   </button>
 <modal hidden="{{hiddenModal2}}" title="创建图书圈" confirm-text="提交" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
     <input placeholder='图书圈标题' bindinput='input'/>
     <text>\n</text>
@@ -33,27 +33,20 @@
     </view>
   </view>
 
-
-
-
-  <view class='panel-body'>
-
-    <navigator>
-      <image mode='widthFix'  class='box-shadow cover' src='../../magic/BookCircle/circle1.png'/>
-      <view class='font-lv3 ellipsis-2row mgt-15rpx'>深夜阅读</view>
-    </navigator>
-   
-    <navigator >
-      <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle2.png'/>
-      <view class='font-lv3 ellipsis-2row mgt-15rpx'>旅途好书</view>
-    </navigator>
-
-    <navigator >
-      <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle3.png'/>
-      <view class='font-lv3 ellipsis-2row mgt-15rpx'>少儿读物</view>
-    </navigator>
-
+  <view class='box'>
+    <view   wx:for="{{dataSource}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}"            bindtap="goToDetailCircle" class='circle text-muted'>
+      <image src="{{item.circlePicPath}}" mode="aspectFill"></image>
+      <view class='font-lv3  ellipsis-2row'>
+        {{item.bcName}}
+      </view>
+    </view>
+    <view   wx:if="{{nullView==1}}" class='circle text-muted'>
+    </view>
   </view>
+  
+ 
+
+ 
 </view>
 
 
