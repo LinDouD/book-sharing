@@ -6,83 +6,58 @@ App({
   is_on_launch: true,
 
   onLaunch: function () {
-
     // 展示本地存储能力
-    // console.log(wx.getSystemInfoSync());
-    // this.getStoreData();
-    //  this.getCatList();
-    var access_token = wx.getStorageSync("access_token");
-    // console.log('token:' + access_token);
-    //  if (access_token) {
-    //   this.globalData.is_auth = 1;
-    //}
-
+     console.log(wx.getSystemInfoSync());
   },
 
-  //xqq:用户授权登陆
-  getToken: function () {
+
+  //xqq:根据mode 选择
+  login: function (mode) {
     var promise = new Promise((resolve, reject) => {
       var that = this;
       wx.login({
         success: function (res) {
           if (res.code) {
             var code = res.code;
-            wx.getUserInfo({
-              success: function (res) {
-                console.log('login.....');
-                getApp().request({
-                  url: api.applogin.login,
-                  method: "post",
-                  data: {
-                    code: code,
-                    userInfo: res.rawData,
-                    //   encrypted_data: res.encryptedData,
-                    //  iv: res.iv,
-                    //   signature: res.signature
-                  },
-                  success: function (res) {
-
+            if(mode == "check"){
+              getApp().request({
+                url: api.applogin.login,
+                method: "post",
+                data: {
+                  code: code,
+                  mode: mode
+                },
+                success: function (res) {
+                  if (res.data.result == 1) {
                     wx.setStorageSync("access_token", res.data.token);
-                    resolve(res)
+                    getApp().globalData.access_token = res.data.token;
                   }
-                });
-              }
-            });
-          } else {
-            //console.log(res);
-          }
-
-        }
-      })
-    });
-    return promise;
-  },
-
-  //xqq:用户授权登陆
-  login: function () {
-    var promise = new Promise((resolve, reject) => {
-      var that = this;
-      wx.login({
-        success: function (res) {
-          if (res.code) {
-            var code = res.code;
-            getApp().request({
-              url: api.applogin.login1,
-              method: "post",
-              data: {
-                code: code,
-              },
-              success: function (res) {
-                if (res.data.result == 1) {
-                  wx.setStorageSync("access_token", res.data.token);
-                  getApp().globalData.access_token = res.data.token;
+                  resolve(res)
                 }
-                resolve(res)
-              }
-
-            });
-          } else {
-            //console.log(res);
+              });
+            }
+            else{
+              wx.getUserInfo({
+                success: function (res) {
+                  console.log('login');
+                  getApp().request({
+                    url: api.applogin.login,
+                    method: "post",
+                    data: {
+                      code: code,
+                      userInfo: res.rawData,
+                      mode: mode
+                    },
+                    success: function (res) {
+          wx.setStorageSync("access_token", res.data.token);
+                        getApp().globalData.access_token = res.data.token;   
+                      resolve(res)
+                    }
+                  });
+                }
+              });
+            }
+           
           }
 
         }
@@ -94,7 +69,6 @@ App({
   //xqq：request工具封装
   request: function (object) {
     var access_token = wx.getStorageSync("access_token");
-    //  console.log('token:' + access_token);
     if (access_token) {
       if (!object.data)
         object.data = {};
@@ -146,6 +120,25 @@ App({
           object.complete(res);
       }
     });
+  },
+
+  checkSession:function(object){
+    var access_token = wx.getStorageSync("access_token");
+    var that = this;
+    var mode = "check";
+    wx.checkSession({
+      　　　　success: function (res) {
+        console.log('未过期')
+            object.success();   
+        　},
+      　　　　fail: function (res) {
+            console.log('过期')
+            that.login(mode).then(function (options){
+              object.success();
+            }) 
+        　　　　　
+      　　　　}
+    　　})
   },
 
   globalData: {

@@ -14,7 +14,7 @@ Page({
     cat_list: {},
     dataSource: [],
     height: 200,
-    widHeight: 800 + 'px',
+    widHeight: 0 + 'px',
     //xqqend
 
     motto: 'Hello World',
@@ -85,20 +85,18 @@ Page({
   //事件处理函数
   onLoad: function (options) {
     var that = this;
-    app.login().then(function (res) {
-
+    var mode = "check";
+    app.login(mode).then(function (res) {
       that.setData({
         is_login: res.data.result
       })
+      // is_login:-1(code为null)，0(用户不存在)，1(用户存在)
       if (res.data.result == 0) {
-
-        console.log("用户不存在，跳转到授权界面");
         wx.navigateTo({
           url: "/pages/index/index"
         })
       }
       else {
-
         that.loadData();
       }
     })
@@ -108,7 +106,6 @@ Page({
     var pages = getCurrentPages();
     var currPage = pages[pages.length - 1]; //当前页面
     let is_login = currPage.data.is_login;
-    console.log("onshow", is_login)//为传过来的值
     if (is_login == 1) {
       this.loadData();
     }
@@ -159,73 +156,73 @@ Page({
   loadData: function () {
     var that = this;
     var access_token = wx.getStorageSync("access_token");
-    app.request({
-      url: api.myshelf.myshelf,
-      header: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'Authorization': access_token
-      },
-      success: function (res) {
-        if (res.code == 0) {
-          var book = [
-            {
-              catgId: 0,
-              catgName: '所有'
-            }
-          ];
-          for (var i = 0; i < res.data.cat_list.length; i++) {
+    app.checkSession({success:function(){
+      app.request({
+        url: api.myshelf.myshelf,
+        header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'Authorization': access_token
+        },
+        success: function (res) {
+          if (res.code == 0) {
+            var book = [
+              {
+                catgId: 0,
+                catgName: '所有'
+              }
+            ];
+            for (var i = 0; i < res.data.cat_list.length; i++) {
 
-            book.push(res.data.cat_list[i]);
-          };
-          var datasource = [];
-          var nullview = [];
-          var x = Math.ceil(res.data.catg_book_list.length / 3);
-          var widheight = x * that.data.height + 'px';
+              book.push(res.data.cat_list[i]);
+            };
+            var datasource = [];
+            var nullview = [];
+            var x = Math.floor(res.data.catg_book_list.length / 3);
 
-          for (var i = 0; i < res.data.catg_book_list.length; i++) {
-            //book.push(res.data.cat_list[i]);
+            var widheight = x * that.data.height + 'px';
+            
+            for (var i = 0; i < res.data.catg_book_list.length; i++) {
+            
+              if (res.data.catg_book_list[i].catgId == 0) {
+                datasource.unshift(res.data.catg_book_list[i].catg_book_list);
+                if (res.data.catg_book_list[i].catg_book_list.length % 3 == 2) {
+                  nullview.unshift(1);
+                }
+                else {
+                  nullview.unshift(0);
+                }
+                continue;
 
-            if (res.data.catg_book_list[i].catgId == 0) {
-              datasource.unshift(res.data.catg_book_list[i].catg_book_list);
-              if (res.data.catg_book_list[i].catg_book_list.length % 3 == 2) {
-                nullview.unshift(1);
               }
               else {
-                nullview.unshift(0);
+                if (res.data.catg_book_list[i].catg_book_list.length % 3 == 2) {
+                  nullview.push(1);
+                }
+                else {
+                  nullview.push(0);
+                }
               }
-              continue;
 
-            }
-            else {
-              if (res.data.catg_book_list[i].catg_book_list.length % 3 == 2) {
-                nullview.push(1);
-              }
-              else {
-                nullview.push(0);
-              }
+              datasource.push(res.data.catg_book_list[i].catg_book_list);
             }
 
+            that.setData({
+              cat_list: book,
+              dataSource: datasource,
+              nullView: nullview,
+              widHeight: widheight
+            })
+            console.log("datasource:", datasource)
+            console.log("cate_list", book);
 
-
-            datasource.push(res.data.catg_book_list[i].catg_book_list);
           }
-          // datasource.push(res.data.catg_book_list)
-          console.log("datasource:", datasource)
-
-          that.setData({
-            cat_list: book,
-            dataSource: datasource,
-            nullView: nullview,
-            widHeight: widheight
-          })
-          console.log("cate_list", book);
-
+        },
+        complete: function () {
+          wx.stopPullDownRefresh();
         }
-      },
-      complete: function () {
-        wx.stopPullDownRefresh();
-      }
-    });
+      });
+    }})
+    
 
   },
 
@@ -233,8 +230,6 @@ Page({
   goToDetailPage: function (e) {
     var isbn = e.currentTarget.id;
     wx.navigateTo({
-     // url: '/pages/asecond/BDetail/BDetail?id=' + isbn
-
       url: '/pages/asecond/BDself/BDself?id=' + isbn
     });
   },

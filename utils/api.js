@@ -1,6 +1,5 @@
 var _api_root = 'http://localhost:8080/small/';
 var api = {
-  index: _api_root + 'default/index',
   myshelf: {
     myshelf: _api_root + 'myshelf',
   },
@@ -8,13 +7,11 @@ var api = {
     querybook: _api_root + 'scan/book'
   },
   asecond: {
-    bdetail: _api_root + 'asecond/bdetail',
+    bdself: _api_root + 'asecond/bdself',
+    privacy: _api_root + 'asecond/privacy'
   },
-
-
   applogin: {
     login: _api_root + 'login',
-    login1: _api_root + 'tlogin',
   },
 
 };
