@@ -1,11 +1,12 @@
 <!--pages/scan/scResult/scResult.wxml-->
 
-<view class="container">
+<view wx:if='{{is_exist==1}}' class="container">
 
-    <image style="width: 200px; margin-bottom:20px;" mode='aspectFit'  src='../../../magic/book/starts.png'></image>
+    <image style="width: 200px; margin-bottom:20px;" mode='aspectFit'  src='{{picPath}}'></image>
 
-    <text class='ellipsis-2row font-lv1'>人类群星闪耀时</text>
-    <view class='mgt-15rpx font-lv3 color-semi' style="margin-bottom:10px;">作者：史蒂芬·茨威格</view> 
+    <text class='ellipsis-2row font-lv1'>{{bookName}}</text>
+    <view class='mgt-15rpx font-lv3 color-semi' style="margin-bottom:10px;">作者：{{author}}</view> 
+    <view>{{isbn}}</view>
       <view class="section">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
     <view class="picker pk1 color-link ellipsis-2row font-lv1">
@@ -16,3 +17,13 @@
 
 
 </view>
+
+
+
+
+<view wx:else class="container">
+  <view class="userinfo">
+  <view>{{isbn}}</view>
+  查无此书
+  </view>
+  </view>
