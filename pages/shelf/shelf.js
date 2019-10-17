@@ -7,43 +7,14 @@ var api = require('../../utils/api.js');
 
 Page({
   data: {
-    //xqq
-    // is_auth: app.globalData.is_auth,
-    is_login: 0,
+
+    is_login: -1,
     nullView: [],
     cat_list: {},
     dataSource: [],
     height: 200,
     widHeight: 0 + 'px',
-    //xqqend
-
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    navData: [
-      {
-        text: '所有'
-      },
-      {
-        text: '文学'
-      },
-      {
-        text: '流行'
-      },
-      {
-        text: '文化'
-      },
-      {
-        text: '生活'
-      },
-      {
-        text: '经管'
-      },
-      {
-        text: '科技'
-      }
-    ],
+ 
     currentTab: 0,
     navScrollLeft: 0,
 
@@ -77,9 +48,23 @@ Page({
   //时间/字母
   bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value);
+    var index = e.detail.value;
+    var that = this;
     this.setData({
       index: e.detail.value
     })
+    if (index == 0) {
+      //时间排序
+      var datas = [];
+      datas = that.data.dataSource;
+      var cur = that.data.currentTab
+      datas[cur].sort(that.compare());
+      that.setData({
+        dataSource:datas
+      })
+
+    }
+  
   },
 
   //事件处理函数
@@ -233,6 +218,19 @@ Page({
       url: '/pages/asecond/BDself/BDself?id=' + isbn
     });
   },
+
+  /**
+   *特殊写法:比较数组date日期
+   */
+  compare: function () {
+    return function (a, b) {
+      var value1 = Date.parse(a.addTime);
+      var value2 = Date.parse(b.addTime);
+      return value2 - value1;
+    }
+  },
+
+
 
 })
 

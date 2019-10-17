@@ -7,11 +7,24 @@ var api = require('../../utils/api.js');
 
 Page({
   data: {
-    isbn: ''
+    //isbn: '10006-459', //测试
+    isbn:'',
+    isShowInputForm: false
 
   },
 
   onLoad: function () {
+
+  },
+
+  bindKeyInput:function(e){
+    this.setData({
+      isbn:e.detail.value
+    })
+  },
+  search:function(){
+    var isbn = this.data.isbn;
+    this.queryBook();
 
   },
 
@@ -58,6 +71,13 @@ Page({
 
     }})
     
+  },
+
+  //根据扫码录入控制手动输入的form是否显示
+  screenInput: function (e) {
+    this.setData({
+      isShowInputForm: !e.detail.value
+    })
   },
 
 

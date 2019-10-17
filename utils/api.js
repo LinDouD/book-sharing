@@ -4,7 +4,8 @@ var api = {
     myshelf: _api_root + 'myshelf',
   },
   scan: {
-    querybook: _api_root + 'scan/book'
+    querybook: _api_root + 'scan/book',
+    addShelf: _api_root + 'scan/addShelf'
   },
   asecond: {
     bdself: _api_root + 'asecond/bdself',

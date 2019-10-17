@@ -117,7 +117,7 @@ Page({
         var that= this;
         var oldIndex = this.data.oldIndex;
         console.log("bdtail", res.data)
-        if (res.data.save_sucess==0){
+        if (res.data.save_success==0){
           //保存失败
           that.setData({
             newIndex:oldIndex

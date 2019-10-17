@@ -1,7 +1,7 @@
 
 
 <!--一登陆授权后根据openid 加载-->
-<view  >
+<view wx:if='{{is_login==1}}' >
 <view>
     
     <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}" >
