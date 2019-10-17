@@ -10,6 +10,7 @@ Page({
     is_login: 0,
     nullView: [],
     mycircle_list: {},
+    othercircle_list: [],
     dataSource: [],
     height: 200,
     widHeight: 800 + 'px',
@@ -104,6 +105,7 @@ Page({
       success: function (res) {
         if (res.code == 0) {
           var datasource = [];
+          var othercircle_list=[];
           var nullview = [];
           var x = Math.ceil(res.my_book_circle_list.length / 3);
           var widheight = x * that.data.height + 'px';
@@ -116,10 +118,15 @@ Page({
           for (var i = 0; i < res.my_book_circle_list.length; i++) {
             datasource.push(res.my_book_circle_list[i]);
           }      
-          console.log("nullview:",nullview)   
-          console.log("datasource:", datasource)
+          for (var i = 0; i < res.other_book_circle_list.length;i++){
+            othercircle_list.push(res.other_book_circle_list[i]);
+          }  
+          console.log("nullview:",nullview);   
+          console.log("datasource:", datasource);
+          console.log("othercircle_list", othercircle_list);
           that.setData({
             dataSource: datasource,
+            othercircle_list: othercircle_list,
             nullView: nullview,
             widHeight: widheight
           })

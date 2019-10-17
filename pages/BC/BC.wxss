@@ -15,8 +15,11 @@
   color: #666;   
 }
 
-
-.circle image{
+.circle-image{
+  width: 100%;
+  height:240rpx;
+}
+.circle2-image{
   width: 100%;
   height:240rpx;
 }
@@ -55,8 +58,6 @@ swiper-item{
   text-align: center;
   font-size: 32rpx
 }
-
-
 
 .recommend .panel-body{
   display: flex;
@@ -121,3 +122,6 @@ swiper-item{
 }
 
 .cate-data{margin-top: 10rpx;}
+.mb{
+  margin-left: 10rpx;
+  margin-bottom: 10rpx;}
