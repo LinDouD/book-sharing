@@ -26,7 +26,7 @@ Page({
         name: '私密'
       }
     ],
-    index: 0,
+    index: -1,
   },
   onLoad: function (options) {
     var id = options.id;

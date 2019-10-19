@@ -1,7 +1,7 @@
 
 
 <!--一登陆授权后根据openid 加载-->
-<view wx:if='{{is_login==1}}' >
+<view wx:if='{{is_login==1}}'>
 <view>
     
     <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}" >
@@ -21,7 +21,7 @@
 </view>
 
     <swiper current="{{currentTab}}" duration="300" bindchange="switchTab"
-    style='height:{{widHeight}}'>      
+    style='height:{{widHeight}}'class='smargintop'>      
         <swiper-item wx:for="{{cat_list}}" wx:for-index="idx" wx:for-item="tabItem"  wx:key="idx" class="tab-content">
 
            <view>

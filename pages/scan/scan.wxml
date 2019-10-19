@@ -18,7 +18,7 @@
                     <view class="weui-label">ISBN:</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入ISBN" bindinput="bindKeyInput" type="number" value="{{isbn}}"/>
+                    <input class="weui-input" placeholder="请输入ISBN" bindinput="bindKeyInput" type="text" value="{{isbn}}"/>
                 </view>
             </view>
 
