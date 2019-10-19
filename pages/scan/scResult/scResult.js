@@ -121,6 +121,11 @@ Page({
     this.setData({ hiddenModal2: true })
   },
   onLoad: function (options) {
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2]; 
+    prevPage.setData({
+      isbn: ''
+    })
     var id = options.id;
     var that = this;
     //1.动态获取设备屏幕的高度，然后计算scroll view的高度
