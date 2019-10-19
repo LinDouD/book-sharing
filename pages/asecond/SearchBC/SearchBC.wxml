@@ -1,0 +1,32 @@
+<!--pages/asecond/SearchBC/SearchBC.wxml-->
+<!--  搜索框  -->
+<view class='search '>
+  <label>
+    <icon type='search' bindtap='goToSearchRes'></icon>
+    <input type='search' placeholder="请输入搜索关键字" bindinput="searchInput"/>
+  </label>
+</view>
+
+
+<!--  图书圈搜索结果  -->
+<view class='panel base-padding base-margin-bottom cate-data'>
+
+  <view class='panel-heading'>
+    <view class='panel-title font-lv2 mgl-15rpx' ></view>
+  </view>
+  <view class='panel-body'>
+      <view class='row' wx:for="{{dataSource}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}" bindtap="goToDetailCircle">
+        <view class='row-left'> 
+            <image mode='widthFix' class='circle2-image' src="{{item.circlePicPath}}"/>
+        </view>
+        <view class='row-right'>
+          <view class='ellipsis-1row font-lv1 mb'>{{item.bcName}}</view>  
+          <view class='text-muted ellipsis-5row desc'>{{item.intro}}</view>
+        </view>
+      </view>
+
+
+
+
+ </view>
+</view>

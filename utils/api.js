@@ -1,5 +1,5 @@
-//var _api_root = 'http://localhost:8080/small/';
-var _api_root = 'https://www.qqxxy.xyz/sharebook/small/';
+var _api_root = 'http://localhost:8080/small/';
+//var _api_root = 'https://www.qqxxy.xyz/sharebook/small/';
 var api = {
   myshelf: {
     myshelf: _api_root + 'myshelf',
@@ -14,7 +14,8 @@ var api = {
   },
   bookcircle:{
     mybookcircle: _api_root +'bookCircle',
-    newbookcircle:_api_root+'newBookCircle'
+    newbookcircle:_api_root+'newBookCircle',
+    searchbookcircle:_api_root+'searchBookCircle'
   },
 
   applogin: {

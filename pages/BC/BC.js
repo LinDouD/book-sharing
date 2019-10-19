@@ -8,6 +8,7 @@ Page({
     is_login: 0,
     nullView: [],
     bcName:'',
+    searchBC:'',
     intro:'',
     othercircle_list: [],
     dataSource: [],
@@ -146,6 +147,17 @@ Page({
       // url: '/pages/asecond/BDetail/BDetail?id=' + isbn
 
       url: '/pages/asecond/BDself/BDself?id=' + isbn
+    });
+  },
+  searchInput: function (e) {
+    this.setData({ searchBC: e.detail.value })
+  },
+
+  //跳转到图书圈搜索结果页面
+  goToSearchRes:function(e){
+   var bcName=this.data.searchBC;
+    wx.navigateTo({
+      url: '/pages/asecond/SearchBC/SearchBC?bcName=' + bcName
     });
   }
 

@@ -10,8 +10,8 @@
     "pages/asecond/BDetail/BDetail",
     "pages/asecond/BDself/BDself",
     "pages/asecond/BDother/BDother",
-    "pages/asecond/posting/posting"
-
+    "pages/asecond/posting/posting",
+    "pages/asecond/SearchBC/SearchBC"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -3,8 +3,8 @@
 <!--  搜索框  -->
 <view class='search '>
   <label>
-    <icon type='search'></icon>
-    <input type='search' placeholder="请输入搜索关键字"/>
+    <icon type='search' bindtap='goToSearchRes'></icon>
+    <input type='search' placeholder="请输入搜索关键字" bindinput="searchInput"/>
   </label>
 </view>
 
@@ -59,7 +59,7 @@
   </view>
   </view>
   <view class='panel-body'>
-      <view class='row' wx:for="{{othercircle_list}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}" bindtap="goToDetailPage">
+      <view class='row' wx:for="{{othercircle_list}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}" bindtap="goToDetailCircle">
         <view class='row-left'> 
             <image mode='widthFix' class='circle2-image' src="{{item.circlePicPath}}"/>
         </view>
