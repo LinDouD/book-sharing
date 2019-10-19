@@ -112,9 +112,8 @@
 
 .scroll-content{
   width: 720rpx;
-  position: fixed;
-  left: 15rpx;
-  top: 390rpx;
+ margin-left: 15rpx;
+ margin-bottom: 60px;
 }
 
 

@@ -15,7 +15,7 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "2f65bb",
+    "navigationBarBackgroundColor": "#2f65bb",
     "navigationBarTitleText": "享书",
     "navigationBarTextStyle": "white",
     "backgroundColorBottom": "#78f"
