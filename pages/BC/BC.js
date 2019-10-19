@@ -1,35 +1,19 @@
-//获取应用实例  ——Sijar start
+//获取应用实例  ——Sijar 
 const app = getApp();
 var util = require('../../utils/util');
 var api = require('../../utils/api.js');
-//---Sijar end
 
 Page({
   data: {
-    //Sijar
     is_login: 0,
     nullView: [],
-    mycircle_list: {},
+    bcName:'',
+    intro:'',
     othercircle_list: [],
     dataSource: [],
     height: 200,
     widHeight: 800 + 'px',
-    //Sijar end
-
     hiddenModal2: true,
-    input: null,
-    array: ['公开', '私密'],
-    objectArray: [
-      {
-        id: 0,
-        name: '公开'
-      },
-      {
-        id: 1,
-        name: '私密'
-      }
-    ],
-    index: 0,
   },
   //事件处理函数
   onLoad: function (options) {
@@ -65,30 +49,48 @@ Page({
  */
   onPullDownRefresh: function () {
   },
-
-  bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      index: e.detail.value
-    })
+  input1: function (e) {
+    this.setData({ bcName: e.detail.value })
   },
-  input: function (e) {
-    this.setData({ input: e.detail.value })
+  input2: function (e) {
+    this.setData({ intro: e.detail.value })
   },
   showModal2: function (e) {
     this.setData({ hiddenModal2: false })
   },
   model2confirm: function (e) {
+    var that=this;
     this.setData({ hiddenModal2: true })
-    wx.showToast({
-      title: '确定' + this.data.input,
-      icon: 'none'
+    console.log('bcName=', this.data.bcName);
+    console.log("intro=", this.data.intro);
+    var access_token = wx.getStorageSync("access_token");
+    app.request({
+      url: api.bookcircle.newbookcircle,
+      data: {
+        bcName: that.data.bcName,
+        intro:that.data.intro,
+      },
+      success: function (res) {
+        if(res.result==1){
+          wx.showToast({
+            title: '确定' + that.data.bcName,
+            icon: 'none'
+          })   
+          that.loadMyCircle();
+        }else{
+          wx.showToast({
+            title: '创建失败',
+            icon: 'none'
+          })  
+        }
+       
+      }
     })
   },
   model2cancel: function (e) {
     this.setData({ hiddenModal2: true })
     wx.showToast({
-      title: '取消' + this.data.input,
+      title: '取消' + this.data.bcName,
       icon: 'none'
     })
   },

@@ -12,25 +12,22 @@
 <!--  我的图书圈  -->
 <view class='panel base-padding recommend base-margin-bottom'>
   <view class='panel-heading'>
-    <view class='panel-title font-lv1 strong'>我的图书圈 
+    <view class='panel-title font-lv2 mgt-15rpx mgl-15rpx'>我的图书圈 
 
-  <button class='pull-right font-lv3 color-link' type="primary" bindtap='showModal2'>创建图书圈   </button>
-<modal hidden="{{hiddenModal2}}" title="创建图书圈" confirm-text="提交" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
-    <input placeholder='图书圈标题' bindinput='input'/>
+  <button class='pull-right  create-button color-green'  bindtap='showModal2'>创建图书圈   </button>
+<modal hidden="{{hiddenModal2}}" class='bold100' title="创建图书圈" confirm-text="提交" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
+    <input class='font-lv2 bold100' value='{{bcName}}'placeholder='图书圈标题' bindinput='input1'/>
     <text>\n</text>
-    <input placeholder='图书圈介绍' bindinput='input'/>
-  
-  <view class="section">
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-    <view class="picker pk1 color-link">
-      {{array[index]}}
-    </view>
-  </picker>
-  </view>
+    <input class='font-lv2 bold100' value='{{intro}}' placeholder='图书圈介绍' bindinput='input2'/>
     
 </modal>
 
     </view>
+
+    <view class="container">
+     <!-- 分割线 -->
+  <view class="divLine"></view>
+</view>
   </view>
 
   <view class='box'>
@@ -55,7 +52,11 @@
 <view class='panel base-padding base-margin-bottom cate-data'>
 
   <view class='panel-heading'>
-    <view class='panel-title font-lv1 strong'>其他图书圈 </view>
+    <view class='panel-title font-lv2 mgl-15rpx' >其他图书圈 </view>
+     <view class="container">
+     <!-- 分割线 -->
+  <view class="divLine"></view>
+  </view>
   </view>
   <view class='panel-body'>
       <view class='row' wx:for="{{othercircle_list}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}" bindtap="goToDetailPage">

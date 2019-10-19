@@ -13,6 +13,7 @@ var api = {
   },
   bookcircle:{
     mybookcircle: _api_root +'bookCircle',
+    newbookcircle:_api_root+'newBookCircle'
   },
 
   applogin: {

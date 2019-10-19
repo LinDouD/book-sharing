@@ -17,12 +17,12 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "2f65bb",
     "navigationBarTitleText": "享书",
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "backgroundColorBottom": "#78f"
   },
   "tabBar": {
     "backgroundColor": "#2f65bb",
-    "color": "#111",
+    "color": "#222",
     "selectedColor": "#fff",
     "list": [
       {
