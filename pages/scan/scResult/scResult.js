@@ -155,7 +155,7 @@ Page({
           if (res.status.is_exist == 1) {
             var briefIntro = res.book.briefIntro;
 
-            if (res.book.briefIntro == '') {
+            if (res.book.briefIntro == null) {
               briefIntro = "无简介"
             }
             that.setData({
