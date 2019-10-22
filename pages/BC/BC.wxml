@@ -3,8 +3,8 @@
 <!--  搜索框  -->
 <view class='search '>
   <label>
-    <icon type='search' bindtap='goToSearchRes'></icon>
-    <input type='search' placeholder="请输入搜索关键字" bindinput="searchInput"/>
+    <icon type='search'></icon>
+    <input type='search' placeholder="请输入搜索关键字"/>
   </label>
 </view>
 
@@ -12,38 +12,48 @@
 <!--  我的图书圈  -->
 <view class='panel base-padding recommend base-margin-bottom'>
   <view class='panel-heading'>
-    <view class='panel-title font-lv2 mgt-15rpx mgl-15rpx'>我的图书圈 
+    <view class='panel-title font-lv1 strong'>我的图书圈 
 
-  <button class='pull-right  create-button color-green'  bindtap='showModal2'>创建图书圈   </button>
-<modal hidden="{{hiddenModal2}}" class='bold100' title="创建图书圈" confirm-text="提交" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
-    <input class='font-lv2 bold100' value='{{bcName}}'placeholder='图书圈标题' bindinput='input1'/>
+<button class='pull-right font-lv3 color-link' type="primary" bindtap='showModal2'>创建图书圈</button>
+<modal hidden="{{hiddenModal2}}" title="创建图书圈" confirm-text="提交" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
+    <input placeholder='图书圈标题' bindinput='input'/>
     <text>\n</text>
-    <input class='font-lv2 bold100' value='{{intro}}' placeholder='图书圈介绍' bindinput='input2'/>
+    <input placeholder='图书圈介绍' bindinput='input'/>
+  
+  <view class="section">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker pk1 color-link">
+      {{array[index]}}
+    </view>
+  </picker>
+  </view>
     
 </modal>
 
     </view>
-
-    <view class="container">
-     <!-- 分割线 -->
-  <view class="divLine"></view>
-</view>
   </view>
 
-  <view class='box'>
-    <view   wx:for="{{dataSource}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}"            bindtap="goToDetailCircle" class='circle text-muted'>
-      <image class="circle-image" src="{{item.circlePicPath}}" mode="aspectFill"></image>
-      <view class='font-lv3  ellipsis-2row'>
-        {{item.bcName}}
-      </view>
-    </view>
-    <view   wx:if="{{nullView==1}}" class='circle text-muted'>
-    </view>
-  </view>
-  
- 
 
- 
+
+
+  <view class='panel-body'>
+
+    <navigator>
+      <image mode='widthFix'  class='box-shadow cover' src='../../magic/BookCircle/circle1.png'/>
+      <view class='font-lv3 ellipsis-2row mgt-15rpx'>深夜阅读</view>
+    </navigator>
+   
+    <navigator >
+      <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle2.png'/>
+      <view class='font-lv3 ellipsis-2row mgt-15rpx'>旅途好书</view>
+    </navigator>
+
+    <navigator >
+      <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle3.png'/>
+      <view class='font-lv3 ellipsis-2row mgt-15rpx'>少儿读物</view>
+    </navigator>
+
+  </view>
 </view>
 
 
@@ -52,23 +62,37 @@
 <view class='panel base-padding base-margin-bottom cate-data'>
 
   <view class='panel-heading'>
-    <view class='panel-title font-lv2 mgl-15rpx' >其他图书圈 </view>
-     <view class="container">
-     <!-- 分割线 -->
-  <view class="divLine"></view>
-  </view>
+    <view class='panel-title font-lv1 strong'>其他图书圈 </view>
   </view>
   <view class='panel-body'>
-      <view class='row' wx:for="{{othercircle_list}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}" bindtap="goToDetailCircle">
-        <view class='row-left'> 
-            <image mode='widthFix' class='circle2-image' src="{{item.circlePicPath}}"/>
+      <view class='row'>
+        <view class='row-left'>
+          <navigator url="/pages/intro/intro">
+            <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle4.png'/>
+          </navigator>
         </view>
         <view class='row-right'>
-          <view class='ellipsis-1row font-lv1 mb'>{{item.bcName}}</view>  
-          <view class='text-muted ellipsis-5row desc'>{{item.intro}}</view>
+          <navigator url='/pages/intro/intro' class='ellipsis-1row font-lv2'>有限理性阅读圈</navigator>
+    
+          <view class='text-muted ellipsis-3row desc'>世界的本质是什么，人类可以认识到世界的本质吗，存在某种可以描述世界存在的本质吗。欢迎加入有限理性图书圈，共同分享相关书籍。
+          </view>
         </view>
       </view>
 
+
+      <view class='row'>
+        <view class='row-left'>
+          <navigator url="/pages/intro/intro">
+            <image mode='widthFix' class='box-shadow' src='../../magic/BookCircle/circle5.png'/>
+          </navigator>
+        </view>
+        <view class='row-right'>
+          <navigator url="/pages/intro/intro" class='ellipsis-1row font-lv2'>田野调查阅读圈</navigator>
+      
+          <view class='text-muted ellipsis-3row desc'>田野调查是社会学课不可缺少的实证调研手段，欢迎分享田野调查经历。
+        </view>
+        </view>
+      </view>
 
 
 

@@ -1,53 +1,18 @@
-<view class="content" wx:if="{{is_exist==1}}">
-    <view class="book-content">
-        <view>
-            <view class="book-list">
-                <view class="book-image">
-                    <image src="{{picPath}}" mode="aspectFit"></image>
-                </view>
-                <view class="book-info">
-                    <view class="book-info-style">
-                    <view>isbn:{{isbn}}</view>
-                        <view>书名:{{bookName}}</view>
-                        <view>作者:{{author}}\n</view>
-                        <view>价格:{{price}}\n</view>
-                        <view>出版信息:{{publisher}}\n</view>
-                    </view>
+<!--pages/scan/scResult/scResult.wxml-->
 
-                </view>
-            </view>
-        </view>
+<view class="container">
+
+    <image style="width: 200px; margin-bottom:20px;" mode='aspectFit'  src='../../../magic/book/starts.png'></image>
+
+    <text class='ellipsis-2row font-lv1'>人类群星闪耀时</text>
+    <view class='mgt-15rpx font-lv3 color-semi' style="margin-bottom:10px;">作者：史蒂芬·茨威格</view> 
+      <view class="section">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker pk1 color-link ellipsis-2row font-lv1">
+      {{array[index]}}
     </view>
-    <view class="book-intro">
-            <text class="book-title">内容推荐</text>
-        </view>
-    <view class="space-line-30"></view>
-    <scroll-view scroll-y="true" class="scroll-content" style="height:{{windowHeight*0.55}}px">
-        <view class="space-line-30"></view>
-         <text class="book-msg">{{briefIntro}}</text>
-  
-    </scroll-view>
-
-    <view class="btn-area">
-             <button type="primary" size="default" bindtap='showModal2' disabled="{{disable}}">加入书架</button>
-<modal hidden="{{hiddenModal2}}" title="设置属性" confirm-text="提交" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel" >
-   
-    <radio-group class="radio-group" bindchange="radioChange">
-                <radio class="radio {{item.name=='public'?'myradio':''}}" wx:for-items="{{items}}" wx:key="name" value="{{item.name}}" checked="{{item.checked}}">
-                    <text>{{item.value}}</text>
-                </radio>
-            </radio-group>
-    
-</modal>
+  </picker>
+  </view>
 
 
-        </view>
 </view>
-
-
-<view wx:if='{{is_exist==0}}' class="container">
-  <view class="userinfo">
-  <view>isbn:{{isbn}}</view>
-  <view>查询不到此书</view>
-  </view>
-  </view>

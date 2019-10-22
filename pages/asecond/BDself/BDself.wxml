@@ -1,15 +1,14 @@
-<view wx:if='{{is_exist==1}}'>
 
 <view class="con">
 
 <view class="cen">
-  <image style="width: 150px; margin-bottom:10px;"   src="{{picPath}}"></image>
+  <image style="width: 150px; margin-bottom:10px;"  src='../../../magic/book/starts.png'></image>
 </view>
 
 <view class="con intro" style="margin-bottom:10px;">
   <view class="cen">
+   <button class='font-lv3 color-link'  bindtap='showModal' style='width:40%; margin-right:60px;margin-left:-40px;'>正在审核</button>
 
-   <button class='font-lv3 color-link'  bindtap='showModal' style='width:40%; margin-right:60px;margin-left:-40px;'>{{borrowState}}</button>
  <view class="section">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
     <view class="picker pk1 color-link">
@@ -17,23 +16,17 @@
     </view>
   </picker>
   </view>
-
-</view>
 </view>
 
 </view>
+</view>
 
-<view class="con">
-  <text class='ellipsis-2row font-lv1'>{{bookName}}</text>
-  <text>分类：{{catg}}</text>
-  <text>{{isbn}}</text>
+<view class="con ">
+  <text class='ellipsis-2row font-lv1'>人类群星闪耀时</text>
+  <text>分类：文学\n</text>
+  <text>ISBN:9787201070711</text>
 </view>
   <view class='intro font-lv3 color-grey'>
-    {{briefIntro}}
+    本书共收入他的历史特写14篇，分别向我们展现了14个决定世界历史的瞬间：千年帝国拜占庭的陷落、巴尔沃亚眺望水天一色的太平洋、亨德尔奇迹的精神复活、老年歌德热恋的悲歌、滑铁卢的一分钟， 英雄的瞬间， 南极探险的斗争，西塞罗，威尔逊的梦想与失败以及马赛曲神佑般的创作。而这14个历史瞬间神奇地降临到14位传主的身上，他们或是被命运高高举起，送入英雄们的殿堂；或是被狠狠嘲弄，抛入千秋遗恨的行列。当强烈的个人意志与历史宿命碰撞之际，火花闪烁，那样的时刻从此照耀着人类文明的天空。
   </view>
 
-</view>
-
-<view wx:else>
-书籍不存在
-</view>

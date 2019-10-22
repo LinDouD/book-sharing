@@ -1,33 +1,3 @@
-<view class="page__bd page__bd_spacing mytop">
-    <view class="weui-cells__title">查询方式</view>
-    <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_switch">
-            <view class="weui-cell__bd">扫码查询:</view>
-            <view class="weui-cell__ft">
-                <switch checked bindchange="screenInput" />
-            </view>
-        </view>
-  
-    </view>
-    <form wx:if="{{isShowInputForm}}">
-        <view class="weui-cells__title">图书基本信息:</view>
-        <view class="weui-cells weui-cells_after-title">
-
-            <view class="weui-cell weui-cell_input">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">ISBN:</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入ISBN" bindinput="bindKeyInput" type="text" value="{{isbn}}"/>
-                </view>
-            </view>
-
-
-        </view>
-    </form>
-
-    <view class="weui-btn-area">
-        <button wx:if='{{isShowInputForm}}' class="weui-btn" type="primary" bindtap="search"> 查询</button>
-         <button wx:if='{{!isShowInputForm}}' class="weui-btn" type="primary" bindtap="getScancode"> 扫一扫</button>
-    </view>
-</view>
+<!--pages/scan/scan.wxml-->
+<button style="margin-top: 100px;"  bindtap="getQRCode">扫一扫</button>
+<view>{{qRCodeMsg}}</view>

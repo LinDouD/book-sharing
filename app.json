@@ -11,18 +11,26 @@
     "pages/asecond/BDself/BDself",
     "pages/asecond/BDother/BDother",
     "pages/asecond/posting/posting",
-    "pages/asecond/SearchBC/SearchBC"
+    "pages/historicrecord/historicrecord",
+    "pages/friendlist/friendlist",
+    "pages/contact/contact",
+    "pages/posting/posting",
+    "pages/addfriend/addfriend",
+    "pages/besecond/bsecond",
+    "pages/bsecond/CMember/CMember",
+    "pages/bsecond/CPosting/CPosting",
+    "pages/bsecond/Cshelf/CShelf"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#2f65bb",
+    "navigationBarBackgroundColor": "2f65bb",
     "navigationBarTitleText": "享书",
-    "navigationBarTextStyle": "white",
+    "navigationBarTextStyle": "black",
     "backgroundColorBottom": "#78f"
   },
   "tabBar": {
     "backgroundColor": "#2f65bb",
-    "color": "#222",
+    "color": "#111",
     "selectedColor": "#fff",
     "list": [
       {

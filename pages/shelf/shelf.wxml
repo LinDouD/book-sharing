@@ -1,60 +1,86 @@
-
-
-<!--一登陆授权后根据openid 加载-->
-<view wx:if='{{is_login==1}}'>
+<!--pages/shelf/shelf.wxml-->
 <view>
-    
+    <!-- tab导航栏 -->
+    <!-- scroll-left属性可以控制滚动条位置 -->
+    <!-- scroll-with-animation滚动添加动画过渡 -->
     <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}" >
-        <block wx:for="{{cat_list}}" wx:for-index="idx" wx:for-item="navItem" wx:key="idx">
-            <view class="nav-item {{currentTab == idx ?'active':''}}"  data-current="{{idx}}" bindtap="switchNav">{{navItem.catgName}}</view>
+        <block wx:for="{{navData}}" wx:for-index="idx" wx:for-item="navItem" wx:key="idx">
+            <view class="nav-item {{currentTab == idx ?'active':''}}"  data-current="{{idx}}" bindtap="switchNav">{{navItem.text}}</view>
         </block>  
     </scroll-view>
 
+     <!-- tab导航栏 右边时间/字母-->
 
-<view class="section"> 
+<view class="section">
+  
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
     <view class="picker">
       {{array[index]}}
     </view>
   </picker>
 </view>
+
+    <!-- 页面内容 -->
+    <!-->
+    <swiper current="{{currentTab}}" duration="300" bindchange="switchTab">      
+        <swiper-item wx:for="{{[0,1,2,3,4,5,6]}}" wx:for-index="idx" wx:for-item="tabItem"  wx:key="idx" class="tab-content">
+           <text> {{tabItem}}</text>
+           
+        </swiper-item>
+    </swiper>
+<-->
+    
 </view>
 
-    <swiper current="{{currentTab}}" duration="300" bindchange="switchTab"
-    style='height:{{widHeight}}'class='smargintop'>      
-        <swiper-item wx:for="{{cat_list}}" wx:for-index="idx" wx:for-item="tabItem"  wx:key="idx" class="tab-content">
 
-           <view>
+ <!--书籍-->
+<view>
  <view class='base-padding base-margin-bttom'>
 
-   <view class='box' >
-   <view   wx:for="{{dataSource[idx]}}" wx:key="{{isbn}}"  id="{{item.isbn}}" bindtap="goToDetailPage" class='book text-muted'>
-          <image src="{{item.picPath}}" mode="widthFix"></image>
-          <view class='font-lv3  ellipsis-2row'>
-          {{item.bookName}}
-        </view>
-</view>
+  <view class='box'>  
+    <navigator url='/pages/asecond/BDself/BDself' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/starts.png'></image>
+     
+      <view class='font-lv3  ellipsis-2row'>人类群星闪耀时</view>
+    </navigator>
 
+    <navigator url='/pages/asecond/posting/posting' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/goweb.jpeg'></image>
+     
+      <view class='font-lv3  ellipsis-2row'>Go Web编程</view>
+    </navigator>
 
- <view   wx:if="{{nullView[idx]==1}}" class='book text-muted'>
-        
-</view>
+    <navigator url='/pages/asecond/BDother/BDother' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/http2.png'></image>
+      
+      <view class='font-lv3  ellipsis-2row'>http2详解</view>
+    </navigator>
+
+    <navigator url='/pages/scan/scResult/scResult' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/grpc.png'></image>
+     
+      <view class='font-lv3  ellipsis-2row'>Go-gRPC</view>
+    </navigator>
+
+    <navigator url='/pages/asecond/BDself/BDself' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/shell.jpeg'></image>
+     
+      <view class='font-lv3  ellipsis-2row'>Shell编程范例</view>
+    </navigator>
+
+    <navigator url='/pages/asecond/BDself/BDself' class='book text-muted'>
+      <image mode='widthFix' class='box-shadow cover' src='../../magic/book/es6.jpeg'></image>
+      
+      <view class='font-lv3  ellipsis-2row'>ECMAScript 6 入门</view>
+    </navigator>
+
+    <!--  为了使之对齐，如果不是3的倍数，余数是多少，则就补多少个book-empty  -->
+    <!--  最后这里哪怕添加三个空的book-empty，对布局也不会有影响，因为没有高度...  -->
+    <view class='book book-empty text-muted'></view>
+    <view class='book book-empty text-muted'></view>
 
 
   </view>
 </view>
-
-        </view>
-        </swiper-item>
-       
-    </swiper>
-
-
-
-
 </view>
-
-
-
-
 
