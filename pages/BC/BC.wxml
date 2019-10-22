@@ -1,11 +1,18 @@
 <!--pages/BC/BC.wxml-->
 
 <!--  搜索框  -->
-<view class='search '>
-  <label>
-    <icon type='search' bindtap='goToSearchRes'></icon>
-    <input type='search' placeholder="请输入搜索关键字" bindinput="searchInput"/>
-  </label>
+<view class='search content'>
+    <label>
+      <icon type='search' bindtap='goToSearchRes'></icon>
+      <input type='search' class="mysearch" placeholder="请输入搜索关键字" bindinput="searchInput"/>
+    </label>    
+  
+  <view class="container" bindtap="close">
+  <view class="select-wrap">
+    <select id="select" options="{{options}}" key="city_id" text="city_name" bind:change="change"></select>
+  </view>
+</view>
+  
 </view>
 
 

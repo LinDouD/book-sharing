@@ -15,6 +15,11 @@ Page({
     height: 200,
     widHeight: 800 + 'px',
     hiddenModal2: true,
+    options: [{
+      city_id: '001',
+      city_name: '圈名'
+    }],
+    selected: {}
   },
   //事件处理函数
   onLoad: function (options) {
@@ -157,8 +162,16 @@ Page({
     wx.navigateTo({
       url: '/pages/asecond/SearchBC/SearchBC?bcName=' + bcName
     });
+  },
+  change(e) {
+    this.setData({
+      selected: { ...e.detail }
+    })
+   
+  },
+  close() {
+    // 关闭select
+    this.selectComponent('#select').close()
   }
-
-
-
 })
+
