@@ -1,7 +1,44 @@
 /* pages/BC/BC.wxss */
+/*图书圈*/
+.bold100{
+  font-weight: 100;
+}
+.box{
+  /*margin-top: 120rpx;*/
+  display: flex;
+  justify-content: space-between; 
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  
+}
+.box .circle{
+  width:30%;
+  margin-bottom: 40rpx;
+  color: #666;   
+}
 
+.circle-image{
+  width: 100%;
+  height:240rpx;
+}
+.circle2-image{
+  width: 100%;
+  height:240rpx;
+}
 .container{
 padding:10rpx; 
+}
+.create-button{
+font-size: 32rpx;
+padding-left: 20rpx;
+padding-right: 20rpx;/*color:rgb(19, 170, 31);*/
+background-color: transparent;
+line-height: 60rpx;
+}
+.create-button::after{
+  border-color: rgb(19, 170, 31);
+  border-width: 2px;
 }
 .slide-image{
    width: 100%; 
@@ -35,8 +72,6 @@ swiper-item{
   text-align: center;
   font-size: 32rpx
 }
-
-
 
 .recommend .panel-body{
   display: flex;
@@ -101,3 +136,12 @@ swiper-item{
 }
 
 .cate-data{margin-top: 10rpx;}
+.mb{
+  margin-left: 10rpx;
+  margin-bottom: 10rpx;}
+
+.divLine{
+ background: #E0E3DA;
+ width: 100%;
+ height: 3rpx;
+}

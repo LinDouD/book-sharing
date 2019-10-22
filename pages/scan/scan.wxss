@@ -1,1 +1,10 @@
-/* pages/scan/scan.wxss */
+.page__bd_spacing {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.page__bd {
+    padding-bottom: 40px;
+}
+.mytop{
+  margin-top: 30px;
+}
