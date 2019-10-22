@@ -16,7 +16,10 @@
     "pages/friendlist/friendlist",
     "pages/contact/contact",
     "pages/posting/posting",
-    "pages/addfriend/addfriend"
+    "pages/addfriend/addfriend",
+    "pages/bsecond/CMember/CMember",
+    "pages/bsecond/CPosting/CPosting",
+    "pages/bsecond/CShelf/CShelf"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -144,9 +144,7 @@ Page({
   goToDetailCircle: function (e) {
     var isbn = e.currentTarget.id;
     wx.navigateTo({
-      // url: '/pages/asecond/BDetail/BDetail?id=' + isbn
-
-      url: '/pages/asecond/BDself/BDself?id=' + isbn
+      url: '/pages/bsecond/CMember/CMember'
     });
   },
   searchInput: function (e) {
