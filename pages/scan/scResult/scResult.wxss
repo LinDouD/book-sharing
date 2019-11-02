@@ -1,136 +1,157 @@
+/* pages/asecond/BDself/BDself.wxss */
 
-.content{
+
+page {
+  width: 100%;
+  height: 100%;
+}
+
+.total {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 100%;
   height: 100%;
+}
+
+.top {
+  background-color: rgba(238, 229, 222, 0.2);
+  height: 25%;
+  width: 100%;
+  border-bottom: solid 2px #efefef;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.pic {
+  width: 20%;
+  margin-left: 20rpx;
+  margin-right: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.content {
+  flex: 1;
+}
+
+.borrowBtn {
+  flex: 1;
+}
+
+.borrowState {
+  margin-bottom: 20rpx;
+  border: 1px solid #dedede;
+  width: 200rpx;
+  height: 65rpx;
+  font-size: 30rpx;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 25px;
+  border-radius: 3px;
+  background-color: #ebebeb;
+}
+
+.borrowState::after {
+  border: none;
+}
+
+.title {
+  display: block;
+  margin-bottom: 65rpx;
+  font-size: 30rpx;
+}
+
+.author {
+  display: block;
+  font-size: 25rpx;
+  color: black;
+  margin-bottom: 20rpx;
+}
+
+.body {
+
+  height: 75%;
+  width: 100%;
+}
+
+.brief {
+    padding-left: 20rpx;
+      padding-right: 20rpx;
+  border-bottom: 1px solid #efefef;
+}
+
+.briefInfo {
+  line-height: 44rpx;
+}
+
+.briefInfotype1{
+  text-align: center;
+}
+
+.briefInfotype2{
+  margin-top: 20rpx;
+}
+
+.briefInfo .content {
+  letter-spacing: 5rpx;
+  font-size: 25rpx;
+  color: #8a8a8a;
+}
+
+
+.moreinfo {
+   padding-left: 20rpx;
+      padding-right: 20rpx;
+  margin-top: 20rpx;
+  height: 200rpx;
+}
+
+.moreinfo .name {
+  height: 20rpx;
+  font-size: 27rpx;
+  color: #a8a8a8;
+}
+
+.all {
+  margin-top: 20rpx;
+}
+
+.one {
+  margin-bottom: -10rpx;
+}
+
+.one text {
+  font-size: 27rpx;
+  color: #838b8b;
+}
+
+
+.myscroll{
+  height:100%;
+}
+
+
+
+
+/*swtich整体大小及背景色*/
+.wx-switch-input{
+    width:82rpx !important;
+    height:40rpx !important;
+    background: #87CEFA !important;
+    border: #87CEFA !important; /* 2018-07-18 重置开关边框颜色 */
+}
+/*白色样式（false的样式）*/
+.wx-switch-input::before{
+    width:80rpx !important;
+    height: 40rpx !important;
+}
+/*绿色样式（true的样式）*/
+.wx-switch-input::after{
+    width: 40rpx !important;
+    height: 40rpx !important;
 }
 
 .myradio{
   margin-right: 60px;
   margin-left: 20px;
-}
-.book-content{
-  margin-top: 0rpx;
- 
-}
-
-.book-list{
-  display: flex;
-  width: 93.3%;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content:flex-start;
-  box-sizing: border-box;
-  margin-top: 20rpx;
-  background-color: #fff;
-
-}
-
-.book-image{
-  flex: 0 0 32%;
-  box-sizing: border-box;
-  min-height: 242rpx;
-}
-
-.book-image image{
-  height: 300rpx;
-  width: 242rpx;
-}
-
-.book-info{
-  background-color: #fff;
-  flex: 0 0 66%;
-  box-sizing: border-box;
-  height: 300rpx;
-  margin-left: 20rpx;
-}
-.book-info-style view{
-  /*display: block;*/
-  font-size: 30rpx;
-  margin-bottom: 15rpx;
-  width: 460rpx;
-  text-overflow:ellipsis; 
-  overflow:hidden; 
-  white-space:nowrap; 
-  margin-top: 10rpx;
-}
-
-.book-info-style{
-  height: 300rpx;
-  background-color: white;
-}
-
-.line{
-  width: 100%;
-  border: 1px solid #eee;
-}
-
-.book-intro{
-  width: 95%;
-
-  /*display: flex;
-  flex-direction: column;*/
-}
-
-.book-title{
-  display: block;
-  font-size: 30rpx;
-  background-color: #E5E5E5;
-  color: #323232;
-  height: 100%;
-  border-left: 1px solid red;
-  border-bottom: 1px solid #E5E5E5;
-  width: 720rpx;
-}
-
-.space-line-30{
-  display: block;
-  height: 0px;
-}
-
-.book-msg{
-    font-size: 30rpx;
-    text-indent: 50rpx;
-    color: #323232;
-    width: 40%;
-}
-
-.btn-area{
-  position: fixed;
-  left: 35rpx;
-  bottom: 0;
-  width: 90%;
-}
-
-
-.btn-area button{
-    margin-bottom: 20rpx;
-    width: 100%;
-   
-}
-
-.scroll-content{
-  width: 720rpx;
- margin-left: 15rpx;
- margin-bottom: 60px;
-}
-
-
-
-.add-book-container{
-  display: block;
-}
-
-.add-book-container label{
-  float: left;
-  height: 55rpx;
-  line-height: 55rpx;
-}
-
-.add-book-qty{
-  border: 1px solid orange;
-  padding-left: 20rpx;
-  width: 40%;
-  float: left;
 }

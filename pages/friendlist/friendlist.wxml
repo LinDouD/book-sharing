@@ -1,27 +1,35 @@
-<!--pages/friendlist/friendlist.wxml-->
-<view >
-<!-- 左侧列表内容部分 -->
-  <scroll-view class="content" enable-back-to-top scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true" bindscroll="onPageScroll"> 
-    <view wx:for="{{listMain}}" wx:for-item="group" wx:key="{{group.id}}"  id="{{ 'inToView'+group.id}}" data-id='{{group.id}}'> 
-      <view class="address_top" >{{group.region}}</view> 
-        <view wx:for="{{group.items}}" wx:for-item="item" wx:key="{{item.brandId}}"> 
-          <view class="address_bottom" data-id='{{item.brandId}}'>{{item.name}}</view> 
-        </view> 
-    </view> 
-  </scroll-view> 
-  <!-- 顶部固定分类 -->
-  <view class="list-fixed {{fixedTitle=='' ? 'hide':''}}" style="transform:translate3d(0,{{fixedTop}}px,0);">
-    <view class="fixed-title">
-    {{fixedTitle}}
+<view class='head flex alic borderbe0'>
+  <view class='flex justc alic box bgf ml10 borRad'>
+    <view class='flex justc alic box'>
+      <icon type="search" size="20" class='ml5 mr10' />
+      <input placeholder='搜索' type='search' value='{{val}}' bindconfirm='search' class='{{focus?"flex1":"w"}}' bindfocus='setFocus' bindblur='setFocus'></input>
     </view>
+    <image src='../img/say.png' class='ml5 mr10 say'></image>
   </view>
-  <!-- 右侧字母导航 -->
-  <view class="orientation_region"> 
-    <view class="orientation">自动定位</view> 
-      <block wx:for="{{listMain}}"  wx:key="{{item.id}}"> 
-        <view class="orientation_city  {{isActive==item.id ? 'active':'' }}" bindtap="scrollToViewFn" data-id="{{item.id}}" >
-        {{item.region}}
-        </view> 
-    </block> 
-  </view>  
-</view> 
+</view>
+
+<view class='flex '>
+  <scroll-view class="flex1" scroll-y scroll-into-view="{{toView}}" style='height:calc(100vh - 102rpx)'>
+    <block wx:for='{{friendlist}}' wx:for-index='idx'>
+      
+      <view class='lh30 fz16 color9e ml10' id='{{item.firstChar}}'>{{item.firstChar}}</view>
+      <view class='bgf fz14'>
+        <view class="borderbe0" wx:for='{{item.friendLists}}' wx:key='fid' wx:for-item='n' id='{{n.fid}}' bindtap='goDetail'>
+      
+          <view class='flex alic  ml10 pt15 pb10'>
+            <image src='{{n.avatarUrl}}' class='img mr15'></image>
+            <text>{{n.name}}</text>
+            <text wx:if='{{n.heart=="1"&&n.cue}}' class='posAbs mr15 r10 colorf0'>{{n.cue}}</text>
+            <image wx:elif='{{n.heart=="1"&&!n.cue}}' src='../img/star-on.png' class='right posAbs mr15 r10'></image>
+            <image wx:else src='../img/star-off.png' class='right posAbs mr15 r10'></image>
+          </view>
+
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+  <view class='posFix right0 tc fz12 flex justsa colu' style='height:calc(100% - 102rpx)'>
+    <image src='../img/star-off.png' class='star' data-i='-1' bindtap='toView'></image>
+    <view wx:for='{{nav}}' catchtap='toView' data-i='{{item}}' wx:key='this' >{{item}}</view>
+  </view>
+</view>

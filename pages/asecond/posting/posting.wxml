@@ -1,95 +1,114 @@
-<!--pages/asecond/posting/posting.wxml-->
-<!--  搜索框  -->
-
-<view class='book base-padding row'>
-
-  <view class='book-cover col-3'>
-    <navigator url='' class=''>
-      <image mode='widthFix' src='../../../magic/head.png'></image>
-    </navigator>
-  </view>
-
-  <view class='book-info col-9'>
-    <view class='book-title font-lv1 ellipsis-1row'>帖子标题标题标题标题</view>
-    
-    <view class='mgt-30rpx font-lv2'>
-      <text>作者</text>      
-      <text style="margin-left:40px">发布日期</text>
+<!--answer.wxml-->
+<view class="containerp">
+    <view class="question" bindtap="toQuestion">
+        <text class="question-title">{{post.title}}</text>
     </view>
-    
+    <view class="answerer-wrp">
+        <view class="bg-half"></view>
+        <view class="answerer flex-wrp">
+            <view class="avatar flex-item">
+                <image src="{{post.avatarUrl}}"></image>
+            </view>
+            <view class="answerer-info flex-item">
+                <text class="answerer-name">{{post.nickName}}</text>
+              
+            </view>
+            <view class="follow flex-item" wx:if='is_friend'>
+                <text>已添加</text> 
+            </view>
+             <view class="follow flex-item" wx:else>
+                <text>十 加好友</text> 
+            </view>
+        </view>
+    </view>
+    <view class="answer-content">
+        <text>{{post.content}}</text>
+    </view>
+
+    <view class="answer-footer flex-wrp">
+        <view class="good flex-item">
+            <view class="good-bad">
+                <image src="../../../magic/apost/good-bad.png"></image>
+            </view>
+            <view class="good-num">2.1k</view>
+        </view>
+        <view class="operation-wrp flex-item">
+            <view class="operation flex-wrp flex-tab">
+                <view class="operation-btn flex-item">
+                    <image src="../../../magic/apost/flag.png"></image>
+                    <text>没有帮助</text>
+                </view>
+                <view class="operation-btn flex-item">
+                    <image src="../../../magic/apost/heart2.png"></image>
+                    <text>感谢</text>
+                </view>
+                <view class="operation-btn flex-item">
+                    <image src="../../../magic/apost/star2.png"></image>
+                    <text>收藏</text>
+                </view>
+                <view class="operation-btn flex-item" bindtap="showTalks">
+                    <image wx:if="{{is_collected}}"  src="../../../magic/apost/comment2.png"></image>
+                      <image wx:else src="../../../magic/apost/comment.png"></image>
+                    <text>{{post.count}}</text>
+                </view>
+
+            </view>
+        </view>
+
+
+
+    </view>
+</view>
+
+
+
+
+<!-- 整个评论区  -->
+<view class='talks-layer' animation='{{talksAnimationData}}'>
+  <!-- 主要作用是点击后隐藏评论区  -->
+  <view class='layer-white-space' bindtap='hideTalks'>
   </view>
 
-</view>
-<view class='menu base-padding font-lv3'>
+  <!-- 评论区  -->
+  <view class='talks'>
 
-内容内容内容
-</view>
- 
-   
-      
-<view class='footer font-lv3'>
-    
-<scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="refresh">
-  <view class="pro-con">
-    <block wx:for="{{list}}" wx:key="{{index}}">
-      <view class="pro-box">
-        <view class="head">
-          <image class="img" src="{{item.userPhoto}}" mode="aspectFit"></image>
-          <view class="box">
-            <view class="shead clear">
-              <view class="names fl">{{item.userName}}
-                  <view wx:if="{{!item.replyUserName == \" \"}}">
-                  -> {{item.replyUserName}}
-                </view>
-              </view>
-            </view>
-          </view>
+    <!-- 评论头部  -->
+    <view class='talk-header'>
+      <image src="../../../magic/apost/cancel.jpeg"
+      class='talk-close' bindtap='hideTalks'></image>
+      <view class='talk-count'><text class="myheader">全部{{talks.length}} 条评论</text></view>
+    </view>
+
+    <!-- 评论体  -->
+    <scroll-view class='talk-body' scroll-y="true" bindscrolltolower="onScrollLoad">
+     <view class="talk-header1">
+<text class="myheader1">评论({{talks.length}})</text>
+    </view>
+      <view class='talk-item' wx:for="{{talks}}" wx:key="talks.id">
+        <view class='talk-item-left'>
+          <image class='talk-item-face' src='{{item.avatarUrl}}'></image>
         </view>
-        <view class="addr-info">
-          <view class="addr-text">
-            {{item.comment}}
-          </view>
-        </view>
-        <view class="info">
-          <view class="text">
-            <text decode="true">{{item.insertTime}}</text>
-          </view>
-          <view class="text">
-            <button class="sharebtn" data-commentId="{{item.id}}" data-commentUserName="{{item.userName}}" bindtap="bindReply">回复</button>
-          </view>
-              <view wx:if="{{item.userId == userId}}" class="status text fr">
-                <text class="delete" decode="true" bindtap='deleteComment' data-CommentId="{{item.id}}">删除</text>
-              </view>
+        <view class='talk-item-right'>
+          <text class='talk-item-nickname'>{{item.nickName}}</text>
+          <text class='talk-item-content'>{{item.content}}</text>
+          <view class="flex-wrp " >
+          <text class='talk-item-time flex-item' >{{item.comtTime}} 查看回复</text>
+          <view class="flex-image time">
+           <image src="../../../magic/apost/up.jpg" class="flex1" mode="widthFix"
+   bindtap='up'></image>
+    <image class="flex2 " mode='widthFix' src="../../../magic/apost/comment3.jpg"
+   bindtap='comment'></image>
+   </view>
+   </view>
         </view>
       </view>
-    </block>
+    </scroll-view>
 
-  </view>
-
-</scroll-view>
-
-<form bindsubmit="submitForm" report-submit="true">
-
-  <view class="release">
-
-    <view  wx:if="{{reply}}" class="replyinfo1">
-
-      回复<text class="text">{{replyUserName}}</text>
-
-      <button class="cancel" bindtap="cancleReply">取消回复</button>
-
-    </view>
-
-    <view class="replyinfo2">
-
-      <textarea placeholder-class="input_null" fixed="true" maxlength="-1" show-confirm-bar="false" cursor-spacing="15" auto-height="true" placeholder="请输入回复" name="comment"></textarea>
-
-      <button form-type="submit" class="submit  font-lv2">发送</button>
-
+    <!-- 评论底部  -->
+    <view class='talk-footer flex-wrp'>
+      <input class='talk-input' type='text' placeholder='请输入评论' value='{{input}}'bindinput="bindKeyInput"></input>
+      <button  wx:if='{{!is_input}}'class="issue">发布</button>
+       <button  wx:if='{{is_input}}'class="issue1">发布</button>
     </view>
   </view>
-</form>
-
-
-
 </view>

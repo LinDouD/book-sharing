@@ -1,20 +1,40 @@
 {
   "pages": [
     "pages/shelf/shelf",
+    "pages/PC/PC",
+"pages/chat/chat",
+
+        
+        "pages/chat/opt/opt",
+      "pages/contact/contact",
+
+      "pages/asecond/BDother/BDother",
+    "pages/friendlist/friendlist",
+          
+          "pages/shelf/othershelf/othershelf",
+    
+  
+    "pages/asecond/BDself/BDself",
+
+        "pages/shelf/list/list",
+      
+       
+    "pages/scan/scResult/scResult",
+    "pages/scan/scan",
+   
+
     "pages/index/index",
     "pages/logs/logs",
     "pages/BC/BC",
-    "pages/scan/scan",
-    "pages/scan/scResult/scResult",
-    "pages/PC/PC",
+    
     "pages/asecond/BDetail/BDetail",
-    "pages/asecond/BDself/BDself",
-    "pages/asecond/BDother/BDother",
+
+   
     "pages/asecond/posting/posting",
     "pages/asecond/SearchBC/SearchBC",
     "pages/historicrecord/historicrecord",
-    "pages/friendlist/friendlist",
-    "pages/contact/contact",
+   
+  
     "pages/posting/posting",
     "pages/addfriend/addfriend",
     "pages/bsecond/CMember/CMember",
@@ -23,7 +43,7 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "2f65bb",
+    "navigationBarBackgroundColor": "#2f65bb",
     "navigationBarTitleText": "享书",
     "navigationBarTextStyle": "white",
     "backgroundColorBottom": "#78f"

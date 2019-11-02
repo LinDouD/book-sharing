@@ -1,27 +1,128 @@
-
-<view class="con">
-
-<view class="cen">
-  <image style="width: 150px; margin-bottom:10px;"  src='../../../magic/book/starts.png'></image>
-</view>
-</view>
-
-<view class="con intro" style="margin-bottom:10px;">
-  <view class="cen">
-   <button class='font-lv3 color-link'  bindtap='showModal' style='width:40%;'>申请借阅</button>
-   <modal hidden="{{hiddenModal}}" title="申请借阅" confirm-text="申请" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
-      <input placeholder='借阅陈述' bindinput='input'/>  
-   </modal>
-
-</view>
-</view>
-
-<view class="con ">
-  <text class='ellipsis-2row font-lv1'>人类群星闪耀时</text>
-  <text>分类：文学\n</text>
-  <text>ISBN:9787201070711</text>
-</view>
-  <view class='intro font-lv3 color-grey'>
-    本书共收入他的历史特写14篇，分别向我们展现了14个决定世界历史的瞬间：千年帝国拜占庭的陷落、巴尔沃亚眺望水天一色的太平洋、亨德尔奇迹的精神复活、老年歌德热恋的悲歌、滑铁卢的一分钟， 英雄的瞬间， 南极探险的斗争，西塞罗，威尔逊的梦想与失败以及马赛曲神佑般的创作。而这14个历史瞬间神奇地降临到14位传主的身上，他们或是被命运高高举起，送入英雄们的殿堂；或是被狠狠嘲弄，抛入千秋遗恨的行列。当强烈的个人意志与历史宿命碰撞之际，火花闪烁，那样的时刻从此照耀着人类文明的天空。
+<!--/** wx:if='{{is_exist==2}}'**/-->
+<view class="total">
+  <view class="top ">
+    <image class="pic" mode="scaleToFill" src="{{bookInf.picPath}}"></image>
+    <view class="content">
+      <view class="titleView">
+        <text class="title">{{bookInf.bookName}}</text>
+      </view>
+      <view class="authorView">
+        <text class="author">{{bookInf.author}}</text>
+      </view>
+    </view>
+    <view class="borrowBtn">
+      <button class="borrowState" disabled="true">{{borrowState}}</button>
+    </view>
   </view>
 
+  <view class="body">
+    <scroll-view scroll-y="true" class="myscroll">
+      <view class="userView">
+        <view class="user" catchtap="goToShelf"  id='{{fuserInfo.userId}}'>
+          <image src='{{fuserInfo.avatarUrl}}' class='avatar'></image>
+          <view class="nickname">
+            <text>{{fuserInfo.nickName}}</text>
+          </view>
+        </view>
+
+        <view class="borrowstatus">
+          <view class="body-view">
+            <button class="chatBtn" catchtap="goToChat" id='{{id}}'>私聊</button>
+          </view>
+        </view>
+      </view>
+
+
+      <view class="brief">
+        <view class="briefInfo ">
+          <text class="content {{!is_folded?'hide':'show'}}" decode="{{true}}" space="{{true}}">&nbsp;&nbsp; {{bookInf.briefIntro}}</text>
+        </view>
+        <view class="more" wx:if="{{!is_folded}}" bindtap="more">
+          <image src='../../../magic/more.jpg' mode="widthFix" class="state"></image>
+        </view>
+        <view wx:else class="close" bindtap="close"> 收起</view>
+      </view>
+      <!-- brief-->
+      <view class="type">
+        <view class="name">
+          标签
+        </view>
+        <view class="typeall">
+          <view wx:for="{{bookInf.categoryInfList}}" wx:for-index="idx" wx:for-item="item">
+            <view class="typeone">
+              <text>{{item.catgName}}</text>
+            </view>
+          </view>
+
+          <view class="typeone">
+            <text>公开</text>
+          </view>
+          <view class="typeone" wx:if= "{{!isCatg}}">
+              <text>暂无分类</text>
+            </view>
+        </view>
+      </view>
+      <view class="moreinfo">
+        <view class="name">
+          更多信息
+        </view>
+        <view class="all">
+          <view class="one">
+            <text>isbn : {{bookInf.isbn}}</text>
+          </view>
+          <view class="oneA" wx:if="{{bookInf.author!=null && bookInf.author!=''}}">
+            <view class="authorOne">作者 :</view>
+            <view class="authorOneContent"> {{bookInf.author}}</view>
+          </view>
+          <view class="one" wx:if="{{bookInf.translator!=null && bookInf.translator!=''}}">
+            <text>翻译 : {{bookInf.translator}}</text>
+          </view>
+          <view class="one" wx:if="{{bookInf.publisher!=null && bookInf.publisher!=''}}">
+            <text>出版社 : {{bookInf.publisher}}</text>
+          </view>
+          <view class="one" wx:if="{{bookInf.pubTime!=null && bookInf.pubTime!=''}}">
+            <text>出版日期 : {{bookInf.pubTime}}</text>
+          </view>
+           <view class="one" wx:if="{{time!=null && time!=''&&self}}">
+            <text>加入书架时间 : {{time}}</text>
+          </view>
+          <view class="one" wx:if="{{time!=null && time!=''&& (!self)}}">
+            <text>申请日期 : {{time}} </text>
+          </view>
+          <view class="one" wx:if="{{borrowDateTime!=null && borrowDateTime!=''}}">
+            <text>借阅日期 : {{borrowDateTime}}</text>
+          </view>
+
+         
+
+          <view class="one" wx:if="{{returnDateTime!=null && returnDateTime!=''}}">
+            <text>归还日期 : {{returnDateTime}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="footer">
+      <view class="user">
+        <image src='{{userInfo.avatarUrl}}' class='avatar'></image>
+        <view class="nickname">
+          <text>{{userInfo.nickName}}</text>
+          <text>(我)</text>
+        </view>
+      </view>
+      <view class="borrowstatus">
+        <view>
+          <button wx:if="{{type==0}}" class="cancel" catchtap="opt" disabled="{{bdisabled1}}" id ='{{type}}' >
+             取消申请
+          </button>
+          <button wx:if="{{type==1}}" class="cancel cancelcolor" catchtap="opt" disabled="{{bdisabled2}}" id ='{{type}}'>
+           归还
+          </button>
+          <button wx:if="{{type==2}}" class="cancel cancelcolor" catchtap="opt" disabled="{{bdisabled1}}" id ='{{type}}'>
+           申请借阅
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

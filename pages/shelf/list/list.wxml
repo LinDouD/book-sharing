@@ -1,0 +1,33 @@
+<view class='giftListView'>
+
+  <view wx:for="{{booklist.myShelfLists}}" wx:for-index="idx" wx:key='bookId' wx:for-item="item" id="{{item.bookId}}" data-borrowId='{{item.borrowId}}' data-borrow='{{item.is_Borrow}}' bindtap="goToDetailPage">
+
+    <view class='item'>
+
+      <view class='iconImageView'>
+        <image class='iconImage' src="{{booklist.picPath}}" mode='scaleToFill'></image>
+      </view>
+
+      <view class='bookView'>
+        <view class='bookNameView'>
+          <text class='bookNameText'>{{booklist.bookName}}</text>
+        </view>
+        <view class='bookAuthorView'>
+          <text class='bookAuthorText'>{{booklist.author}}</text>
+        </view>
+        <view class='bookTimeView'>
+          <text class='bookTimeText'>{{item.sortTime}}</text>
+        </view>
+      </view>
+
+      <view class='typeView' wx:if='{{self}}'>
+        <text class='typeText' wx:if='{{!item.is_Borrow}}'>[我的]</text>
+        <text class='typeText' wx:else>[借阅]</text>
+      </view>
+      <view class='typeView' wx:else>
+        <text class='typeText'>[公开]</text>
+      </view>
+
+    </view>
+  </view>
+</view>

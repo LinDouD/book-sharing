@@ -1,109 +1,78 @@
-// pages/friendlist/friendlist.js
+
+
+const app = getApp();
+var util = require('../../utils/util');
+var api = require('../../utils/api.js');
+
 Page({
-  /** 
-   * 页面的初始数据 
-   */
   data: {
-    isActive: null,
-    listMain: [{
-      id: "1", region: "A",
-      items: [
-        { id: "", name: "amour" },
-        { id: "", name: "amour" },
-        { id: "", name: "amour" },
-        { id: "", name: "amour" }
-      ]
-    },
-    {
-      id: "2", region: "B",
-      items: [
-        { id: "", name: "bandon" },
-        { id: "", name: "bandon" }
-      ]
-    },
-    {
-      id: "3", region: "C",
-      items: [
-        { id: "", name: "client" },
-        { id: "", name: "client" },
-        { id: "", name: "client" },
-        { id: "", name: "client" }
-      ]
-    },
-    {
-      id: "4", region: "D",
-      items: [
-        { id: "", name: "digital" },
-        { id: "", name: "digital" }
-      ]
-    },
-    {
-      id: "5", region: "E",
-      items: [
-        { id: "", name: "echo" },
-        { id: "", name: "echo" },
-        { id: "", name: "echo" },
-        { id: "", name: "echo" }
-      ]
-    },
-    {
-      id: "6", region: "F",
-      items: [
-        { id: "", name: "funk" },
-        { id: "", name: "funk" }
-      ]
-    },
-    ],
-    listTitles: [],
-    fixedTitle: 'A',
-    toView: 'inToView0',
-    viewPosition: [],
-    scroolHeight: 0
+    focus: false,
+    val: '',
+    friendlist:{},
+    is_exist:false,
+    nav: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"],
+    toView: ''
   },
-  //页面加载触发， 获取所定义view距离可滚动视图区域顶部高度
-  onLoad: function (options) {
-    var that = this;
-    var num = 0;
-    for (let i = 0; i < that.data.listMain.length; i++) {
-      wx.createSelectorQuery().select('#inToView' + that.data.listMain[i].id).boundingClientRect(function (rect) {
-        num = num + rect.height; //元素高度+该元素先前元素高度 ， 可理解为元素底部至可滚动视图区域顶部高度
-        console.log(num)
-        var _array = [{ 'height': num, 'key': rect.dataset.id, 'name': that.data.listMain[i].region }];
-        that.setData({
-          viewPosition: that.data.viewPosition.concat(_array) //合并数组
-        });
-      }).exec()
-    };
+  onLoad: function () {
+
+    
   },
-  // 可滚动视图区域滑动函数触发
-  onPageScroll: function (e) {
-    console.log(e)
+  setFocus: function () {
     this.setData({
-      scroolHeight: e.detail.scrollTop //获取滚动条滚动位置
-    });
-    for (let i in this.data.viewPosition) {
-      if (e.detail.scrollTop < this.data.viewPosition[i].height) { //判断滚动条位置是否在元素内
-        this.setData({
-          isActive: this.data.viewPosition[i].key,
-          fixedTitle: this.data.viewPosition[i].name
-        });
-        return false;
-      }
-    }
+      focus: !this.data.focus,
+      val: ''
+    })
   },
-  //点击右侧字母导航定位触发
-  scrollToViewFn: function (e) {
-    console.log(e)
+  search: function (e) {
+    console.log(e.detail.value)
+  },
+  toView: function (e) {
+   var toView = e.currentTarget.dataset.i
+    this.setData({
+      toView: toView
+    })
+  },
+  goDetail: function (e) {
+    wx.navigateTo({
+      url: '/pages/shelf/othershelf/othershelf?fid=' + e.currentTarget.id
+    })
+  },
+  onShow: function () {
+    this.loadData();
+  },
+
+  loadData:function(){
     var that = this;
-    var _id = e.target.dataset.id;
-    for (var i = 0; i < that.data.listMain.length; ++i) {
-      if (that.data.listMain[i].id === _id) {
-        that.setData({
-          isActive: _id,
-          toView: 'inToView' + _id //滚动条to指定view
-        })
-        break
+    app.checkSession({
+      success: function () {
+        app.request({
+          url: api.friendlist.friendlist,
+    
+          success: function (res) {
+     
+        
+            console.log("friendlist",res.data)
+            if(res.status.is_exist ==1){
+
+              //存在好友
+              that.setData({
+                friendlist:res.data,
+                is_exist:true
+              })
+            
+            }
+         
+          },
+        });
       }
-    }
+    })
+
+
   },
+
+  
+ 
+
+
 })
+

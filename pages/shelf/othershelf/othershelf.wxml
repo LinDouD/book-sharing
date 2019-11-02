@@ -1,0 +1,45 @@
+<!--一登陆授权后根据openid 加载-->
+<view  class="scontainer">
+
+  <!-- header -->
+  <view class="header">
+
+    <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}">
+      <block wx:for="{{cat_list}}" wx:for-index="idx" wx:for-item="navItem" wx:key="idx">
+        <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" bindtap="switchNav">{{navItem.catgName}}</view>
+      </block>
+    </scroll-view>
+
+
+    <view class="section">
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <view class="picker">
+          {{array[index]}}
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- header -->
+
+  <!-- body -->
+  <swiper current="{{currentTab}}" duration="300" bindchange="switchTab" style='height:{{widHeight}}' class='swiperPosition'>
+    <swiper-item wx:for="{{cat_list}}" wx:for-index="idx" wx:for-item="tabItem" wx:key="idx" class="tab-content">
+
+      <view class='box'>
+        <view wx:for="{{dataSource[idx]}}" wx:key="{{isbn}}" id='{{item.isbn}}' bindtap="goToDetailPage" class='book'>
+          <image src="{{item.picPath}}" mode="scaleToFill"></image>
+          <view class='font-lv3  ellipsis-2row'>
+            {{item.bookName}}
+          </view>
+        </view>
+
+        <view wx:if="{{nullView[idx]}}" class='book text-muted'>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- body -->
+
+</view>

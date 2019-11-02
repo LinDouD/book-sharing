@@ -1,39 +1,113 @@
-<view wx:if='{{is_exist==1}}'>
-
-<view class="con">
-
-<view class="cen">
-  <image style="width: 150px; margin-bottom:10px;"   src="{{picPath}}"></image>
-</view>
-
-<view class="con intro" style="margin-bottom:10px;">
-  <view class="cen">
-
-   <button class='font-lv3 color-link'  bindtap='showModal' style='width:40%; margin-right:60px;margin-left:-40px;'>{{borrowState}}</button>
- <view class="section">
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-    <view class="picker pk1 color-link">
-      {{array[index]}}
+<view class="total" wx:if='{{is_exist==2}}'>
+  <view class="top ">
+    <image class="pic" mode="scaleToFill" src="{{bookInf.picPath}}"></image>
+    <view class="content">
+      <view class="titleView">
+        <text class="title">{{bookInf.bookName}}</text>
+      </view>
+      <view class="authorView">
+        <text class="author">{{bookInf.author}}</text>
+      </view>
     </view>
-  </picker>
+    <view class="borrowBtn">
+      <button class="borrowState" disabled="true">{{borrowState}}</button>
+    </view>
   </view>
 
-</view>
-</view>
+  <view class="body">
+    <scroll-view scroll-y="true" class="myscroll">
+      <view class="userView">
+        <view class="user">
+          <image src='{{userInfo.avatarUrl}}' class='avatar'></image>
+          <view class="nickname">
+            <text>{{userInfo.nickName}}</text>
+            <text>({{privacy}})</text>
+          </view>
+        </view>
 
-</view>
+        <view class="borrowstatus">
+          <view class="body-view">
+            <switch checked="{{switchChecked}}" disabled='{{!isPrivacy}}' bindchange="switchChange" />
+          </view>
+        </view>
+      </view>
 
-<view class="con">
-  <text class='ellipsis-2row font-lv1'>{{bookName}}</text>
-  <text>分类：{{catg}}</text>
-  <text>{{isbn}}</text>
-</view>
-  <view class='intro font-lv3 color-grey'>
-    {{briefIntro}}
+
+      <view class="brief">
+        <view class="briefInfo ">
+          <text class="content {{!is_folded?'hide':'show'}}" decode="{{true}}" space="{{true}}">&nbsp;&nbsp; {{bookInf.briefIntro}}</text>
+        </view>
+        <view class="more" wx:if="{{!is_folded}}" bindtap="more">
+          <image src='../../../magic/more.jpg' mode="widthFix" class="state"></image>
+        </view>
+        <view wx:else class="close" bindtap="close"> 收起</view>
+      </view>
+      <!-- brief-->
+      <view class="type">
+        <view class="name">
+          标签
+        </view>
+        <view class="typeall">
+          <view wx:for="{{bookInf.categoryInfList}}" wx:for-index="idx" wx:for-item="item">
+            <view class="typeone">
+              <text>{{item.catgName}}</text>
+            </view>
+          </view>
+
+          <view class="typeone">
+            <text>{{privacy}}</text>
+          </view>
+           <view class="typeone" wx:if= "{{!isCatg}}">
+              <text>暂无分类</text>
+            </view>
+        </view>
+      </view>
+
+
+      <view class="moreinfo">
+        <view class="name">
+          更多信息
+        </view>
+        <view class="all">
+
+          <view class="one">
+            <text>isbn : {{bookInf.isbn}}</text>
+          </view>
+
+           <view class="oneA" wx:if="{{bookInf.author!=null && bookInf.author!=''}}">
+           <view class="authorOne">作者 :</view>
+           <view class="authorOneContent"> {{bookInf.author}}</view> 
+            
+          </view>
+
+          <view class="one" wx:if="{{bookInf.translator!=null && bookInf.translator!=''}}">
+            <text>翻译 : {{bookInf.translator}}</text>
+          </view>
+          <view class="one" wx:if="{{bookInf.publisher!=null && bookInf.publisher!=''}}">
+            <text>出版社 : {{bookInf.publisher}}</text>
+          </view>
+          <view class="one" wx:if="{{bookInf.pubTime!=null && bookInf.pubTime!=''}}">
+            <text>出版日期 : {{bookInf.pubTime}}</text>
+          </view>
+          <view class="one" wx:if="{{time!=null && time!=''}}">
+            <text>加入书架时间 : {{time}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="footer">
+
+      <view class="footerView">
+        <view class="deleteView">
+          <button class="deleteBtn"bindtap='deleteBook'> 移除书籍 </button>
+        </view>
+
+        <view class="checkView">
+          <button class="checkBtn" catchtap="applyBtn" id='{{userBook.bookId}}'> 查看申请 </button>
+        </view>
+
+      </view>
+    </view>
   </view>
-
-</view>
-
-<view wx:else>
-书籍不存在
 </view>

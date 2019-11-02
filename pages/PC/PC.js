@@ -1,10 +1,12 @@
 // pages/PC/PC.js
-var app = getApp()
+
+const app = getApp();
+var util = require('../../utils/util');
+var api = require('../../utils/api.js');
 Page({
   data: {
     userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    isSuccess:false
   },
   //事件处理函数
   toOrder: function () {
@@ -13,33 +15,54 @@ Page({
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+  },
+
+  onShow:function(){
+    this.loadData();
+  },
+
+  onGotUserInfo: function (e) {
+    var that = this;
+    var mode = "login";
+    app.login(mode).then(function (res) {
+      var isSuccess = false;
+      if (res.data.result==0&&res.data.save_sucess==1){
+        var userInfo = res.userInfo;
+        isSuccess = true;
+        app.globalData.is_login = 1;
+        that.setData({
+          userInfo : userInfo,
+          isSuccess: isSuccess
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    });
   },
+
+
+  loadData:function(){
+    var that = this;
+    app.checkSession({
+      success: function () {
+        app.request({
+          url: api.pc.pc,
+          success: function (res) {
+            var isSuccess = false;
+            if (app.globalData.is_login == 1 && res.status.isSuccess==2){
+              var userInfo = res.userInfo;
+              isSuccess = true;
+              that.setData({
+                userInfo: userInfo,
+                isSuccess: isSuccess
+              })
+            }
+          }
+        })
+      }
+    });
+     
+  },
+
+
   getUserInfo: function (e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo

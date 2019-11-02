@@ -5,158 +5,242 @@ var util = require('../../../utils/util');
 var api = require('../../../utils/api.js');
 Page({
   data: {
-    bookName: '',
-    briefIntro: '',
-    picPath: '',
-    isbn: '',
-    catg:'',
-    borrowState:'',
-    is_exist:1,
-    oldIndex:-1,
-    hiddenModal: true,
-    input: null,
-    array: ['公开', '私密'],
-    objectArray: [
-      {
-        id: 0,
-        name: '公开'
-      },
-      {
-        id: 1,
-        name: '私密'
-      }
-    ],
-    index: -1,
+    is_folded: 0,
+    userBook: {},
+    userInfo: {},
+    bookInf: {},
+    borrowState: '',
+    privacy: '',
+    time: '',
+    is_exist: -1,
+    switchChecked: true,
+    bookId: -1,
+    isPrivacy:false ,//不可设置公开与否
+    isCatg:true,
+
   },
-  onLoad: function (options) {
-    var id = options.id;
-    this.data.isbn = id;
+  onLoad: function(options) {
+    var bookId = options.bookId;
+    this.setData({
+      bookId: bookId,
+
+    })
     this.loaddata();
 
   },
-  loaddata: function () {
+  loaddata: function() {
     var that = this;
-    app.checkSession({success:function(){
-      app.request({
-        url: api.asecond.bdself,
-        data: {
-          isbn: that.data.isbn
-        },
-        success: function (res) {
-          if (res.status.is_exist==1){
-            var briefIntro = '';
-            var borrowState = '';
-            var index = 0;
-            var catg = '';
-            if (res.data.briefIntro == '') {
-              briefIntro = '无简介'
-            }
-            else {
-              briefIntro = res.data.briefIntro;
-            }
+    app.checkSession({
+      success: function() {
+        app.request({
+          url: api.asecond.bdself,
+          data: {
+            bookId: that.data.bookId,
+          },
+          success: function(res) {
+            console.log("self", res);
+            if (res.status.is_exist == 2) {
 
-            if (res.data.privacy == 0) {
-              index = 0;//公开
-            }
-            else {
-              index = 1;
-            }
-
-            if (res.data.borrowState == 1) {
-              borrowState = "待处理";
-            }
-            else {
-              if (res.data.borrowState == 2) {
-                borrowState = "已借阅";
+              var userBook = res.userBook;
+              var bookInf = res.bookInf;
+              var borrowState = '';
+              var privacy = '';
+              var switchChecked = true;
+              var isPrivacy = false;
+              var is = false;
+              var isCatg = false;
+              if (res.bookInf.categoryInfList != null && res.bookInf.categoryInfList.length != 0) {
+                isCatg = true;
+              } else {
+                isCatg = false;
               }
-              else {
-                borrowState = "无申请";
+
+              if (res.bookInf.briefIntro == '' || res.bookInf.briefIntro == null) {
+                bookInf.briefIntro = '暂无简介'
+              } else {
+                bookInf.briefIntro = res.bookInf.briefIntro;
               }
+
+              if (res.userBook.privacy == 0) {
+                privacy = '公开';
+                switchChecked = true;
+              } else {
+                privacy = '私密';
+                switchChecked = false;
+                isPrivacy = true; //允许设置是否公开
+              }
+
+              if (res.userBook.borrowState == 1) {
+                borrowState = "待处理";
+                isPrivacy = false;
+
+              } else if (res.userBook.borrowState == 2){
+                  borrowState = "借阅中";
+                  isPrivacy = false;
+              } else {
+                  borrowState = "无申请";
+                  isPrivacy = true;
+                }
+            
+              var addTime = res.userBook.addTime;
+              var time = addTime.split('.')[0].split('T')[0];
+
+              that.setData({
+                isPrivacy: isPrivacy,
+                userInfo: res.userInfo,
+                userBook: res.userBook,
+                bookInf: res.bookInf,
+                borrowState: borrowState,
+                privacy: privacy,
+                switchChecked: switchChecked,
+                is_exist: res.status.is_exist,
+                time: time,
+                isCatg: isCatg
+              })
+            } else {
+              that.setData({
+                is_exist: res.status.is_exist
+              })
             }
 
-            for (var i = 0; i < res.data.catg.length; i++) {
-              catg += res.data.catg[i];
-              if (i < res.data.catg.length - 1) {
-                catg += ',';
-              }
-            }
+          },
+        });
 
-            that.setData({
-              borrowState: borrowState,
-              bookName: res.data.bookName,
-              picPath: res.data.picPath,
-              briefIntro: briefIntro,
-              index: index,
-              catg: catg,
-              is_exist: res.status.is_exist
-            })
-            console.log("bdself", res.data)
-          
-          }
-          else{
-            that.setData({
-              is_exist: res.status.is_exist
-            })
-          }
-        },
-      });
+      }
+    })
 
-    }})
-   
   },
 
-  setPrivate: function (pr) {
+
+  more: function(e) {
+    var that = this;
+    this.setData({
+      is_folded: 1
+    })
+  },
+
+  close: function(e) {
+    var that = this;
+    this.setData({
+      is_folded: 0
+    })
+  },
+
+  switchChange: function(e) {
+    var switchChange = e.detail.value;
+    var privacy = '';
+    var pr = 0;
+
+    if (switchChange) {
+      privacy = '公开';
+      pr = 0;
+    } else {
+      privacy = '私密';
+      pr = 1;
+    }
+
     var that = this;
     app.request({
       url: api.asecond.privacy,
       data: {
-        isbn: that.data.isbn,
-        privacy:pr
+        bookId: that.data.bookId,
+        privacy: pr
       },
-      success: function (res) {
-        var that= this;
-        var oldIndex = this.data.oldIndex;
-        console.log("bdtail", res.data)
-        if (res.data.save_success==0){
+      success: function(res) {
+        if (res.data.save_success == 0) {
           //保存失败
-          that.setData({
-            newIndex:oldIndex
-          })
           wx.showToast({
             title: '修改失败',
+            icon: 'none',
             duration: 2000
           })
-        }else{
+        } else {
+          that.setData({
+            switchChange: switchChange,
+            privacy: privacy
+          });
           wx.showToast({
             title: '修改成功',
+            icon: 'success',
             duration: 2000
+
           })
         }
-       
       },
-
     });
   },
 
-  bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+  deleteBook:function(){
     var that = this;
-    var oldIndex = this.data.index;
-    var newIndex = e.detail.value;
-    this.setData({
-      index: newIndex,
-      oldIndex: oldIndex
-    })
-    if (oldIndex != newIndex){
-      app.checkSession({
-        success: function () {
-          that.setPrivate(newIndex);
-        }
-      })
-    }
-  },
-  
 
- 
- 
+
+    wx.showModal({
+      title: '提示',
+      content: '确认要删除本书籍?',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+
+          app.checkSession({
+            success: function () {
+              app.request({
+                url: api.asecond.deletebook,
+                data: {
+                  bookId: that.data.bookId
+                 
+                },
+                success: function (res) {
+                  if (res.data.save_success == 1) {
+                    var type = res.type.isList;
+                    console.log("delete", res)
+                    wx.showToast({
+                      title: '删除成功',
+                      icon: 'success',
+                      duration: 3000,
+                      success:function(){
+                       
+                        if (type==0){
+                          wx.switchTab({
+                            url: '/pages/shelf/shelf'
+                          })
+                        }else{
+                          let pages = getCurrentPages();
+                          let prevPage = pages[pages.length - 2];
+                          prevPage.loadData();
+                           wx.navigateBack({
+                             delta:1
+                           })
+                        }
+                       
+                      }
+                    })
+                    
+                  
+                  } else {
+                
+                    wx.showToast({
+                      title: '删除失败',
+                      icon: 'none',
+                      duration: 2000
+                    })
+                  }
+                },
+              });
+            }
+          })
+
+
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })  
+  },
+  applyBtn:function(e){
+    var self = 'self'
+    wx.navigateTo({
+      url: '/pages/chat/chat?id=' + e.currentTarget.id + '&self=' + self
+    })
+  }
+
 })

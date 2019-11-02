@@ -27,7 +27,7 @@
     </form>
 
     <view class="weui-btn-area">
-        <button wx:if='{{isShowInputForm}}' class="weui-btn" type="primary" bindtap="search"> 查询</button>
-         <button wx:if='{{!isShowInputForm}}' class="weui-btn" type="primary" bindtap="getScancode"> 扫一扫</button>
+        <button wx:if='{{isShowInputForm}}' class="scanbtn" bindtap="search"> 查询</button>
+         <button wx:if='{{!isShowInputForm}}' class="scanbtn"  bindtap="getScancode"> 扫一扫</button>
     </view>
 </view>

@@ -1,111 +1,305 @@
+/* pages/asecond/BDself/BDself.wxss */
 
 /*  info  */
-page{
-  padding-bottom: 120rpx;
+
+page {
+  width: 100%;
+  height: 100%;
 }
 
-
-.con{
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
+.total {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
-.cen{
-  display:flex;                    
-  justify-content: center; 
+
+.top {
+  background-color: rgba(238, 229, 222, 0.2);
+  height: 25%;
+  width: 100%;
+  border-bottom: solid 2px #efefef;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.pic {
+  width: 20%;
+  height: 200rpx;
+  margin-left: 20rpx;
+  margin-right: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.content {
+  flex: 1;
+}
+
+.borrowBtn {
+  flex: 1;
+}
+
+.borrowState {
+  margin-bottom: 20rpx;
+  border: 1px solid #dedede;
+  width: 200rpx;
+  height: 65rpx;
+  font-size: 30rpx;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 25px;
+  border-radius: 3px;
+  background-color: #ebebeb;
+}
+
+.borrowState::after {
+  border: none;
+}
+
+.title {
+  display: block;
+  margin-bottom: 65rpx;
+  font-size: 30rpx;
+}
+
+.author {
+  display: block;
+  font-size: 25rpx;
+  color: black;
+  margin-bottom: 20rpx;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  height: 75%;
+  width: 100%;
+}
+
+.brief {
+  flex:1;
+  border-bottom: 1px solid #efefef;
+  padding: 0 20rpx 0 20rpx;
+}
+
+.briefInfo {
+  line-height: 44rpx;
+  margin-top: 20rpx;
+}
+
+.briefInfo .content {
+  letter-spacing: 5rpx;
+  font-size: 25rpx;
+  color: #8a8a8a;
+}
+
+.hide {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.show {
+}
+
+.more {
+  margin-top: 10rpx;
+  text-align: center;
+}
+
+.state {
+  width: 92rpx;
+}
+
+.close {
+  font-size: 25rpx;
+  color: #969696;
+  float: right;
+}
+
+.type {
+   flex:1;
+   padding: 0 20rpx 0 20rpx;
+  height: 200rpx;
+  border-bottom: 1px solid #efefef;
+}
+
+.typeone {
+  border: solid 1px #ccc;
+  margin-left: 30rpx;
+  font-size: 27rpx;
+  border-radius: 6rpx;
+  line-height: 35rpx;
+  padding: 10rpx 20rpx 20rpx 20rpx;
+}
+
+.typeone text {
+  font-size: 27rpx;
+  color: #838b8b;
+}
+
+.type .name {
+  height: 20rpx;
+  font-size: 27rpx;
+  color: #a8a8a8;
+}
+
+.typeall {
+  margin-left: 30rpx;
+  margin-top: 20rpx;
+  height: 150rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.cate-row .font-lv3{display: inline-block;margin-right: 30rpx;}
-.icon-avatar{width: 38rpx;position: relative;top:6rpx;}
-.info{padding: 30rpx;padding-top: 10rpx;}
-.info .cover{max-width: 100%;}
-.title{margin-bottom: 15rpx;min-height: 80rpx;}
-.info .col-8{padding-left: 30rpx;box-sizing:border-box;}
-.info .col-8 .text-muted{display: block;line-height: 180%;}
-
-.data{margin-bottom: 30rpx;padding: 0rpx 30rpx;}
-.data>view{border-bottom: 1px solid #efefef;padding-bottom: 30rpx;}
-.data .col{text-align: center;font-size: 28rpx;}
-.data .col:nth-of-type(2n){border-left: 1px solid #f1f1f1;border-right: 1px solid #f1f1f1;}
- .data .col .text-muted{text-align: center;display: block;} 
-
-.btns{
-  padding: 0rpx 15rpx 30rpx;
-  border-bottom: 10rpx solid #efefef;
-}
-.btns .col{
-  justify-content: space-between;
-  padding: 0rpx 15rpx;
-  box-sizing: border-box;
-}
-.btns .col view{
-  background-color: #efefef;
-  text-align: center;
-  margin:0px auto;
-  padding: 8rpx 0rpx;
-  border-radius: 10rpx;
+.moreinfo {
+ padding: 10rpx 20rpx 20rpx 20rpx;
 }
 
-/*  书籍介绍  */
- .intro{border-bottom: 1px solid #efefef;padding:30rpx;padding-top:0rpx;line-height: 180%;} 
-
-/*  目录入口  */
-.menu{
-  padding: 30rpx;font-size: 28rpx;
-  border-bottom: 10rpx solid #efefef;
+.moreinfo .name {
+  height: 20rpx;
+  font-size: 27rpx;
+  color: #a8a8a8;
 }
 
-.user image{
-  width: 36rpx;height: 36rpx;display: inline-block;
-  margin-right: 10rpx;
+.moreinfo .all {
+
+  margin-top: 20rpx;
 }
-.user image.clock{
-  margin-left: 30rpx;
-  width: 26rpx;
-  height: 26rpx;
-  position: relative;
-  top:-5rpx;
+.one {
+  margin-bottom: -10rpx;
 }
 
-.user .text-muted{display: inline-block;position: relative;top:-7rpx;margin-left: 6rpx;}
+.one text {
+  font-size: 27rpx;
+  color: #838b8b;
+}
 
-/* fix bottom  */
-.fix-bottom{
+.footer {
+  background-color:rgba(238, 229, 222, 0.2);
+  border-top:1px solid #efefef;
   position: fixed;
-  bottom: 0px;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  text-align: center;
-  background-color: #fff; 
-  box-shadow: 0rpx 0rpx 10rpx #ddd;
-  height: 90rpx;
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.fix-bottom .read{
-  position: relative;
-  top:-30rpx;
-  background-color: #1aad19;
-  color: #fff;
+.user {
+  padding-left: 40rpx;
+  flex: 2;
+  border-right: 1px solid #efefef;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.user .nickname{
+  font-size: 32rpx;
+  color: #BEBEBE;
+  margin-left: 20rpx;
   padding-top: 10rpx;
-  box-sizing: border-box;
-  height: 110rpx;
-  width: 110rpx;
-  margin: 0px auto;
-  border-radius: 50%;
-  z-index: 10;
+  flex:1;
 }
 
-.fix-bottom image{
-  height: 50rpx;
-  width: 50rpx;
-  vertical-align: middle;
+.borrowstatus {
+  flex: 1;
+  text-align: center;
 }
-.fix-bottom text{display: block;font-size: 24rpx;}
-.item-min{font-size: 26rpx;color: #999;line-height: 100%;padding-top:10rpx;}
-.item-min image{width: 40rpx;height: 40rpx;margin-bottom: 4rpx;}
-.comments .panel-heading{border-bottom: 1px solid #efefef;padding-bottom: 30rpx;}
-.comment-info{line-height: 150%;}
-.comment-info .score{margin-top: 6rpx;}
-.comment-info .pull-right{margin-top:5rpx;}
-.comment-right{padding-left: 30rpx;box-sizing: border-box;}
-.comment-list{border-bottom: 1rpx solid #efefef;padding-bottom: 30rpx;margin-bottom: 40rpx;}
+
+
+.avatar{
+    height: 75rpx;
+    width: 75rpx;
+    border-radius: 25px;
+}
+
+
+.myscroll{
+  height:85%;
+}
+
+
+
+
+/*swtich整体大小及背景色*/
+.wx-switch-input{
+    width:82rpx !important;
+    height:40rpx !important;
+    background: #87CEFA !important;
+    border: #87CEFA !important; /* 2018-07-18 重置开关边框颜色 */
+}
+/*白色样式（false的样式）*/
+.wx-switch-input::before{
+    width:80rpx !important;
+    height: 40rpx !important;
+}
+/*绿色样式（true的样式）*/
+.wx-switch-input::after{
+    width: 40rpx !important;
+    height: 40rpx !important;
+}
+
+.cancel{
+  background: none;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 30rpx;
+  color: grey;
+}
+
+.cancel::after{
+  border: none;
+}
+
+.cancelcolor{
+ 
+}
+
+.userView {
+  border-bottom: 1px solid #efefef;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 15rpx;
+  background-color: white;
+}
+
+
+.authorOne{
+
+  font-size: 27rpx;
+  color: #838b8b;
+  width: 80rpx;
+}
+
+.authorOneContent{
+ flex: 1;
+  font-size: 27rpx;
+  color: #838b8b;
+}
+
+.oneA{
+  margin-top: 10rpx;
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.chatBtn{
+  font-size: 30rpx;
+  background: none;
+}
+
+.chatBtn::after{
+  border:  none;
+}
+

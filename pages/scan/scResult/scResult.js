@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    is_briefnull:1,
     windowWidth: '',
     disable:false,
     pixelRatio:'',
@@ -32,7 +33,7 @@ Page({
     ]
 
   },
-  
+
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
     var value = e.detail.value;
@@ -159,11 +160,15 @@ Page({
           })
           if (res.status.is_exist == 1) {
             var briefIntro = res.book.briefIntro;
+            var is_briefnull = 1;
 
-            if (res.book.briefIntro == null) {
-              briefIntro = "无简介"
+            if (res.book.briefIntro == null || res.book.briefIntro == '') {
+              briefIntro = "无简介";
+              is_briefnull = 0;
+
             }
             that.setData({
+              is_briefnull:is_briefnull,
               publisher:res.book.publisher,
               price:res.book.price,
               bookName: res.book.bookName,

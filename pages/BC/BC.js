@@ -23,6 +23,7 @@ Page({
   },
   //事件处理函数
   onLoad: function (options) {
+   
     var that = this;
     app.login().then(function (res) {
 
@@ -32,8 +33,8 @@ Page({
       if (res.data.result == 0) {
 
         console.log("用户不存在，跳转到授权界面");
-        wx.navigateTo({
-          url: "/pages/index/index"
+        wx.switchTab({
+          url: "/pages/PC/PC"
         })
       }
       else {
@@ -42,10 +43,13 @@ Page({
     })
   },
   onShow: function () {
-    var pages = getCurrentPages();
-    var currPage = pages[pages.length - 1]; //当前页面
-    let is_login = currPage.data.is_login;
-    console.log("onshow", is_login)//为传过来的值
+    if (app.globalData.is_login != 1) {
+      console.log("用户不存在，跳转到授权界面");
+      wx.switchTab({
+        url: "/pages/PC/PC"
+      })
+    }
+    let is_login = app.globalData.is_login;
     if (is_login == 1) {
       this.loadMyCircle();
     }

@@ -7,21 +7,18 @@ var api = require('../../utils/api.js');
 
 Page({
   data: {
-
     is_login: -1,
-    nullView: [],
-    cat_list: {},
-    dataSource: [],
-    height: 200,
-    widHeight: 0 + 'px',
- 
+    nullView: [], //每一分类下是否需要空占位
+    cat_list: {}, //分类
+    dataSource: [], //每一分类下的所有书籍
+    widHeight: 0 + 'px', //swiper 的高度 ，默认为150
     currentTab: 0,
     navScrollLeft: 0,
+    exist:true,
 
-    //时间/字母
+    //picker
     array: ['时间', '字母'],
-    objectArray: [
-      {
+    objectArray: [{
         id: 0,
         name: '时间'
       },
@@ -31,12 +28,7 @@ Page({
       }
     ],
     index: 0,
-    //书籍
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
+
     indicatorDots: true,
     autoplay: true,
     interval: 5000,
@@ -46,7 +38,7 @@ Page({
   },
 
   //时间/字母
-  bindPickerChange: function (e) {
+  bindPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value);
     var index = e.detail.value;
     var that = this;
@@ -60,46 +52,63 @@ Page({
       var cur = that.data.currentTab
       datas[cur].sort(that.compare());
       that.setData({
-        dataSource:datas
+        dataSource: datas
       })
 
     }
-  
+
   },
 
-  //事件处理函数
-  onLoad: function (options) {
+  /**
+   * 用户存在：加载界面，否则跳转到pc/pc界面（进行授权）
+   **/
+  onLoad: function(options) {
+
     var that = this;
     var mode = "check";
-    app.login(mode).then(function (res) {
+
+    app.login(mode).then(function(res) {
       that.setData({
         is_login: res.data.result
       })
       // is_login:-1(code为null)，0(用户不存在)，1(用户存在)
       if (res.data.result == 0) {
-        wx.navigateTo({
-          url: "/pages/index/index"
+        wx.switchTab({
+          url: "/pages/PC/PC"
         })
-      }
-      else {
+      } else {
+        app.globalData.is_login = 1;
+        that.setData({
+          is_login: app.globalData.is_login,
+        })
+        //加载界面书籍
         that.loadData();
       }
     })
   },
 
-  onShow: function () {
-    var pages = getCurrentPages();
-    var currPage = pages[pages.length - 1]; //当前页面
-    let is_login = currPage.data.is_login;
+  /**
+   * 每次切换tab时重新加载数据 
+   **/
+  onShow: function() {
+    if (this.data.is_login != 1) {
+      console.log("用户不存在，跳转到授权界面");
+      wx.switchTab({
+        url: "/pages/PC/PC"
+      })
+    }
+    let is_login = app.globalData.is_login;
     if (is_login == 1) {
       this.loadData();
+    } else {
+      //重新授权
     }
   },
 
   /**
-  * 页面相关事件处理函数--监听用户下拉动作
-  */
-  onPullDownRefresh: function () {
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
     this.loadData();
   },
 
@@ -122,6 +131,7 @@ Page({
       })
     }
   },
+
   switchTab(event) {
     var cur = event.detail.current;
     console.log(cur)
@@ -138,94 +148,113 @@ Page({
 
 
   //xqq:加载界面数据：分类以及书籍
-  loadData: function () {
+  loadData: function() {
+   
+    //设置swiper 高度，默认为150
+    var windowWidth = wx.getSystemInfoSync().windowWidth;
+    var windowHeight = wx.getSystemInfoSync().windowHeight;
+    var scroll_height = 750 * windowHeight / windowWidth - 100;
+
     var that = this;
     var access_token = wx.getStorageSync("access_token");
-    app.checkSession({success:function(){
-      app.request({
-        url: api.myshelf.myshelf,
-        header: {
-          'content-type': 'application/x-www-form-urlencoded',
-          'Authorization': access_token
-        },
-        success: function (res) {
-          if (res.code == 0) {
-            var book = [
-              {
-                catgId: 0,
-                catgName: '所有'
-              }
-            ];
-            for (var i = 0; i < res.data.cat_list.length; i++) {
+    app.checkSession({
+      success: function() {
+        app.request({
+          url: api.shelf.myshelf,
+          header: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'Authorization': access_token
+          },
+          success: function(res) {
+            var exist = false;
+            console.log("shelf",res)
+            //顶部导航条（分类）
+            if (res.status.isSuccess == 2) {
+              exist = true;
+              var book = [];
+              for (var i = 0; i < res.data.cat_list.length; i++) {
+                book.push(res.data.cat_list[i]);
+              };
+              //顶部导航条（分类）
 
-              book.push(res.data.cat_list[i]);
-            };
-            var datasource = [];
-            var nullview = [];
-            var x = Math.floor(res.data.catg_book_list.length / 3);
+              //书架
+              var datasource = [];
+              var nullview = []; //是否需要空占位
+              var widheight = scroll_height + 'rpx';
 
-            var widheight = x * that.data.height + 'px';
-            
-            for (var i = 0; i < res.data.catg_book_list.length; i++) {
-            
-              if (res.data.catg_book_list[i].catgId == 0) {
-                datasource.unshift(res.data.catg_book_list[i].catg_book_list);
+              for (var i = 0; i < res.data.catg_book_list.length; i++) {
+                if (res.data.catg_book_list[i].catgId == 0) {
+                  //分类所有-放置在最前
+                  datasource.unshift(res.data.catg_book_list[i].catg_book_list);
+                  //若最后一行只有两本书籍，为保证格式不乱，插入一个空占位
+                  if (res.data.catg_book_list[i].catg_book_list.length % 3 == 2) {
+      
+                    nullview.unshift(true);
+                  } else {
+                    nullview.unshift(false);
+                  }
+
+                  continue;
+                }
+
+                //若最后一行只有两本书籍，为保证格式不乱，插入一个空占位
                 if (res.data.catg_book_list[i].catg_book_list.length % 3 == 2) {
-                  nullview.unshift(1);
+          
+                  nullview.push(true);
+                } else {
+                  nullview.push(false);
                 }
-                else {
-                  nullview.unshift(0);
-                }
-                continue;
+                datasource.push(res.data.catg_book_list[i].catg_book_list);
+
 
               }
-              else {
-                if (res.data.catg_book_list[i].catg_book_list.length % 3 == 2) {
-                  nullview.push(1);
-                }
-                else {
-                  nullview.push(0);
-                }
-              }
+              that.setData({
+                cat_list: book,
+                dataSource: datasource,
+                nullView: nullview,
+                widHeight: widheight
+              })
+  
 
-              datasource.push(res.data.catg_book_list[i].catg_book_list);
-            }
+            } else if (res.status.isSuccess==1)
+              console.log("shelf","无此用户")
+            else if (res.status.isSuccess == 3){
+              console.log("shelf", "无书籍")
+            }   
+            else 
+              console.log("shelf", "openId解密不成功")
 
-            that.setData({
-              cat_list: book,
-              dataSource: datasource,
-              nullView: nullview,
-              widHeight: widheight
-            })
-            console.log("datasource:", datasource)
-            console.log("cate_list", book);
-
+          that.setData({
+            exist: exist
+          })
+          },
+          complete: function() {
+            wx.stopPullDownRefresh();
           }
-        },
-        complete: function () {
-          wx.stopPullDownRefresh();
-        }
-      });
-    }})
-    
+        });
+      }
+    })
+
 
   },
 
   //xqq:跳转到书籍详情界面，未完成
-  goToDetailPage: function (e) {
+  goToDetailPage: function(e) {
     var isbn = e.currentTarget.id;
+    var isSelf = true;
     wx.navigateTo({
-      url: '/pages/asecond/BDself/BDself?id=' + isbn
-    });
+      url: '/pages/shelf/list/list?isbn=' + isbn + '&self=' + isSelf
+    })
+
   },
 
   /**
    *特殊写法:比较数组date日期
    */
-  compare: function () {
-    return function (a, b) {
-      var value1 = Date.parse(a.addTime);
-      var value2 = Date.parse(b.addTime);
+  compare: function() {
+    return function(a, b) {
+      var value1 = Date.parse(a.sortTime);
+      var value2 = Date.parse(b.sortTime);
       return value2 - value1;
     }
   },
@@ -233,5 +262,5 @@ Page({
 
 
 
-})
 
+})

@@ -8,3 +8,32 @@
 .mytop{
   margin-top: 30px;
 }
+
+/*swtich整体大小及背景色*/
+.wx-switch-input{
+    width:56px !important;
+    height:32px !important;
+    background: rgb(19, 170, 31) !important;
+    border: rgb(19, 170, 31) !important; /* 2018-07-18 重置开关边框颜色 */
+}
+/*白色样式（false的样式）*/
+.wx-switch-input::before{
+    width:56px !important;
+    height: 32px !important;
+}
+/*绿色样式（true的样式）*/
+.wx-switch-input::after{
+    width: 36px !important;
+    height: 30px !important;
+}
+
+.scanbtn{
+  background-color: rgb(19, 170, 31) ;
+   border: rgb(19, 170, 31) ;
+   color: white;
+   font-size: 30rpx;
+   height: 100rpx;
+   line-height: 100rpx;
+   border-radius: 95rpx;
+
+}

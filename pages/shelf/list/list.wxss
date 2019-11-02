@@ -1,0 +1,116 @@
+
+Page{
+  width: 100%;
+  height: 100%;
+}
+.giftListView {
+  width: 100%;
+  background-color: #F5F5F5;
+  height: 100%;
+  padding-bottom: 20rpx;
+  padding-top: 20rpx;
+}
+/* cell */
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  border-radius: 10rpx;
+  background-color: white;
+  width: 95%;
+  margin: 0 auto;
+  height: 250rpx;
+  border: 1px solid #dadada;
+  margin-bottom:15rpx;
+}
+
+.iconImageView {
+  flex: 1;
+  padding-left: 20rpx;
+  padding-top: 10rpx;
+  
+}
+.iconImage {
+
+  width: 150rpx;
+  height: 200rpx;
+}
+
+.bookView {
+  flex: 3;
+
+}
+.bookNameView{
+  position: relative;
+  top:-20rpx;
+  left:10px;
+  width: 300rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bookNameText {
+    width: 300rpx;
+  color: grey;
+  font-size: 30rpx;
+}
+.bookAuthorView{
+  position: relative;
+  bottom: -35rpx;
+  left:10px;
+  width: 400rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ 
+}
+
+.bookAuthorText {
+  color: #969696;
+  font-size: 25rpx;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+
+.bookTimeView{
+  left:10px;
+  position: relative;
+  bottom: -20rpx;
+ 
+}
+
+.bookTimeText {
+  color: #969696;
+  font-size: 25rpx;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+
+
+.typeView {
+  top:-80rpx;
+  height: 50rpx;
+  width: 100rpx;
+  position: relative;
+}
+.typeText {
+  color: rgb(230, 204, 140);
+  font-size: 30rpx;
+}
+
+
+/* 剩余数 */
+/* .numView {
+  top: 190rpx;
+  height: 50rpx;
+  left: 280rpx;
+  right: 150rpx;
+  position:absolute;
+}
+.numText {
+  font-size: 25rpx;
+  color: rgb(230, 204, 140);
+   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+} */
