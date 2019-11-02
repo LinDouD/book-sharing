@@ -91,12 +91,7 @@ Page({
    * 每次切换tab时重新加载数据 
    **/
   onShow: function() {
-    if (this.data.is_login != 1) {
-      console.log("用户不存在，跳转到授权界面");
-      wx.switchTab({
-        url: "/pages/PC/PC"
-      })
-    }
+  
     let is_login = app.globalData.is_login;
     if (is_login == 1) {
       this.loadData();
@@ -220,6 +215,14 @@ Page({
               console.log("shelf","无此用户")
             else if (res.status.isSuccess == 3){
               console.log("shelf", "无书籍")
+              var book = [];
+              for (var i = 0; i < res.data.cat_list.length; i++) {
+                book.push(res.data.cat_list[i]);
+              };
+              that.setData({
+                cat_list: book,
+                
+              })
             }   
             else 
               console.log("shelf", "openId解密不成功")

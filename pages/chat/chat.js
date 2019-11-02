@@ -17,8 +17,8 @@ Page({
    */
   data: {
     list: [],
-    self:true,
-    id:-1
+    self: true,
+    id: -1
   },
 
   /**
@@ -27,7 +27,7 @@ Page({
   onLoad: function (options) {
     //self --id ==borrowId
     //other --id == bookId
-    var id  = options.id;
+    var id = options.id;
     var self = options.self;
 
     mydata.sourceId = options.sourceId
@@ -39,9 +39,9 @@ Page({
       success: function (res) {
         that.setData({
           scrollHeight: res.windowHeight,
-        //  userId: app.globalData.haulUserInfo.id,
-          self:self,
-          id :id 
+          //  userId: app.globalData.haulUserInfo.id,
+          self: self,
+          id: id
         });
       }
     });
@@ -134,7 +134,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: '',
-      mask:true
+      mask: true
     })
     console.log("getPageInfo");
     console.log("page" + page);
@@ -146,16 +146,16 @@ Page({
     app.request({
       url: api.chat.chat,
       data: {
-       // id :that.data.id,
-        id:61,
-        limited:6,
-        offset:0,
-        mode:'self'
-      //  limited: limited,
-       // offset: offset,
-       // mode:that.data.self
+        // id :that.data.id,
+        id: 61,
+        limited: 6,
+        offset: 0,
+        mode: 'self'
+        //  limited: limited,
+        // offset: offset,
+        // mode:that.data.self
       },
-     
+
       success: res => {
         console.log(res);
         if (page == 1) {
@@ -196,7 +196,7 @@ Page({
       data: {
         sourceId: mydata.sourceId,
         comment: form.comment,
-     //   userId: app.globalData.haulUserInfo.id,
+        //   userId: app.globalData.haulUserInfo.id,
         userName: app.globalData.haulUserInfo.userName,
         replyCommentId: mydata.commentId,
         replyUserName: mydata.replyUserName,

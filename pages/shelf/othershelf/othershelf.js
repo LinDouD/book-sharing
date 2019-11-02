@@ -11,7 +11,7 @@ Page({
     cat_list: {}, //分类
     dataSource: [], //每一分类下的所有书籍
     widHeight: 0 + 'px', //swiper 的高度 ，默认为150
-    fid:-1,
+    fid: -1,
 
     currentTab: 0,
     navScrollLeft: 0,
@@ -67,7 +67,7 @@ Page({
     var fid = options.fid;
     if (fid != undefined) {
       that.setData({
-        fid:fid
+        fid: fid
       })
     } else {
       console.log("fid", "fid为空")
@@ -141,8 +141,8 @@ Page({
             'content-type': 'application/x-www-form-urlencoded',
             'Authorization': access_token
           },
-          data:{
-            fid:that.data.fid
+          data: {
+            fid: that.data.fid
           },
           success: function (res) {
             console.log("othershelf", res)
@@ -218,7 +218,7 @@ Page({
     var fid = this.data.fid;
     var isSelf = false;
     wx.navigateTo({
-      url: '/pages/shelf/list/list?isbn=' + isbn +'&self='+isSelf+'&fid='+fid
+      url: '/pages/shelf/list/list?isbn=' + isbn + '&self=' + isSelf + '&fid=' + fid
     })
 
   },

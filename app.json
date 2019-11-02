@@ -2,39 +2,23 @@
   "pages": [
     "pages/shelf/shelf",
     "pages/PC/PC",
-"pages/chat/chat",
-
-        
-        "pages/chat/opt/opt",
-      "pages/contact/contact",
-
-      "pages/asecond/BDother/BDother",
+    "pages/chat/chat",
+    "pages/chat/opt/opt",
+    "pages/contact/contact",
+    "pages/asecond/BDother/BDother",
     "pages/friendlist/friendlist",
-          
-          "pages/shelf/othershelf/othershelf",
-    
-  
+    "pages/shelf/othershelf/othershelf",
     "pages/asecond/BDself/BDself",
-
-        "pages/shelf/list/list",
-      
-       
+    "pages/shelf/list/list",
     "pages/scan/scResult/scResult",
     "pages/scan/scan",
-   
-
     "pages/index/index",
     "pages/logs/logs",
     "pages/BC/BC",
-    
     "pages/asecond/BDetail/BDetail",
-
-   
     "pages/asecond/posting/posting",
     "pages/asecond/SearchBC/SearchBC",
     "pages/historicrecord/historicrecord",
-   
-  
     "pages/posting/posting",
     "pages/addfriend/addfriend",
     "pages/bsecond/CMember/CMember",
