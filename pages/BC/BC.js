@@ -19,7 +19,9 @@ Page({
       city_id: '001',
       city_name: '圈名'
     }],
-    selected: {}
+    selected: {
+      id: '000',
+      name: '书名'}
   },
   //事件处理函数
   onLoad: function (options) {
@@ -162,10 +164,28 @@ Page({
 
   //跳转到图书圈搜索结果页面
   goToSearchRes:function(e){
-   var bcName=this.data.searchBC;
-    wx.navigateTo({
-      url: '/pages/asecond/SearchBC/SearchBC?bcName=' + bcName
-    });
+    console.log("selected=",this.data.selected);
+    console.log("selected。name=", this.data.selected.name);
+    if(this.data.searchBC){
+      if (this.data.selected.id == '001') {
+        var bcName = this.data.searchBC;
+        wx.navigateTo({
+          url: '/pages/asecond/SearchBC/SearchBC?bcName=' + bcName
+        });
+      } else if (this.data.selected.id == '000') {
+        var bName = this.data.searchBC;
+        wx.navigateTo({
+          url: '/pages/asecond/SearchBC/SearchBC?bName=' + bName
+        });
+      }
+    }else{
+      wx.showToast({
+        title: '搜索不可为空' ,
+        icon: 'none'
+      })
+    }
+    
+      
   },
   change(e) {
     this.setData({

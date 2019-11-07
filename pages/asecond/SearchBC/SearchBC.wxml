@@ -1,10 +1,16 @@
 <!--pages/asecond/SearchBC/SearchBC.wxml-->
 <!--  搜索框  -->
-<view class='search '>
-  <label>
-    <icon type='search' bindtap='goToSearchRes'></icon>
-    <input type='search' placeholder="请输入搜索关键字" bindinput="searchInput"/>
-  </label>
+<view class='search content'>
+    <label>
+      <icon type='search' bindtap='goToSearchRes'></icon>
+      <input type='search' class="mysearch" placeholder="请输入搜索关键字" bindinput="searchInput"/>
+    </label>    
+  
+  <view class="container" bindtap="close">
+  <view class="select-wrap">
+    <select id="select" options="{{options}}" key="city_id" text="city_name" bind:change="change"></select>
+  </view>
+  </view>
 </view>
 
 
@@ -12,7 +18,7 @@
 <view class='panel base-padding base-margin-bottom cate-data'>
 
   <view class='panel-heading'>
-    <view class='panel-title font-lv2 mgl-15rpx' ></view>
+    <view class='panel-title font-lv2 mgl-15rpx' > {{selected.name}} 结果</view>
   </view>
   <view class='panel-body'>
       <view class='row' wx:for="{{dataSource}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}" bindtap="goToDetailCircle">
