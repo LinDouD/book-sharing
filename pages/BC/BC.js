@@ -149,11 +149,18 @@ Page({
       }
     })
   },
-  //跳转到图书圈详情界面
-  goToDetailCircle: function (e) {
-    var isbn = e.currentTarget.id;
+  //跳转到已加入的图书圈详情界面
+  goToDetailCircle1: function (e) {
+    var circleId = e.currentTarget.id;
     wx.navigateTo({
-      url: '/pages/bsecond/CMember/CMember'
+      url: '/pages/bsecond/CMember/CMember?circleId='+circleId
+    });
+  },
+  //跳转到未加入的图书圈详情界面
+  goToDetailCircle2: function (e) {
+    var circleId = e.currentTarget.id;
+    wx.navigateTo({
+      url: '/pages/bsecond/OtherCircle/OtherCircle?circleId=' + circleId
     });
   },
   searchInput: function (e) {

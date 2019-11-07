@@ -23,6 +23,19 @@
 .container{
 padding:10rpx; 
 }
+.create-button{
+  margin-top:10rpx;
+font-size: 28rpx;
+padding-left: 5rpx;
+padding-right: 5rpx;
+color:#2f65bb;
+background-color: transparent;
+line-height: 55rpx;
+}
+.create-button::after{
+  border-color: #2f65bb;
+  border-width: 2px;
+}
 .slide-image{
    width: 100%; 
 }
@@ -51,6 +64,20 @@ swiper-item{
   font-size: 32rpx;
   padding-left: 90rpx;
 }
+.swiper-box{ display: block; height: 100%; width: 100%; overflow: hidden; }  
+
+.swiper-tab{  
+    width: 100%;  
+    border-bottom: 2rpx solid #2f65bb;  
+    text-align: center;  
+    line-height: 80rpx;}  
+.swiper-tab-list{  font-size: 30rpx;  
+    display: inline-block;  
+    width: 33%;  
+    color: #777777;  
+}  
+.on{ color: #2f65bb;  
+    border-bottom: 5rpx solid #2f65bb;}  
 .pk1{
   text-align: center;
   font-size: 32rpx

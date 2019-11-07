@@ -20,7 +20,7 @@
   <view class='panel-heading'>
     <view class='panel-title font-lv2 mgt-15rpx mgl-15rpx'>我的图书圈 
 
-  <button class='pull-right  create-button color-green'  bindtap='showModal2'>创建图书圈   </button>
+  <button class='pull-right  create-button'  bindtap='showModal2'>创建图书圈   </button>
 <modal hidden="{{hiddenModal2}}" class='bold100' title="创建图书圈" confirm-text="提交" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
     <input class='font-lv2 bold100' value='{{bcName}}'placeholder='图书圈标题' bindinput='input1'/>
     <text>\n</text>
@@ -37,7 +37,7 @@
   </view>
 
   <view class='box'>
-    <view   wx:for="{{dataSource}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}"            bindtap="goToDetailCircle" class='circle text-muted'>
+    <view   wx:for="{{dataSource}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}"            bindtap="goToDetailCircle1" class='circle text-muted'>
       <image class="circle-image" src="{{item.circlePicPath}}" mode="aspectFill"></image>
       <view class='font-lv3  ellipsis-2row'>
         {{item.bcName}}
@@ -65,7 +65,7 @@
   </view>
   </view>
   <view class='panel-body'>
-      <view class='row' wx:for="{{othercircle_list}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}" bindtap="goToDetailCircle">
+      <view class='row' wx:for="{{othercircle_list}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}" bindtap="goToDetailCircle2">
         <view class='row-left'> 
             <image mode='widthFix' class='circle2-image' src="{{item.circlePicPath}}"/>
         </view>

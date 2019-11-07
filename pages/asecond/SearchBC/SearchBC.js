@@ -26,12 +26,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      selected: {
-        id: '000',
-        name: '书名'
-      }
-    })
     if(options.bcName){
       var bcName = options.bcName;
       this.data.bcName = bcName;
@@ -175,9 +169,9 @@ Page({
 
   //跳转到图书圈详情界面
   goToDetailCircle: function (e) {
-    var isbn = e.currentTarget.id;
+    var circleId = e.currentTarget.id;
     wx.navigateTo({
-      url: '/pages/bsecond/CMember/CMember'
+      url: '/pages/bsecond/CMember/CMember?circleId='+circleId
     });
   },
   searchInput: function (e) {

@@ -32,12 +32,13 @@ padding:10rpx;
 .create-button{
 font-size: 32rpx;
 padding-left: 20rpx;
-padding-right: 20rpx;/*color:rgb(19, 170, 31);*/
+padding-right: 20rpx;
+color:#2f65bb;
 background-color: transparent;
 line-height: 60rpx;
 }
 .create-button::after{
-  border-color: rgb(19, 170, 31);
+  border-color: #2f65bb;
   border-width: 2px;
 }
 .slide-image{

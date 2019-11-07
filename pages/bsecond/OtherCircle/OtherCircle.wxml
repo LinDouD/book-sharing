@@ -1,12 +1,12 @@
-<!--pages/bsecond/CMember/CMember.wxml-->
+<!--pages/bsecond/OtherCirlce/OtherCircle.wxml-->
 <view class="con">
   <view class="cen">
-    <image style="width:140px;height:140px;" src='{{picPath}}'></image>
+    <image style="width:140px;height:140px;" src='/magic/BookCircle/circle1.png'></image>
     <view style="width:20px;"></view>
     <view class="wenzi">
-      <text>{{bcName}}</text>
-      <text class='text-muted ellipsis-3row desc'>{{createTime}}</text>
-      <text class='text-muted ellipsis-3row desc'>{{intro}}</text>
+      <text>深夜阅读\n</text>
+      <text class='text-muted ellipsis-3row desc'>2019-10-09\n</text>
+      <text class='text-muted ellipsis-3row desc'>寻求夜晚的宁静\n</text>
       <button class='create-button'>编辑资料</button>
     </view>
   </view>
@@ -31,7 +31,7 @@
         </view>
         <view class='row-right'>
         <view style="height:20px;"></view>
-          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>成员1</navigator>
+          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>成员xx1</navigator>
     
           <view class='text-muted ellipsis-3row'>他酷到没有签名。
           </view>

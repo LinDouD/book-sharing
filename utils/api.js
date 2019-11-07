@@ -20,6 +20,11 @@ var api = {
     deletebook: _api_root + 'asecond/bdself/deleteBook',
     bdother_opt: _api_root + 'asecond/bdother/opt'
   },
+  bsecond:{
+    cmember:_api_root+'bsecond/cMember',
+    othercircle:_api_root+'bsecond/otherCircle'
+
+  },
   bookcircle: {
     mybookcircle: _api_root + 'bookCircle',
     newbookcircle: _api_root + 'newBookCircle',
