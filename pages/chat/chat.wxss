@@ -153,8 +153,8 @@
 
 .tipView{
   font-size: 25rpx;
-  font-weight: 
-border: 1px solid red;
+ /* font-weight: */
+  border: 1px solid red;
 }
 
 .infoView{
