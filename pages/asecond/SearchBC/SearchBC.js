@@ -26,6 +26,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      selected: {
+        id: '000',
+        name: '书名'
+      }
+    })
     if(options.bcName){
       var bcName = options.bcName;
       this.data.bcName = bcName;
@@ -84,6 +90,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    wx.reLaunch({
+      url: '/pages/BC/BC'
+    })
 
   },
 
@@ -178,7 +187,7 @@ Page({
   //跳转到图书圈搜索结果页面
   goToSearchRes: function (e) {
     console.log("selected=", this.data.selected);
-    console.log("selected。name=", this.data.selected.name);
+    console.log("selected.name=", this.data.selected.name);
     if (this.data.selected.id == '001') {
       var bcName = this.data.searchBC;
       wx.navigateTo({

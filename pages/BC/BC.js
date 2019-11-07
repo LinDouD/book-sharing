@@ -13,7 +13,6 @@ Page({
     othercircle_list: [],
     dataSource: [],
     height: 200,
-    widHeight: 800 + 'px',
     hiddenModal2: true,
     options: [{
       city_id: '001',
@@ -121,18 +120,18 @@ Page({
           var datasource = [];
           var othercircle_list=[];
           var nullview = [];
-          var x = Math.ceil(res.my_book_circle_list.length / 3);
-          var widheight = x * that.data.height + 'px';
-          if (res.my_book_circle_list.length % 3 == 2) {  //页面最后一排只有两个
-            nullview.push(1);
+          if(res.my_book_circle_list!=null){
+            if (res.my_book_circle_list.length % 3 == 2) {  //页面最后一排只有两个
+              nullview.push(1);
+            }
+            else {
+              nullview.push(0);
+            }
+            for (var i = 0; i < res.my_book_circle_list.length; i++) {
+              datasource.push(res.my_book_circle_list[i]);
+            }         
           }
-          else {
-            nullview.push(0);
-          }
-          for (var i = 0; i < res.my_book_circle_list.length; i++) {
-            datasource.push(res.my_book_circle_list[i]);
-          }      
-          for (var i = 0; i < res.other_book_circle_list.length;i++){
+          for (var i = 0; i < res.other_book_circle_list.length; i++) {
             othercircle_list.push(res.other_book_circle_list[i]);
           }  
           console.log("nullview:",nullview);   
@@ -142,7 +141,6 @@ Page({
             dataSource: datasource,
             othercircle_list: othercircle_list,
             nullView: nullview,
-            widHeight: widheight
           })
         }
       },
