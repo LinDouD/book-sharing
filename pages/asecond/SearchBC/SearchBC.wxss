@@ -40,10 +40,15 @@
 }
 
 .cate-data{margin-top: 10rpx;}
+.container{
+padding:10rpx; 
+}
 .mb{
   margin-left: 10rpx;
   margin-bottom: 10rpx;}
-
+.mysearch{
+width:520rpx;
+}
 .circle-image{
   width: 100%;
   height:240rpx;
@@ -51,6 +56,12 @@
 .circle2-image{
   width: 100%;
   height:240rpx;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5rpx;
+  margin-left: 5rpx;
 }
 .search{
   margin-top: 15rpx;
@@ -77,4 +88,12 @@
 .pk1{
   text-align: center;
   font-size: 32rpx
+}
+.select-wrap {
+  width: 100rpx;
+ margin-left:5rpx;
+}
+
+.selected {
+  margin-top: 50%;
 }
