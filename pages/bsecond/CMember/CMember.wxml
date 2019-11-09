@@ -71,23 +71,20 @@
     </swiper-item>  
     <!-- 书架 -->  
     <swiper-item>  
-      <view class='panel base-padding base-margin-bottom cate-data'>
-  <view class='panel-body'>
-      <view class='row'>
-        <view class='row-left'>
-          <navigator  url='/pages/bsecond/CMember/CMember'>
-            <image mode='widthFix' class='box-shadow' src='/magic/book/python.jpeg'/>
-          </navigator>
-        </view>
-        <view class='row-right'>
-        <view style="height:20px;"></view>
-          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>零基础学python</navigator>
-    
-          <view class='text-muted ellipsis-3row'>python从入门到放弃。
+      <view class='box'>
+        <view wx:for="{{bookSource[idx]}}" wx:key="{{isbn}}" id='{{item.isbn}}' bindtap="goToDetailPage" class='book'>
+          <image src="{{item.picPath}}" mode="scaleToFill"></image>
+          <view class='font-lv3  ellipsis-2row'>
+            {{item.bookName}}
           </view>
         </view>
-      </view>
-      </view>
+
+        <view wx:if="{{nullView[idx]}}" class='book text-muted'>
+        </view>
+
+
+
+
       </view>
     </swiper-item>  
 </swiper>

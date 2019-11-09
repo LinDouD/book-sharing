@@ -15,7 +15,10 @@ Page({
     circleName:'',
     createTime: '',
     intro: '',
-    picPath: ''
+    picPath: '',
+    nullView: [], //每一分类下是否需要空占位
+    bookSource: [], //每一分类下的所有书籍
+    widHeight: 0 + 'px', //swiper 的高度 ，默认为150
    
   },
   bindPickerChange: function (e) {
@@ -47,7 +50,8 @@ Page({
       var circleId = options.circleId;
       this.data.circleId = circleId;
     }
-    this.getCircleInfo();
+    that.getCircleInfo();
+
   },
   /** 
      * 滑动切换tab 
@@ -78,7 +82,8 @@ Page({
       circleName: that.data.circleName,
       createTime: that.data.createTime,   
       intro: that.data.intro,
-      picPath:that.data.picPath
+      picPath:that.data.picPath,
+      bookSource:that.data.bookSource
     };
     console.log("data.cirleId="+this.data.circleId);
     var url = api.bsecond.cmember;
@@ -89,20 +94,25 @@ Page({
           data: data,
           success: function (res) {
             console.log("res=" + res.createTime);
+            var bookSource=[];
+            for(var i=0;i<res.vbookMemberBcircleList.length;i++){
+              bookSource.push(res.vbookMemberBcircleList[i])
+            }
             that.setData({
               bcName: res.bcName,
               createTime: res.createTime,
               intro: res.intro,
-              picPath: res.picPath
-            })
-           
+              picPath: res.picPath,
+              bookSource: bookSource
+            })   
+          console.log("bookSource===" + bookSource); 
           
+                          
           }
         })
       }
-    })
-          
-
+    })      
   }
 
+ 
 })
