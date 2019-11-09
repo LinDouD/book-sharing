@@ -22,35 +22,22 @@
  <!-- 成员 -->  
     <swiper-item>  
       <view class='panel base-padding base-margin-bottom cate-data'>
-  <view class='panel-body'>
-      <view class='row'>
+  <view class='panel-body'  >
+      <view class='row' wx:for="{{member}}" wx:for-index="idx" wx:key='bcMemId' wx:for-item="item" id="{{item.memberId}}">
         <view class='row-left'>
           <navigator  url='/pages/bsecond/CMember/CMember'>
-            <image mode='widthFix' class='box-shadow' src='/magic/BookCircle/timg.jpg'/>
+            <image mode='widthFix' class='box-shadow' src="{{item.userInf.avatarUrl}}"/>
           </navigator>
         </view>
         <view class='row-right'>
         <view style="height:20px;"></view>
-          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>成员1</navigator>
+          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>{{item.userInf.nickName}}</navigator>
     
           <view class='text-muted ellipsis-3row'>他酷到没有签名。
           </view>
         </view>
       </view>
-      <view class='row'>
-        <view class='row-left'>
-          <navigator  url='/pages/bsecond/CMember/CMember'>
-            <image mode='widthFix' class='box-shadow' src='/magic/BookCircle/timg.jpg'/>
-          </navigator>
-        </view>
-        <view class='row-right'>
-        <view style="height:20px;"></view>
-          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>成员2</navigator>
       
-          <view class='text-muted ellipsis-3row'>他酷到没有签名。
-        </view>
-        </view>
-      </view>
 </view>
 </view>
     </swiper-item>  
@@ -58,11 +45,11 @@
     <swiper-item>  
       <view class='panel base-padding base-margin-bottom cate-data'>
   <view class='panel-body'>
-      <view class='row'>
+      <view class='row' wx:for="{{post}}" wx:for-index="idx" wx:key='postId' wx:for-item="item" id="{{item.postId}}">
         <view class='row-right'>
         <view style="height:20px;"></view>
-          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>keras中如何对网络参数修改？</navigator>
-          <view class='text-muted ellipsis-3row'>crash 发表于2019-09-20
+          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>{{item.title}}</navigator>
+          <view class='text-muted ellipsis-3row'>{{item.userInf.nickName}} 发表于{{item.pubTime}}
           </view>
         </view>
       </view>
@@ -73,17 +60,17 @@
     <swiper-item>  
       <view class='panel base-padding base-margin-bottom cate-data'>
   <view class='panel-body'>
-      <view class='row'>
+      <view class='row' wx:for="{{shelf.catg_book_list}}" wx:for-index="idx" wx:key='isbn' wx:for-item="item" id="{{item.isbn}}">
         <view class='row-left'>
           <navigator  url='/pages/bsecond/CMember/CMember'>
-            <image mode='widthFix' class='box-shadow' src='/magic/book/python.jpeg'/>
+            <image mode='widthFix' class='box-shadow' src='{{item.picPath}}'/>
           </navigator>
         </view>
         <view class='row-right'>
         <view style="height:20px;"></view>
-          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>零基础学python</navigator>
+          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>{{item.bookName}}</navigator>
     
-          <view class='text-muted ellipsis-3row'>python从入门到放弃。
+          <view class='text-muted ellipsis-3row'>{{item.briefIntro}}
           </view>
         </view>
       </view>

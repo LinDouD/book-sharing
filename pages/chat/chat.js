@@ -6,19 +6,19 @@ var util = require('../../utils/util');
 var api = require('../../utils/api.js');
 
 
-var mydata = {
-  end: 0,
-  replyUserName: ""
-}
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list: [],
+    list: {},
     self: true,
-    id: -1
+    id: -1,
+    applyType: 0,
+
+
   },
 
   /**
@@ -29,203 +29,172 @@ Page({
     //other --id == bookId
     var id = options.id;
     var self = options.self;
+    var that = this;
 
-    mydata.sourceId = options.sourceId
-    var that = this;
-    mydata.commentId = "";
-    mydata.replyUserName = "";
-    //设置scroll的高度
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          scrollHeight: res.windowHeight,
-          //  userId: app.globalData.haulUserInfo.id,
-          self: self,
-          id: id
-        });
-      }
-    });
-    mydata.page = 1;
-    that.getPageInfo(mydata.page);
-  },
-  /**
-   * 页面下拉刷新事件的处理函数
-   */
-  refresh: function () {
-    console.log('refresh');
-    mydata.page = 1
-    this.getPageInfo(mydata.page, function () {
-      this.setData({
-        list: []
-      })
-    });
-    mydata.end = 0;
-  },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  bindDownLoad: function () {
-    console.log("onReachBottom");
-    var that = this;
-    if (mydata.end == 0) {
-      mydata.page++;
-      that.getPageInfo(mydata.page);
-    }
-  },
-  bindReply: function (e) {
-    console.log(e);
-    mydata.commentId = e.target.dataset.commentid;
-    mydata.replyUserName = e.target.dataset.commentusername;
-    this.setData({
-      replyUserName: mydata.replyUserName,
-      reply: true
-    })
-  },
-  // 合并数组
-  addArr(arr1, arr2) {
-    for (var i = 0; i < arr2.length; i++) {
-      arr1.push(arr2[i]);
-    }
-    return arr1;
-  },
-  deleteComment: function (e) {
-    console.log(e);
-    var that = this;
-    var commentId = e.target.dataset.commentid;
+    that.setData({
 
-    wx.showModal({
-      title: '删除评论',
-      content: '请确认是否删除该评论？',
-      success: function (res) {
-        if (res.confirm) {
-          wx.request({
-            url: config.deleteComment,
-            method: "POST",
-            data: {
-              commentId: commentId
-            },
-            header: {
-              "content-type": "application/x-www-form-urlencoded;charset=utf-8",
-            },
-            success: res => {
-              that.refresh();
-              wx.showToast({
-                title: "删除成功"
-              })
-            }
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
+      self: self,
+      id: id
+    });
+    that.getPageInfo();
   },
-  cancleReply: function (e) {
-    mydata.commentId = "";
-    mydata.replyUserName = "";
-    this.setData({
-      replyUserName: mydata.replyUserName,
-      reply: false
-    })
-  },
-  // 更新页面信息
-  // 此处的回调函数在 传入新值之前执行 主要用来清除页面信息
-  getPageInfo(page, callback) {
+
+
+
+  getPageInfo() {
     var that = this;
     wx.showLoading({
       title: '',
       mask: true
     })
     console.log("getPageInfo");
-    console.log("page" + page);
-    var limited = 6;
-    var offset = (page - 1) * 6;
-    //self --id ==borrowId
-    //other --id == bookId
+
+    //self --id ==bookId
+    //other --id == borrowId
 
     app.request({
       url: api.chat.chat,
       data: {
         // id :that.data.id,
-        id: 61,
-        limited: 6,
-        offset: 0,
-        mode: 'self'
-        //  limited: limited,
-        // offset: offset,
-        // mode:that.data.self
+        id: 39,
+        mode: 'self',
       },
 
-      success: res => {
+      success: function (res) {
         console.log(res);
-        if (page == 1) {
-          that.data.list = res.data;
-          that.setData({
-            list: that.data.list
-          })
-          mydata.end = 0;
-        } else {
-          // 当前页为其他页
-          var list = that.data.list;
-          if (res.data.length != 0) {
-            list = that.addArr(list, res.data);
-            that.setData({
-              list: list
-            })
-            mydata.end = 0;
-          } else {
-            mydata.end = 1;
+        if (res.status.is_exist == 2) {
+
+          var list = res.data;
+          for (var i = 0; i < list.messageBookIdLists.length; i++) {
+            list.messageBookIdLists[i].messageInfs.dateTime = list.messageBookIdLists[i].messageInfs.dateTime.split('T')[0];
+
+
           }
+          that.setData({
+            list: list
+          })
         }
         wx.hideLoading();
       }
     })
   },
-  submitForm(e) {
-    var form = e.detail.value;
+
+
+  pass: function (e) {
     var that = this;
-    console.log(app.globalData.haulUserInfo);
-    if (form.comment == "") {
-      util.showLog('请输入评论');
-      return;
+    var id = e.currentTarget.id;
+    var idx = e.currentTarget.dataset.idx;
+    var mtype = e.currentTarget.dataset.mtype;
+    var mode = '';
+    var type = '';
+    var time = util.formatTime(new Date());
+    if (mtype == 0) {
+      mode = "apply";
+      type = "pass"
+    } else if (mtype == 1) {
+      mode = "return";
+      type = "pass"
     }
-    // 提交评论
-    wx.request({
-      url: config.insertComment,
-      method: "POST",
+
+    app.request({
+      url: api.chat.chat_opt,
       data: {
-        sourceId: mydata.sourceId,
-        comment: form.comment,
-        //   userId: app.globalData.haulUserInfo.id,
-        userName: app.globalData.haulUserInfo.userName,
-        replyCommentId: mydata.commentId,
-        replyUserName: mydata.replyUserName,
-        userPhoto: app.globalData.haulUserInfo.userPhoto
+        messageId: id,
+        mode: mode,
+        type: type,
+        dateTime: time
       },
-      header: {
-        "content-type": "application/x-www-form-urlencoded;charset=utf-8",
-        //token: app.globalData.token
-      },
-      success: res => {
-        console.log(res)
-        if (res.data.success) {
+      success: function (res) {
+        if (res.status.success == 1) {
           wx.showToast({
-            title: "回复成功"
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
           })
-          that.refresh();
-          mydata.commentId = "";
-          mydata.replyUserName = "";
-          this.setData({
-            replyUserName: mydata.replyUserName,
-            reply: false
+
+
+          var list = that.data.list;
+          for (var i = 0; i < list.messageBookIdLists.length; i++) {
+            if (i == idx) {
+              list.messageBookIdLists[idx].messageInfs.borrowRes = 1;
+              continue;
+            }
+            list.messageBookIdLists[i].messageInfs.borrowRes = 2;
+
+
+          }
+
+          that.setData({
+            list: list
           })
+
         } else {
           wx.showToast({
-            title: '回复失败，请检查您的网络',
+            title: '提交失败',
+            icon: 'none',
+            duration: 2000
           })
         }
       }
+
     })
-  }
+
+
+  },
+
+
+  reject: function (e) {
+    var that = this;
+    var id = e.currentTarget.id;
+    var idx = e.currentTarget.dataset.idx;
+    var mtype = e.currentTarget.dataset.mtype;
+    var mode = '';
+    var type = '';
+    var time = util.formatTime(new Date());
+    if (mtype == 0) {
+      mode = "apply";
+      type = "reject"
+    } else if (mtype == 1) {
+      mode = "return";
+      type = "reject"
+    }
+
+    app.request({
+      url: api.chat.chat_opt,
+      data: {
+        messageId: id,
+        mode: mode,
+        type: type,
+        dateTime: time
+      },
+      success: function (res) {
+        if (res.status.success == 1) {
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
+          })
+
+
+          var list = that.data.list;
+          list.messageBookIdLists[idx].messageInfs.borrowRes = 2;
+          that.setData({
+            list: list
+          })
+
+        } else {
+          wx.showToast({
+            title: '提交失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      }
+
+    })
+
+
+  },
+
 })
 

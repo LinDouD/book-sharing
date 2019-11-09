@@ -153,7 +153,8 @@
 
 .tipView{
   font-size: 25rpx;
-  border: 1px solid red;
+ color: black;
+font-weight: 600rpx;
 }
 
 .infoView{
@@ -173,22 +174,47 @@
 .img{
 	display: inline-block;
 	vertical-align: top;
-	width: 80rpx;
-	height: 100rpx;
+	width: 100rpx;
+	height: 120rpx;
 	overflow: hidden;
   margin-left: -20rpx;
 
 }
-.pro-box .box{
+.boxHead{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 30rpx;
+   height: 50rpx;
+   margin-top: 10rpx;
+   width:300rpx;
+}
+
+.boxAuthor{
+  width:300rpx;
+  color: grey;
+   height: 40rpx;
+  font-size: 25rpx;
+  margin-top: 10rpx;
+  
+   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.boxView{
+  margin-left: 20rpx;
+  flex: 1;
 	vertical-align: top;
-  border:1px solid red;
+
   display: flex;
   flex-direction: column;
 }
 .head{
   background-color: #F2F2F2;
   opacity: 5%;
-  border: 1px solid rebeccapurple;
+ 
   padding-left: 20rpx;
   padding-right: 20rpx;
   display: flex;
@@ -196,14 +222,45 @@
 }
 
  .pro-box .sharebtn{
+   margin-left: 100rpx;
    height:48rpx;
 	 background: #f68135;
    border-radius: 50rpx;
    border: 1px solid #f68135;
    color: #fff;
    text-align: center;
-   line-height: 50rpx;
-   font-size:30rpx;
+   line-height: 40rpx;
+   font-size:25rpx;
+
+} 
+ button[disabled] {
+    color: #fff !important;
+    background: #f68135!important;
+    border-color: #f68135!important;
+}
+ .pro-box .sharebtn2{
+   margin-left: 10rpx;
+   height:48rpx;
+	 background: #fff;
+   border-radius: 50rpx;
+   border: 1px solid #f68135;
+   color: #f68135;
+   text-align: center;
+   line-height: 40rpx;
+   font-size:25rpx;
+} 
+
+.pro-box .sharebtn3{
+   margin-left: 200rpx;
+   height:48rpx;
+	 background: #fff;
+   border-radius: 50rpx;
+   border: 1px solid #f68135;
+   color: #f68135;
+   text-align: center;
+   line-height: 40rpx;
+   font-size:25rpx;
+
 } 
  
 .pro-box .addr-info{
@@ -289,23 +346,25 @@
 .pro-box .info{
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+
 }
 .pro-box .info .text{
   vertical-align:text-top;
 	font-size: 26rpx;
 }
 .pro-box .info .text .delete{
+  margin-left: 20rpx;
   color: #f68135;
 	border-radius: 50rpx;
 	border: 1px solid #f68135;
-	width: 100rpx;
+	width: 150rpx;
 	height: 48rpx;
 	text-align: center;
 }
 
 Page{
   	background: #f1f1f1;
+    height: 100%;
 }
 
 

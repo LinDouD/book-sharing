@@ -15,7 +15,11 @@ Page({
     circleName:'',
     createTime: '',
     intro: '',
-    picPath: ''
+    picPath: '',
+
+    member:{},
+    post:{},
+    shelf:{}
    
   },
   bindPickerChange: function (e) {
@@ -69,6 +73,71 @@ Page({
       that.setData({
         currentTab: e.target.dataset.current
       })
+      if (e.target.dataset.current==1){
+        var data = {};
+        app.request({
+          url: api.bsecond.post,
+          data:{
+            bookCircleId:that.data.circleId
+          },
+          success:function(res){
+            console.log(res)
+            if (res.status.is_exist==1){
+              data = res.data;
+              for (var i = 0; i < data.length; i++) {
+                data[i].pubTime = data[i].pubTime.split('T')[0];
+
+              }
+
+              that.setData({
+                post:data
+              })
+            }else{
+
+            }
+          }
+        })
+
+      } else if (e.target.dataset.current == 2) {
+        var data = {};
+        app.request({
+          url: api.bsecond.shelf,
+          data: {
+            bookCircleId: that.data.circleId
+          },
+          success: function (res) {
+            console.log(res)
+            if (res.status.is_exist == 1) {
+              data = res.data;
+              console.log(data[0])
+              that.setData({
+                shelf: data[0]
+              })
+            } else {
+
+            }
+          }
+        })
+      } else if (e.target.dataset.current == 0) {
+        var data = {};
+        app.request({
+          url: api.bsecond.member,
+          data: {
+            bookCircleId: that.data.circleId
+          },
+          success: function (res) {
+            console.log(res)
+            if (res.status.is_exist == 1) {
+              data = res.data;
+              that.setData({
+                member: data
+              })
+            } else {
+
+            }
+          }
+        })
+      }
     }
   },
   getCircleInfo: function(){
@@ -89,12 +158,19 @@ Page({
           data: data,
           success: function (res) {
             console.log("res=" + res.createTime);
+            var creatTime = res.createTime.split('T')[0];
             that.setData({
               bcName: res.bcName,
-              createTime: res.createTime,
+              createTime: creatTime,
               intro: res.intro,
               picPath: res.picPath
             })
+            if (res.status.is_exist == 1) {
+              data = res.data;
+              that.setData({
+                member: data
+              })
+            } else {}
            
           
           }
