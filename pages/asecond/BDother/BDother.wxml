@@ -118,7 +118,7 @@
           <button wx:if="{{type==1}}" class="cancel cancelcolor" catchtap="opt" disabled="{{bdisabled2}}" id ='{{type}}'>
            归还
           </button>
-          <button wx:if="{{type==2}}" class="cancel cancelcolor" catchtap="opt" disabled="{{bdisabled1}}" id ='{{type}}'>
+          <button wx:if="{{type==2}}" class="cancel cancelcolor" catchtap="opt" disabled="{{bdisabled1}}" id ='{{type}}' >
            申请借阅
           </button>
         </view>

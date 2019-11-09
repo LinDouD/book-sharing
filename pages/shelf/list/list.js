@@ -123,7 +123,7 @@ Page({
               var booklist = {};
               booklist = res.data;
               for (var i = 0; i < booklist.myShelfLists.length; i++) {
-                booklist.myShelfLists[i].sortTime = booklist.myShelfLists[i].sortTime.split('.')[0].split('T')[0].split(',');
+                booklist.myShelfLists[i].sortTime = booklist.myShelfLists[i].sortTime.split('T')[0];
 
               }
               that.setData({
@@ -141,7 +141,7 @@ Page({
 
   goToDetailPage: function (e) {
     var that = this;
-    var bookId = e.currentTarget.id
+    var bookId = e.currentTarget.id;
     var borrowId = e.currentTarget.dataset.borrowid;
     var is_Borrow = e.currentTarget.dataset.borrow;
     var self = this.data.self;

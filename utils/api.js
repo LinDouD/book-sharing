@@ -22,8 +22,14 @@ var api = {
   },
   bsecond:{
     cmember:_api_root+'bsecond/cMember',
-    othercircle:_api_root+'bsecond/otherCircle'
-
+    othercircle:_api_root+'bsecond/otherCircle',
+    member: _api_root +'member',
+    shelf: _api_root +'cfindshelf',
+    post: _api_root +'findPostList',
+    post_detail: _api_root +'findPostDetail',
+    post_reply: _api_root +'reply',
+    add_circle: _api_root +'addCircle'
+  
   },
   bookcircle: {
     mybookcircle: _api_root + 'bookCircle',
@@ -35,7 +41,8 @@ var api = {
     friendlist: _api_root + 'friendlist'
   },
   chat: {
-    chat: _api_root + 'chat'
+    chat: _api_root + 'chat',
+    chat_opt: _api_root + 'chat/opt'
   },
   applogin: {
     login: _api_root + 'login',
