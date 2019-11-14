@@ -43,7 +43,7 @@ Page({
     var that = this;
     var that = this;
     var fid = options.fid;
-    if (fid != undefined) {
+    if (JSON.stringify(options)!="{}") {
       that.setData({
         fid: fid
       })

@@ -191,7 +191,7 @@ Page({
         //直接跳转到具体界面
         if (isMe) {
           wx.navigateTo({
-            url: '/pages/asecond/BDself/BDself?bookId=' + id + '&isbn=' + isbn + '&owner Id=' + ownerId
+            url: '/pages/asecond/BDself/BDself?bookId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId
           })
         } else {
           wx.navigateTo({

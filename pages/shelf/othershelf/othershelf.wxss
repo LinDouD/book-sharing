@@ -101,11 +101,10 @@ page {
 .isRuleHide {
   display: none;
 }
-
 .setfloat {
   position: absolute;
   top: 42px;
-  right: 0rpx;
+  right: 10rpx;
   margin-top: 10rpx;
   z-index: 3;
 }
@@ -115,7 +114,7 @@ page {
   flex-direction: column;
   position: relative;
   padding: 0 15px 0 15px;
-  width: 280rpx;
+  width: 340rpx;
   line-height: 1.2;
   text-align: center;
   color: black;

@@ -24,6 +24,7 @@ var api = {
     bdother_opt: _api_root + 'asecond/bdother/opt'
   },
   bsecond:{
+    fileUpload: _api_root + 'fileUpload',
     applyCircle: _api_root + 'applyCircle',
     deleteCMember: _api_root + 'deleteCMember',
     setCMOpt: _api_root + 'setCMOpt',

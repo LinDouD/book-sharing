@@ -10,9 +10,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isUBtn: false,
+    imgList: [],
     imgs: [], //本地图片地址数组
     picPaths: [], //网络路径
-    type: 1,
+    type: 2,
     bookCircleId: 6,
     btn: false,
 
@@ -22,65 +24,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
- 
+    if(JSON.stringify(options)!="{}"){
       this.setData({
-      bookCircleId:options.id,
-      type:options.type
+        bookCircleId: options.id,
+        type: options.type
       })
+    }else{
+      this.setData({
+        bookCircleId: 6,
+        type: 2
+      })
+     
+    }
+     
     
   },
-  //添加上传图片
-  chooseImageTap: function () {
-    var that = this;
-    wx.showActionSheet({
-      itemList: ['从相册中选择', '拍照'],
-      itemColor: "#00000",
-      success: function (res) {
-        if (!res.cancel) {
-          if (res.tapIndex == 0) {
-            that.chooseWxImage('album')
-          } else if (res.tapIndex == 1) {
-            that.chooseWxImage('camera')
-          }
-        }
-      }
-    })
-  },
-  // 图片本地路径
-  chooseWxImage: function (type) {
-    var that = this;
-    var imgsPaths = that.data.imgs;
-    wx.chooseImage({
-      sizeType: ['original', 'compressed'],
-      sourceType: [type],
-      success: function (res) {
-        console.log(res.tempFilePaths[0]);
-        that.upImgs(res.tempFilePaths[0], 0) //调用上传方法
-      }
-    })
-  },
-  //上传服务器
-  upImgs: function (imgurl, index) {
-    var that = this;
-    wx.uploadFile({
-      url: 'https://xxxxxxxxxxxxxxxxxxxxxxxxxxxx', //
-      filePath: imgurl,
-      name: 'file',
-      header: {
-        'content-type': 'multipart/form-data'
-      },
-      formData: null,
-      success: function (res) {
-        console.log(res) //接口返回网络路径
-        var data = JSON.parse(res.data)
-        that.data.picPaths.push(data['msg'])
-        that.setData({
-          picPaths: that.data.picPaths
-        })
-        console.log(that.data.picPaths)
-      }
-    })
-  },
+
   titleInput(e) {
     this.setData({
       title: e.detail.value.replace(/\s+/g, '')
@@ -199,7 +158,72 @@ Page({
 
 
 
+  },
+
+
+  ChooseImage() {
+    wx.chooseImage({
+      count: 1, //默认9
+      sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], //从相册选择
+      success: (res) => {
+        if (this.data.imgList.length != 0) {
+          this.setData({
+            imgList: this.data.imgList.concat(res.tempFilePaths),
+            isUBtn: true
+          })
+        } else {
+          this.setData({
+            imgList: res.tempFilePaths,
+            isUBtn: true
+          })
+        }
+      }
+    });
+  },
+
+  DelImg(e) {
+    wx.showModal({
+      title: '提示',
+      content: '确定删除图片？',
+      cancelText: '再看看',
+      confirmText: '再见',
+      success: res => {
+        if (res.confirm) {
+          this.data.imgList.splice(e.currentTarget.dataset.index, 1);
+       
+          this.setData({
+            imgList: this.data.imgList,
+            isUBtn:false
+          })
+        }
+      }
+    })
+  },
+
+  upload:function(){
+   
+    console.log(this.data.imgList)
+  
+ var that = this;
+    wx.request({
+      url: api.bsecond.fileUpload,
+      filePath: that.data.imgList[0],
+      method: "POST",
+      name: 'file',
+      header: {
+        'content-type': 'multipart/form-data'
+      },
+    
+      success: function (res) {
+      
+
+
+
+      }
+    })
+
   }
 
-
 })
+

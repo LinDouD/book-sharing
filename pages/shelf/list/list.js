@@ -46,7 +46,8 @@ Page({
         data: data,
         url: url,
         isbn: isbn,
-        flag:flag
+        flag:flag,
+        type:type
       })
 
     } else if (flag == "circle"){

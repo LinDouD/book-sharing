@@ -97,7 +97,7 @@
         <view class='panel-body'>
 
 
-          <view wx:for="{{shelf}}" wx:key="{{isbn}}" id='{{item.isbn}}' bindtap="goToDetailPage" data-count="{{item.count}}" data-me="{{item}}" data-ownerid="{{item.ownerId}}" data-bid="{{item.id}}" class='booklist'>
+          <view wx:for="{{shelf}}" wx:key="{{isbn}}" id='{{item.isbn}}' bindtap="goToDetailPage" data-count="{{item.count}}" data-me="{{item.me}}" data-ownerid="{{item.ownerId}}" data-bid="{{item.id}}" class='booklist'>
             <image src="{{item.picPath}}" mode="scaleToFill"></image>
             <view class="bookView">
               <view class='font-lv3  ellipsis-2row bookNameView'>

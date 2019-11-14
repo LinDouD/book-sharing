@@ -37,6 +37,12 @@ Page({
         ownerId: ownerId
       })
 
+    }else{
+      that.setData({
+        isbn: isbn,
+        borrowId: borrowId,
+        ownerId: ownerId
+      })
     }
 
    
@@ -217,7 +223,11 @@ Page({
                     wx.showToast({
                       title: '修改失败',
                       icon: 'none',
-                      duration: 2000
+                      duration: 2000,
+                      success:function(){
+                        that.loaddata();
+                      }
+
                     })
                   } else {
 

@@ -95,7 +95,6 @@
         <image src='{{userInfo.avatarUrl}}' class='avatar'></image>
         <view class="nickname">
           <text>{{userInfo.nickName}}</text>
-          <text>(我)</text>
         </view>
       </view>
       <view class="borrowstatus">

@@ -132,7 +132,8 @@ Page({
                 list: res.data.books,
                 cat_list: res.data.cat_list,
                 count: res.data.count,
-                emptyView: emptyView
+                emptyView: emptyView,
+                myUserId: res.myUserId
 
               })
             } else
@@ -153,6 +154,7 @@ Page({
 
   //xqq:跳转到书籍详情界面，未完成
   goToDetailPage: function(e) {
+    var that = this;
     var isbn = e.currentTarget.id;
     var count = e.currentTarget.dataset.count;
     var type = e.currentTarget.dataset.type; //是否是我的书籍
@@ -166,12 +168,12 @@ Page({
      if (type) {
        //我的书籍
        wx.navigateTo({
-         url: '/pages/asecond/BDself/BDself?bookId=' + id + '&isbn=' + isbn+'&ownerId='+ownerId 
+         url: '/pages/asecond/BDself/BDself?bookId=' + id + '&isbn=' + isbn + '&ownerId=' + that.data.myUserId 
        })
      } else {
        //借阅书籍
        wx.navigateTo({
-         url: '/pages/asecond/BDother/BDother?borrowId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId 
+         url: '/pages/asecond/BDother/BDother?borrowId=' + id + '&isbn=' + isbn + '&ownerId=' + that.data.myUserId 
        })
 
      }

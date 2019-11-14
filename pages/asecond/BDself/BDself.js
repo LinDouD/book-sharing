@@ -28,6 +28,7 @@ Page({
         isbn: isbn
 
       })
+      console.log(this.data.bookId)
     
     }else{
   
@@ -230,10 +231,11 @@ Page({
     })  
   },
   applyBtn:function(e){
+    var that = this;
     var self = 'self'
     wx.navigateTo({
-      url: '/pages/chat/chat?id=' + e.currentTarget.id + '&self=' + self
+      url: '/pages/chat/chat?id=' + that.data.bookId + '&self=' + self
     })
-  }
+  },
 
 })

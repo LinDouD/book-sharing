@@ -15,19 +15,34 @@
 
           <view class="li">
             <view class="licon">
-              <image src="../../../magic/sort.jpg" mode="scaleToFill" class="setViewlist" style="margin-left:-5rpx"></image>
+            <view style="font-size:40rpx;">
+            <text class="cuIcon-sort lg text-black"></text>
+            </view>
+               
+            </view>
+            <view>批量管理</view>
+          </view>
+          <view class="li">
+            <view class="licon">
+             <view style="font-size:40rpx;">
+            <text class="cuIcon-order lg text-black"></text>
+            </view>
             </view>
             <view catchtap="sortByTime">更新时间排序</view>
           </view>
           <view class="li" wx:if="{{!isList}}" catchtap="changeList">
             <view class="licon">
-              <image src="../../../magic/list.jpg" mode="scaleToFill" class="setViewlist"></image>
+             <view style="font-size:40rpx;">
+            <text class="cuIcon-list lg text-black"></text>
+            </view>
             </view>
             <view>列表模式</view>
           </view>
           <view class="li" wx:else catchtap="changeList">
             <view class="licon">
-              <icon class="iconfont icon-erweima" style="font-size:50rpx !important;color:black !important;"></icon>
+              <view style="font-size:40rpx;">
+            <text class="cuIcon-circle lg text-black"></text>
+            </view>
             </view>
             <view>图强模式</view>
           </view>

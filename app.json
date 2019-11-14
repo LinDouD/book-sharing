@@ -1,6 +1,11 @@
 {
   "pages": [
+        "pages/bsecond/info/info",
     "pages/shelf/shelf",
+
+
+   
+   
     "pages/asecond/BDself/BDself",
     "pages/shelf/list/list",
     "pages/friendlist/friendlist",
@@ -8,7 +13,7 @@
     "pages/friendlist/friendinfo/friendinfo",
     "pages/bsecond/setCMember/setCMember",
     "pages/bsecond/pmlist/pmlist",
-    "pages/bsecond/info/info",
+
     "pages/bsecond/addPostN/addPostN",
     "pages/bsecond/OtherCircle/OtherCircle",
     "pages/asecond/posting/posting",
