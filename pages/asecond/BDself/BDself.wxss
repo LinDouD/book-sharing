@@ -220,7 +220,7 @@ page {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-top: 15rpx;
+  padding: 15rpx 0 15rpx 0 ;
   background-color: white;
 }
 
@@ -298,28 +298,8 @@ page {
   height: 85%;
 }
 
-/*swtich整体大小及背景色rgb(230, 204, 140) #87CEFA */
 
-.wx-switch-input {
-  width: 82rpx !important;
-  height: 40rpx !important;
-  background: #87cefa !important;
-  border: #87cefa !important; /* 2018-07-18 重置开关边框颜色 */
-}
 
-/*白色样式（false的样式）*/
-
-.wx-switch-input::before {
-  width: 80rpx !important;
-  height: 40rpx !important;
-}
-
-/*绿色样式（true的样式）*/
-
-.wx-switch-input::after {
-  width: 40rpx !important;
-  height: 40rpx !important;
-}
 
 .authorOne{
 

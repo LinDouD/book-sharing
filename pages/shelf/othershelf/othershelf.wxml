@@ -1,45 +1,105 @@
 <!--一登陆授权后根据openid 加载-->
-<view  class="scontainer">
-
+<view class="scontainer">
   <!-- header -->
-  <view class="header">
+  <view class="header box-shadow">
+    <view class="sortView" bindtap="translateSort">
+      <icon class="iconfont icon-zhiding"></icon>
+      <view>{{sortName}}</view>
+    </view>
+    <!-- 筛选的动画 -->
+    <view class="set-layer  {{isRuleTrue?'isRuleShow':'isRuleHide'}}" animation="{{animation}}">
+      <view class='set-layer-white-space' bindtap='setHideSet'>
+      </view>
+      <view class="setfloat ">
+        <view class="bubble box-shadow">
 
-    <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}">
-      <block wx:for="{{cat_list}}" wx:for-index="idx" wx:for-item="navItem" wx:key="idx">
-        <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" bindtap="switchNav">{{navItem.catgName}}</view>
-      </block>
-    </scroll-view>
-
-
-    <view class="section">
-      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-        <view class="picker">
-          {{array[index]}}
+          <view class="li">
+            <view class="licon">
+              <image src="../../../magic/sort.jpg" mode="scaleToFill" class="setViewlist" style="margin-left:-5rpx"></image>
+            </view>
+            <view catchtap="sortByTime">更新时间排序</view>
+          </view>
+          <view class="li" wx:if="{{!isList}}" catchtap="changeList">
+            <view class="licon">
+              <image src="../../../magic/list.jpg" mode="scaleToFill" class="setViewlist"></image>
+            </view>
+            <view>列表模式</view>
+          </view>
+          <view class="li" wx:else catchtap="changeList">
+            <view class="licon">
+              <icon class="iconfont icon-erweima" style="font-size:50rpx !important;color:black !important;"></icon>
+            </view>
+            <view>图强模式</view>
+          </view>
         </view>
-      </picker>
+      </view>
+    </view>
+    <!-- 设置的动画 -->
+    <view class="set-layer {{isSortTrue?'isRuleShow':'isRuleHide'}}">
+      <view class='set-layer-white-space' bindtap='sethideSort'></view>
+      <view class="float ">
+        <view class="animation-element" animation="{{animationSort}}">
+          <view class='use'>
+            <view class='iconuse'>类别</view>
+            <ul class="useage" wx:for="{{cat_list}}" wx:key="{{catgId}}" wx:for-item='item'>
+
+              <li catchtap="tryDriver" id="{{item.catgId}}" data-type="0" class="{{bCatgIdTemp==item.catgId?'click':''}}">{{item.catgName}}</li>
+            </ul>
+
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 搜索 -->
+    <view class='page_row' bindtap="suo">
+      <view class="search_arr">
+        <icon class="searchcion" size='20' type='search'></icon>
+        <input class="" disabled placeholder="请输入关键字" value="{{searchValue}}" />
+      </view>
+      <view class='sousuo'>搜索</view>
+    </view>
+    <!-- 设置 -->
+    <view class="section" bindtap="translate">
+      <icon class="iconfont icon-fenleiorguangchangorqita"></icon>
     </view>
   </view>
 
-  <!-- header -->
+  <!-- header end -->
 
   <!-- body -->
-  <swiper current="{{currentTab}}" duration="300" bindchange="switchTab" style='height:{{widHeight}}' class='swiperPosition'>
-    <swiper-item wx:for="{{cat_list}}" wx:for-index="idx" wx:for-item="tabItem" wx:key="idx" class="tab-content">
 
-      <view class='box'>
-        <view wx:for="{{dataSource[idx]}}" wx:key="{{isbn}}" id='{{item.isbn}}' bindtap="goToDetailPage" class='book'>
-          <image src="{{item.picPath}}" mode="scaleToFill"></image>
-          <view class='font-lv3  ellipsis-2row'>
-            {{item.bookName}}
-          </view>
-        </view>
+  <scroll-view scroll-y="true" style="height: {{height}}rpx" wx:if='{{exist}}' class="scrollView">
 
-        <view wx:if="{{nullView[idx]}}" class='book text-muted'>
+    <view class='box' wx:if="{{!isList}}">
+      <view wx:for="{{list}}" wx:key="{{isbn}}" id='{{item.isbn}}' bindtap="goToDetailPage" data-count="{{item.count}}" data-type="{{item.type}}" data-ownerid="{{item.ownerId}}" data-bid="{{item.id}}"  class='book'>
+
+        <image src="{{item.picPath}}" mode="scaleToFill" class="box-shadow"></image>
+        <view class='font-lv3  ellipsis-2row'>
+          {{item.bookName}}
         </view>
       </view>
-    </swiper-item>
-  </swiper>
+      <view wx:if="{{emptyView}}" class='book text-muted'>
+      </view>
+    </view>
+    <view class='box' wx:else>
+      <view wx:for="{{list}}" wx:key="{{isbn}}" id="{{item.isbn}}" bindtap="goToDetailPage" data-count="{{item.count}}" data-type="{{item.type}}" data-ownerid="{{item.ownerId}}" data-bid="{{item.id}}"  class='booklist'>
+        <image src="{{item.picPath}} " mode="scaleToFill "></image>
+        <view class="bookView ">
+          <view class='font-lv3  ellipsis-2row bookNameView'>
+            {{item.bookName}}
+          </view>
+          <view class='font-lv4  ellipsis-2row authorView'>
+            {{item.author}}
+          </view>
+        </view>
+        <view  wx:if="{{!item.type}} " class="listBorrwo ">借阅</view>
+      </view>
+    </view>
+  </scroll-view>
+
 
   <!-- body -->
+
+
 
 </view>

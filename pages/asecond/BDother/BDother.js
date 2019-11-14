@@ -8,80 +8,67 @@ Page({
     disabled: false,
     bdisabled1: true,
     bdisabled2: true,
+    returnName: "还书",
     type: 0,
     is_folded: 0,
     userBook: {},
     userInfo: {},
     bookInf: {},
     fuserInfo: {},
-    borrowState: '',
-    borrowDateTime: '',
-    returnDateTime: '',
     is_exist: 0,
-    time: '',
-    self: true,
-    fid: -1,
-    mode: 'self',  //other || self
     isbn: '',
     isCatg: true,
-    id: -1, //bookId || borrowId
-    borrow: false,
-    applyEmpty: true,
+    borrowId: -1,
+    ownerId: 0
+
 
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
+    
     var that = this;
-    var id = options.id;
-    var self = options.self;
-    var isbn = options.isbn;
-    var fid = -1;
-    var mode = '';
-    var flag = self === "false" ? false : true;
-    if (!flag) {
-      fid = options.fid;
+
+    if (JSON.stringify(options) != "{}") {
+      var borrowId = options.borrowId;
+      var isbn = options.isbn;
+      var ownerId = options.ownerId;
       that.setData({
-        fid: fid,
-        mode: 'other'
+        isbn: isbn,
+        borrowId: borrowId,
+        ownerId: ownerId
       })
+
     }
-    that.setData({
-      isbn: isbn,
-      id: id,
-      self: flag
-    })
+
+   
+   
 
 
   },
 
-  onShow: function () {
+  onShow: function() {
     this.loaddata();
   },
-  loaddata: function () {
+  loaddata: function() {
 
     var that = this;
     var data = {
       isbn: that.data.isbn,
-      mode: that.data.mode,
-      id: that.data.id,   //bookId || borrowId
-      fid: that.data.fid
+      borrowId: that.data.borrowId,
+      ownerId: that.data.ownerId
     };
     var url = api.asecond.bdother;
     app.checkSession({
-      success: function () {
+      success: function() {
         app.request({
           url: url,
           data: data,
-          success: function (res) {
+          success: function(res) {
             console.log(res);
-            if (res.status.is_exist == 2) {
-              var borrow = true;
-              if (!that.data.self) {
-                borrow = res.borrow;
-              }
+            if (res.status.is_exist == 1) {
+
 
               var bookInf = res.bookInf;
-              var borrowState = '';
-              var time = '';
+
               var isCatg = false;
               var type = 0;
               var bdisabled1 = true;
@@ -91,116 +78,72 @@ Page({
               } else {
                 isCatg = false;
               }
+              if (res.userBook.usrBorrowState == 1) {
 
-              if (res.bookInf.briefIntro == '' || res.bookInf.briefIntro == null) {
-                bookInf.briefIntro = '暂无简介'
-              } else {
-                bookInf.briefIntro = res.bookInf.briefIntro;
-              }
-              if (!that.data.self) {
-                //other
-                if (res.userBook.borrowState == 1) {
-                  borrowState = "待处理";
-                  type = 2; //申请
-                  if (borrow) {
-                    bdisabled1 = true;
-                  } else {
-                    bdisabled1 = false;
-                  }
-
-
-                } else if (res.userBook.borrowState == 2) {
-                  borrowState = "借阅中";
-                  type = 2; //申请
-                  bdisabled1 = true;
-
-                } else {
-                  borrowState = "无申请";
-                  type = 2; //申请
-                  bdisabled1 = false;
-
-                }
+                type = 0; //取消申请btn
+                bdisabled1 = false;
                 that.setData({
                   type: type,
                   bdisabled1: bdisabled1,
                 })
-                let addTime = res.userBook.addTime;
-                time = addTime.split('.')[0].split('T')[0];
+
+              } else if (res.userBook.usrBorrowState == 2) {
+
+                type = 1; //归还
+                bdisabled2 = false;
+                that.setData({
+                  type: type,
+                  bdisabled2: bdisabled2,
+                  returnName: "归还"
+                })
+              } else if (res.userBook.usrBorrowState == 3) {
+                type = 1; //归还
+                bdisabled2 = true;
+                that.setData({
+                  type: type,
+                  bdisabled2: bdisabled2,
+                  returnName: "还书中"
+
+                })
+              } else if (res.userBook.usrBorrowState == 4) {
+
+                type = 1; //归还
+                bdisabled2 = true;
+                that.setData({
+                  type: type,
+                  bdisabled2: bdisabled2,
+                  returnName: "已还书"
+                })
+              } else if (res.userBook.usrBorrowState == 5) {
+
+                type = 0; //取消申请
+                bdisabled1 = true;
+                that.setData({
+                  type: type,
+                  bdisabled2: bdisabled2
+                })
               } else {
-                //self 
-                var borrowDateTime = '';
-                var returnDateTime = '';
-                if (res.userBook.usrBorrowState == 1) {
-                  borrowState = "申请中";
-                  type = 0; //取消申请btn
-                  bdisabled1 = false;
-                  that.setData({
-                    type: type,
-                    bdisabled1: bdisabled1,
-                  })
-
-                } else if (res.userBook.usrBorrowState == 2) {
-                  borrowState = "借阅中";
-                  borrowDateTime = res.userBook.borrowDateTime.split('.')[0].split('T')[0];
-                  type = 1; //归还
-                  bdisabled2 = false;
-                  that.setData({
-                    type: type,
-                    bdisabled2: bdisabled2,
-
-                    borrowDateTime: borrowDateTime,
-                  })
-                } else if (res.userBook.usrBorrowState == 3) {
-                  borrowState = "归还中";
-                  borrowDateTime = res.userBook.borrowDateTime.split('.')[0].split('T')[0];
-                  type = 1; //归还
-                  bdisabled2 = true;
-                  that.setData({
-                    type: type,
-                    bdisabled2: bdisabled2,
-                    borrowDateTime: borrowDateTime
-                  })
-                } else if (res.userBook.usrBorrowState == 4) {
-                  borrowState = "已归还";
-                  borrowDateTime = res.userBook.borrowDateTime.split('.')[0].split('T')[0];
-                  returnDateTime = res.userBook.returnDateTime.split('.')[0].split('T')[0];
-                  type = 1; //归还
-                  bdisabled2 = true;
-                  that.setData({
-                    type: type,
-                    bdisabled2: bdisabled2,
-
-                    borrowDateTime: borrowDateTime,
-                    returnDateTime: returnDateTime
-                  })
-                } else { //5
-                  borrowState = "取消申请";
-                  type = 0; //取消申请
-                  bdisabled1 = true;
-                  that.setData({
-                    type: type,
-                    bdisabled2: bdisabled2
-                  })
-                }
-                time = res.userBook.borrowTime.split('.')[0].split('T')[0];
+                type = 0; //取消申请
+                bdisabled1 = true;
+                that.setData({
+                  type: type,
+                  bdisabled2: bdisabled2
+                })
               }
-              that.setData({
-                borrow: borrow,
-                fuserInfo: res.fuserInfo,
-                userInfo: res.userInfo,
-                userBook: res.userBook,
-                bookInf: res.bookInf,
-                borrowState: borrowState,
-                is_exist: res.status.is_exist,
-                time: time,
-                isCatg: isCatg
-              })
-              console.log("iscATG", that.data)
-            } else {
-              that.setData({
-                is_exist: res.status.is_exist
-              })
             }
+            that.setData({
+
+              fuserInfo: res.fuserInfo,
+              userInfo: res.userInfo,
+              userBook: res.userBook,
+              bookInf: res.bookInf,
+
+              is_exist: res.status.is_exist,
+
+              isCatg: isCatg
+            })
+            console.log("iscATG", that.data)
+
           },
         });
 
@@ -210,14 +153,14 @@ Page({
   },
 
 
-  more: function (e) {
+  more: function(e) {
     var that = this;
     this.setData({
       is_folded: 1
     })
   },
 
-  close: function (e) {
+  close: function(e) {
     var that = this;
     this.setData({
       is_folded: 0
@@ -226,14 +169,10 @@ Page({
 
 
 
-  opt: function (e) {
+  opt: function(e) {
     var that = this;
     var time = util.formatTime(new Date());
-    console.log(e.currentTarget.dataset)
-    var fid = this.data.fid;
-    if(fid == -1){
-      fid = this.data.fuserInfo.userId;
-    }
+    var ownerId = this.data.ownerId;
     var type = e.currentTarget.id;
     var mode = '';
     var data = {};
@@ -244,44 +183,35 @@ Page({
       mode = 'cancel';
       content = '确认要取消申请本书籍?';
       data = {
-        id: that.data.id,  //borrowId
+        id: that.data.borrowId, //borrowId
         mode: mode,
         time: time,
-        fid: fid
+        fid: ownerId
       }
     } else if (type == 1) {
       mode = 'return';
       content = '确认要归还本书籍?';
       data = {
-        id: that.data.id, //borrowId
+        id: that.data.borrowId, //borrowId
         mode: mode,
         time: time,
-        fid: fid
+        fid: ownerId
       }
-    } else {
-      mode = 'apply';
-      content = '确认要借阅本书籍?';
-      data = {
-        id: that.data.id, //bookId
-        mode: mode,
-        time: time,
-        fid: fid
-      }
-    }
+    } 
 
     wx.showModal({
       title: '提示',
       content: content,
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           console.log('用户点击确定')
 
           app.checkSession({
-            success: function () {
+            success: function() {
               app.request({
                 url: api.asecond.bdother_opt,
                 data: data,
-                success: function (res) {
+                success: function(res) {
                   if (res.data.save_success == 0) {
                     //保存失败
                     wx.showToast({
@@ -304,8 +234,6 @@ Page({
               });
             }
           })
-
-
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
@@ -313,7 +241,7 @@ Page({
     })
   },
 
-  goToShelf: function (e) {
+  goToShelf: function(e) {
     if (this.data.self) {
       wx.navigateTo({
         url: '/pages/shelf/othershelf/othershelf?fid=' + e.currentTarget.id
@@ -321,7 +249,7 @@ Page({
     }
 
   },
-  goToChat: function () {
+  goToChat: function() {
     //self --id ==borrowId
     //other --id == bookId
     var self = ''

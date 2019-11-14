@@ -1,0 +1,27 @@
+<!--pages/bsecond/info/info.wxml-->
+
+  <view class="cu-form-group margin-top" wx:if="{{type==0}}">
+    <view class="title">书圈名</view>
+    <input placeholder="10字以内短标题" bindinput="titleInput"></input>
+  </view>
+
+
+<view  wx:if="{{type==1}}">
+		
+
+  <view class="cu-form-group margin-top">
+		<view class="title">简介</view>
+	</view>
+
+	<view class="cu-form-group ">
+		<textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="briefInfoInput" placeholder="请用一句话简单介绍一下书圈（10字以内)"
+    ></textarea>
+	</view>
+</view>
+
+  <view class="padding flex flex-direction">
+   <button class="cu-btn round line-blue shadow" disabled="{{!btn}}" bindtap="save">保存</button>
+</view>
+
+
+

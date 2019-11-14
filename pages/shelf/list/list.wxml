@@ -1,33 +1,40 @@
-<view class='giftListView'>
+<view class="cu-bar bg-white solid-bottom margin-top">
+  <view class="action">
+    <text class="cuIcon-title text-orange "></text> 书籍列表
+  </view>
+  <view style="font-size:40rpx;!important;margin-right:30rpx">
+    <text class="cuIcon-order lg text-grey"></text>
+  </view>
+</view>
 
-  <view wx:for="{{booklist.myShelfLists}}" wx:for-index="idx" wx:key='bookId' wx:for-item="item" id="{{item.bookId}}" data-borrowId='{{item.borrowId}}' data-borrow='{{item.is_Borrow}}' bindtap="goToDetailPage">
 
-    <view class='item'>
+<view class="cu-list menu-avatar">
 
-      <view class='iconImageView'>
-        <image class='iconImage' src="{{booklist.picPath}}" mode='scaleToFill'></image>
+  <view class="cu-itemm " wx:for="{{booklist}}" wx:for-index="idx" wx:key='id' wx:for-item="item" id="{{item.id}}" data-ownerid="{{item.ownerId}}" data-type="{{item.type}}" bindtap="goToDetailPage">
+    <view class="cu-avatar radius lgm" style="background-image:url({{item.picPath}});"></view>
+    <view class="content">
+      <view class="text-black ">
+        <text class="text-cut">{{item.bookName}}</text>
       </view>
-
-      <view class='bookView'>
-        <view class='bookNameView'>
-          <text class='bookNameText'>{{booklist.bookName}}</text>
-        </view>
-        <view class='bookAuthorView'>
-          <text class='bookAuthorText'>{{booklist.author}}</text>
-        </view>
-        <view class='bookTimeView'>
-          <text class='bookTimeText'>{{item.sortTime}}</text>
-        </view>
+      <view class="text-gray text-sm flex margin-top-lg">
+        <text class="text-cut">{{item.author}}</text>
       </view>
-
-      <view class='typeView' wx:if='{{self}}'>
-        <text class='typeText' wx:if='{{!item.is_Borrow}}'>[我的]</text>
-        <text class='typeText' wx:else>[借阅]</text>
-      </view>
-      <view class='typeView' wx:else>
-        <text class='typeText'>[公开]</text>
+      <view class="text-gray text-xs flex ">
+        <text class="text-cut">{{item.sortTime}}</text>
       </view>
 
     </view>
+
+    <view class="action" wx:if="{{flag=='shelf' ||flag=='othershelf'}}">
+      <view class="cu-tag round bg-orange light">{{item.type}}</view>
+
+    </view>
+
+    <view class="action" wx:if="{{flag=='circle' && item.type==1}}">
+      <view class="cu-tag round bg-orange light">我的</view>
+
+    </view>
+
   </view>
+
 </view>

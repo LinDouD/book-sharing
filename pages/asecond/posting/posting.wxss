@@ -1,179 +1,209 @@
 /**answer.wxss**/
 
 .containerp {
-    padding: 0;
-    font-size: 14rpx;
-    background: #F0F4F3;
-    color: #000;
+  padding: 0;
+  font-size: 14rpx;
+  background: #298de5;
 }
 
-.flex-item{
+.flex-item {
   flex-grow: 1;
   text-align: center;
 }
 
-
-.flex-image{
+.flex-image {
   flex-grow: 1;
   text-align: right;
 }
 
-.flex-wrp{
+.flex-wrp {
   display: flex;
 }
 
+.topheader {
+  display: flex;
+  flex-direction: row;
+}
+
 .question {
-    position: relative;
-    width: 650rpx;
-    padding: 40rpx 50rpx 30rpx;
-    background: #298DE5;
-    color: #fff;
-    font-size: 38rpx;
-    line-height: 48rpx;
+  direction: flex;
+  top: 0rpx;
+  left: 0rpx;
+  width: 650rpx;
+  padding: 40rpx 50rpx 30rpx;
+  background: #298de5;
+  color: #fff;
+  font-size: 38rpx;
+  line-height: 48rpx;
 }
-.answerer-wrp{
-    position: relative;
-    width: 750rpx;
-    height: 150rpx;
-    background: #fff;
+
+.answerer-wrp {
+  position: relative;
+  width: 750rpx;
+  height: 150rpx;
+  background: #fff;
 }
-.answerer-wrp .bg-half{
-    position: absolute;
-    top: 0;
-    width: 750rpx;
-    height: 75rpx;
-    background: #298DE5;
+
+.answerer-wrp .bg-half {
+  position: absolute;
+  top: 0;
+  width: 750rpx;
+  height: 75rpx;
+  background: #298de5;
 }
+
 .answerer {
-    position: relative;
-    margin: 0 auto;
-    width: 630rpx;
-    height: 90rpx;
-    padding: 30rpx;
-    background: #fff;
-    border: solid 1px #ebebeb;
-    border-radius: 3px;
-    box-shadow: 0 1px 2px #bebebe;
+  position: relative;
+  margin: 0 auto;
+  width: 630rpx;
+  height: 130rpx;
+  padding: 10rpx;
+  background: #fff;
+  border: solid 1px #ebebeb;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px #bebebe;
 }
+
 .answerer .avatar {
-    flex: 1;
-    width: 90rpx;
-    height: 90rpx;
+  flex: 1;
+  width: 90rpx;
+  height: 90rpx;
+  margin-top:5rpx;
 }
 
 .answerer .avatar image {
-    display: inline-block;
-    width: 90rpx;
-    height: 90rpx;
-    border-radius: 90rpx;
-}
-.answerer .answerer-info{
-    flex: 5;
-    text-align: left;
-    padding: 10rpx 20rpx;
-    line-height: 38rpx;
-}
-.answerer .answerer-info text{
-    display: block;
-}
-.answerer .answerer-info .answerer-name{
-     font-size: 32rpx;
-    color: #808080;
-    padding: 17rpx 0;
-}
-.answerer .answerer-info .answerer-des{
-    font-size: 22rpx;
-    color: #808080;
-    line-height: 28rpx;
-}
-.answerer .follow{
-    flex: 2;
-    padding: 15rpx 0;
-    font-size: 22rpx;
-}
-.answerer .follow text{
-    display: inline-block;
-    padding: 15rpx 20rpx;
-    color: #40bcd0;
-    border: solid 1px #40bcd0;
-    border-radius: 6rpx;
-}
-.answer-content{
-    padding: 30rpx 40rpx;
-    background: #ffffff;
-}
-.answer-content text{
-    font-size: 32rpx;
-    color: #454545;
-    line-height: 44rpx;
-}
-.answer-content image{
-    width: 100%;
-    margin: 20rpx 0;
-}
-.answer-footer{
-    position: fixed;
-    bottom: 0;
-    height: 70rpx;
-    border-top: solid 1px #ebebeb;
-    background: #ffffff;
-    width: 670rpx;
-    padding: 20rpx 40rpx;
-}
-.answer-footer .good{
-    flex: 1;
-    /*display: inline-block;*/
-    height: 40rpx;
-    border: solid 1px #d1d1d1;
-    border-radius: 3px;
-    padding: 10rpx 8rpx;
-    margin: 10rpx 0;
-}
-.answer-footer .good .good-bad{
-    display: inline-block;
-}
-.answer-footer .good image{
-    display: inline-block;
-    width: 38rpx;
-    height: 38rpx;
-    vertical-align: middle;
-}
-.answer-footer .good .good-num{
-    display: inline-block;
-    padding: 10rpx 4rpx;
-    /*font-size: 24rpx;*/
-}
-.answer-footer .operation-wrp{
-    flex: 5;
-}
-.answer-footer .operation{
-    justify-content: space-between;
-    padding: 0 0 0 60rpx;
-}
-.answer-footer .operation-btn{
-    flex: 1;
-    text-align: center;
-}
-.answer-footer .operation image{
-    display: block;
-    margin: 0 auto;
-    width: 50rpx;
-    height: 50rpx;
-}
-.answer-footer .operation-btn text{
-    display: block;
-    font-size: 14rpx;
-    color: #bebebe;
+  display: inline-block;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 90rpx;
 }
 
+.answerer .answerer-info {
+  flex: 5;
+  text-align: left;
+  padding: 10rpx 20rpx;
+  line-height: 38rpx;
+}
 
+.answerer .answerer-info text {
+  display: block;
+}
+
+.answerer .answerer-info .answerer-name {
+  font-size: 32rpx;
+  color: #808080;
+  padding: 17rpx 0;
+}
+
+.answerer .answerer-info .answerer-des {
+  font-size: 22rpx;
+  color: #808080;
+  line-height: 28rpx;
+}
+
+.answerer .follow {
+  flex: 2;
+  padding: 15rpx 0;
+  font-size: 22rpx;
+  margin-right: 10rpx;
+}
+
+.answerer .follow text {
+  display: inline-block;
+  padding: 15rpx 20rpx;
+  color: #40bcd0;
+  border: solid 1px #40bcd0;
+  border-radius: 6rpx;
+}
+
+.answer-content {
+  padding: 30rpx 40rpx;
+  background: #fff;
+  margin-bottom: 100rpx;
+}
+
+.answer-content text {
+  font-size: 32rpx;
+  color: #454545;
+  line-height: 44rpx;
+}
+
+.answer-content image {
+  width: 100%;
+  margin: 20rpx 0;
+}
+
+.answer-footer {
+  position: fixed;
+  bottom: 0;
+  height: 100rpx;
+  border-top: solid 1px #ebebeb;
+  background: #fff;
+  width: 100%;
+  padding: 20rpx 40rpx;
+}
+
+.answer-footer .good {
+  flex: 1;
+  /*display: inline-block;*/
+  height: 50rpx;
+  border: solid 1px #d1d1d1;
+  border-radius: 3px;
+  padding: 0rpx 8rpx;
+  margin: 10rpx 0;
+}
+
+.answer-footer .good .good-bad {
+  display: inline-block;
+}
+
+.answer-footer .good image {
+  display: inline-block;
+  width: 38rpx;
+  height: 38rpx;
+  vertical-align: middle;
+}
+
+.answer-footer .good .good-num {
+  display: inline-block;
+  padding: 10rpx 4rpx;
+  /*font-size: 24rpx;*/
+}
+
+.answer-footer .operation-wrp {
+  flex: 5;
+}
+
+.answer-footer .operation {
+  justify-content: space-between;
+  padding: 0 0 0 60rpx;
+}
+
+.answer-footer .operation-btn {
+  flex: 1;
+  text-align: center;
+}
+
+.answer-footer .operation image {
+  display: block;
+  margin: 0 auto;
+  width: 50rpx;
+  height: 50rpx;
+
+}
+
+.answer-footer .operation-btn text {
+  display: block;
+  font-size: 15rpx;
+  color: #bebebe;
+}
 
 /* pages/subject/subject.wxss */
+
 page {
   height: 100%;
   overflow: auto;
 }
-
 
 /* 框架 -100 */
 
@@ -183,7 +213,6 @@ page {
   height: 0;
   width: 100%;
   overflow: hidden;
-
 }
 
 .layer-white-space {
@@ -191,61 +220,61 @@ page {
   width: 100%;
   background-color: #2f2d2e;
   opacity: 0.4;
-  
 }
 
+.round20{
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx
+}
 .talks {
   position: absolute;
   height: 96%;
   width: 100%;
   bottom: 0rpx;
-  background-color: #fff; 
-  border-top-left-radius: 2%;
-  border-top-right-radius: 2%;
+  background-color: #fff;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx
 }
 
 .talk-header {
   width: 100%;
   height: 8%;
-  padding-top: 30rpx;
-  padding-left: 150rpx;
+  padding: 10rpx 20rpx 10rpx 20rpx;
   text-align: left;
   border-bottom: 1px solid #efefef;
- 
 }
-.talk-header1{
+
+.talk-header1 {
   border-bottom: 1px solid #efefef;
   width: 100%;
   height: 7%;
   padding-left: 30rpx;
-  background-color:  #f6f6f6;
- 
+  background-color: #f6f6f6;
 }
-.myheader{
+
+.myheader {
   color: #1a1a1a;
-  font-size:37rpx;
+  font-size: 37rpx;
   font-weight: 600;
 }
 
-.myheader1{
-  color:grey;
-  font-size:35rpx;
+.myheader1 {
+  color: grey;
+  font-size: 35rpx;
   font-weight: 500;
- 
-
 }
 
 .talk-body {
-  height: 84%; 
+  height: 84%;
 }
 
 .talk-footer {
   position: absolute;
   bottom: 0rpx;
   width: 100%;
-  height: 7%;
+  height: 40px;
   background-color: #fff;
-  border-top: 1rpx solid #B9B9B9
+  border-top: 1rpx solid #b9b9b9;
 }
 
 /* 顶部元素  */
@@ -254,8 +283,6 @@ page {
   height: 40rpx;
   margin-top: 5rpx;
 }
-
-
 
 .talk-close {
   position: absolute;
@@ -273,7 +300,7 @@ page {
   align-items: flex-start;
   width: 100%;
   color: white;
- border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
 }
 
 .talk-item-left {
@@ -290,7 +317,6 @@ page {
 
 .talk-item-right {
   width: 100%;
- 
   margin-right: 30rpx;
   margin-bottom: 30rpx;
 }
@@ -322,50 +348,94 @@ page {
 /* 底部元素  */
 
 .talk-input {
+  margin:  auto;
   font-size: 30rpx;
   width: 80%;
-  padding: 20rpx 40rpx;
+  padding: 0rpx 40rpx;
   color: black;
   border-top-left-radius: 5%;
   border-top-right-radius: 5%;
 }
 
-
-.flex1{
-  width:20px;
+.flex1 {
+  width: 20px;
   margin-right: 20rpx;
 }
 
-
-.flex2{
-  width:20px;
- 
-  
+.flex2 {
+  width: 20px;
 }
-.time{
- margin-right: 30rpx;
+
+.time {
+  margin-right: 30rpx;
   float: right;
 }
-.issue{
-  padding:  20rpx 40rpx;
+
+.issue {
+  padding: 20rpx 40rpx;
   width: 20%;
   font-size: 30rpx;
-  color: #BFEFFF;
-   background: none;
+  color: #bfefff;
+  background: none;
 }
 
-.issue::after{
-  border:none;
+.issue::after {
+  border: none;
 }
 
-.issue1{
-  padding:  20rpx 40rpx;
+.issue1 {
+  padding: 20rpx 40rpx;
   width: 20%;
   font-size: 30rpx;
-  color: #298DE5;
-   background: none;
+  color: #298de5;
+  background: none;
 }
 
-.issue1::after{
-  border:none;
+.issue1::after {
+  border: none;
 }
+
+.icon-menu {
+  margin-top: 40rpx;
+  margin-right: 30rpx;
+  background: #298de5;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  padding: 15rpx 0px;
+  width: 60rpx;
+  height: 2px;
+  background-color: #fff;
+  background-clip: content-box;
+}
+Page{
+  background: #fff;
+}
+
+.cu-item1 {
+	position: relative;
+	display: flex;
+	padding-right: 10rpx;
+	min-height: 160rpx;
+	background-color: var(--white);
+	justify-content: flex-end;
+  padding-top: 20rpx;
+	align-items: center;
+
+}
+
+.cu-avatar {
+	position: absolute;
+	left: 30rpx
+}
+
+.contentView {
+
+	width: calc(100% - 96rpx - 60rpx - 120rpx - 20rpx);
+	
+}
+
+
+
+
+
+

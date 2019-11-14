@@ -70,8 +70,10 @@ App({
   request: function (object) {
     var access_token = wx.getStorageSync("access_token");
     if (access_token) {
-      if (!object.data)
+      if (!object.data){
         object.data = {};
+      }
+       
       object.data.access_token = access_token;
     }
     console.log('request.data', object.data)

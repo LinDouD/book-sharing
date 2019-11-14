@@ -1,10 +1,15 @@
 /* pages/bsecond/CMember/CMember.wxss */
+Page{
+  background: white;
+}
+
 .con{
-  margin-top: 25px;
-  margin-left: 25px;
-  margin-right: 25px;
+ 
 }
 .cen{
+ 
+  margin-left: 25px;
+  margin-right: 25px;
   display:flex;                    
   justify-content: left; 
   align-items: center;
@@ -67,6 +72,7 @@ swiper-item{
 .swiper-box{ display: block; height: 100%; width: 100%; overflow: hidden; }  
 
 .swiper-tab{  
+ 
     width: 100%;  
     border-bottom: 2rpx solid #2f65bb;  
     text-align: center;  
@@ -150,3 +156,113 @@ swiper-item{
 .cate-data{margin-top: 10rpx;}
 
 .cate-data{margin-top: 10rpx;}
+
+
+
+.header {
+  padding: 0 10px 0 10px;
+  position: fixed;
+  top:0;
+  left: 0;
+  height: 40px;
+  width: 100%;
+  background: #f7f7f7;
+  border-bottom: 1px solid #f7f7f7;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 99;
+}
+
+
+.topImgae{
+  width: 10px !important;
+  height:  10px !important;
+}
+.nameView{
+  font-size: 30rpx;
+}
+
+.add {
+  position: fixed;
+  top:5rpx;
+  right: 10rpx;
+  width: 40px;
+  height: 40px;
+  color: #ccc;
+  transition: color .25s;
+ 
+}
+
+.add::before{
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 25px;
+  margin-left: -18px;
+  margin-top: -4px;
+  border-top: 2px solid;
+}
+.add::after {
+ content: '';
+ position: absolute;
+ left: 50%;
+ top: 50%;
+ height: 25px;
+ margin-left: -6px;
+ margin-top: -15px;
+ border-left: 2px solid;
+}
+
+.add:hover {
+  color: blue;
+}
+
+.booklist {
+  width: 100%;
+  height: 80px;
+  padding: 10rpx 0 0rpx 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.booklist image {
+  width: 50px;
+  height: 65px;
+  margin-bottom: 10rpx;
+}
+
+.bookView {
+  height: 65px;
+  flex: 1;
+  padding: 0 0 0 40rpx;
+  border-bottom: 1px solid WhiteSmoke;
+}
+
+.authorView {
+  position: relative;
+  bottom: -50rpx;
+  color: grey;
+}
+
+.bookNameView {
+  position: relative;
+  bottom: -15rpx;
+}
+
+.listBorrwo{
+  font-size: 25rpx;
+  color: green;
+}
+
+
+
+.marginTop1{
+ margin-top: 20px;
+}
+
+.marginTop2{
+ margin-top: 40px;
+}

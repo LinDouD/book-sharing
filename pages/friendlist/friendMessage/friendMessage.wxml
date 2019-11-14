@@ -1,0 +1,26 @@
+<view class="cu-bar bg-white solid-bottom margin-top">
+  <view class="action">
+    <text class="cuIcon-title text-orange "></text> 消息列表
+  </view>
+  <view style="font-size:20px;margin-right:10px">
+  <text class="cuIcon-moreandroid text-orange "></text> 
+  </view>
+</view>
+<view class="cu-list menu-avatar">
+  <view class="cu-item" wx:for="{{messagelists}}" wx-key="{{id}}" wx:for-item="item" id="{{item.id}}">
+    <view class="cu-avatar round lg" style="background-image:url({{item.avatarUrl}});"></view>
+    <view class="content">
+      <view class="text-grey">{{item.name}}</view>
+
+    </view>
+    <view class="action">
+
+      <button class="cu-btn round line-blue shadow" style="width:80px;right:100rpx" wx:if="{{!item.utf&&item.optType==0}}" catchtap="agree" id="{{item.id}}" data-mid="{{item.mid}}">同意</button>
+
+      <button class="cu-btn round line-grey shadow" style="width:80px;right:100rpx" wx:elif="{{item.utf&&item.optType==0}}">等待验证</button>
+
+      <button class="cu-btn round line-grey shadow" style="width:80px;right:100rpx"wx:else>已通过</button>
+    </view>
+  </view>
+
+</view>

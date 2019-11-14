@@ -2,6 +2,8 @@ var _api_root = 'http://localhost:8080/small/';
 //var _api_root = 'https://www.qqxxy.xyz/sharebook/small/';
 var api = {
   shelf: {
+    shelfIndex: _api_root + 'shelfIndex',
+    findBookList: _api_root + 'shelfIndex/findBookList',
     myshelf: _api_root + 'myshelf',
     booklist: _api_root + 'myshelf/list',
     othershelf: _api_root + 'othershelf',
@@ -12,6 +14,7 @@ var api = {
     addShelf: _api_root + 'scan/addShelf'
   },
   asecond: {
+    otherBook: _api_root + 'asecond/otherBook',
     bdself: _api_root + 'asecond/bdself',
     bdother: _api_root + 'asecond/bdother',
     bdother_self: _api_root + 'asecond/otherself/self',
@@ -21,24 +24,36 @@ var api = {
     bdother_opt: _api_root + 'asecond/bdother/opt'
   },
   bsecond:{
+    applyCircle: _api_root + 'applyCircle',
+    deleteCMember: _api_root + 'deleteCMember',
+    setCMOpt: _api_root + 'setCMOpt',
+    setCMember: _api_root + 'setCMember',
     cmember:_api_root+'bsecond/cMember',
     othercircle:_api_root+'bsecond/otherCircle',
     member: _api_root +'member',
     shelf: _api_root +'cfindshelf',
     post: _api_root +'findPostList',
-    post_detail: _api_root +'findPostDetail',
+    post_add: _api_root + 'addPost',
+    post_detail: _api_root +'findPost',
+    comment: _api_root + 'findCommentList',
     post_reply: _api_root +'reply',
     add_circle: _api_root +'addCircle'
   
   },
   bookcircle: {
     mybookcircle: _api_root + 'bookCircle',
+    findlist: _api_root + 'findlist',
     newbookcircle: _api_root + 'newBookCircle',
     searchbookcirclebname: _api_root + 'searchBookCircleBName',
     searchbookcirclebcname: _api_root + 'searchBookCircleBCName'
   },
   friendlist: {
-    friendlist: _api_root + 'friendlist'
+    friendlist: _api_root + 'friendlist',
+    friendInfo:_api_root + 'friendInfo',
+    unfriendInfo: _api_root + 'unfriendInfo',
+    friendOpt: _api_root + 'friendOpt',
+    fMessageList: _api_root +'fMessageList'
+    
   },
   chat: {
     chat: _api_root + 'chat',

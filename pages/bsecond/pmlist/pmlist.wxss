@@ -1,0 +1,4 @@
+/* pages/bsecond/postlist/postlist.wxss */
+.e{
+  justify-content: space-around
+}

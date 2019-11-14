@@ -1,0 +1,112 @@
+<!--/** wx:if='{{is_exist==2}}'**/-->
+<view class="total">
+  <view class="top ">
+    <image class="pic" mode="scaleToFill" src="{{bookInf.picPath}}"></image>
+    <view class="content">
+      <view class="titleView">
+        <text class="title">{{bookInf.bookName}}</text>
+      </view>
+      <view class="authorView">
+        <text class="author">{{bookInf.author}}</text>
+      </view>
+    </view>
+    <view class="borrowBtn">
+      <button class="borrowState" disabled="true">{{userBook.borrowStateS}}</button>
+    </view>
+  </view>
+
+  <view class="body">
+    <scroll-view scroll-y="true" class="myscroll">
+      <view class="userView">
+        <view class="user" catchtap="goToShelf" id='{{fuserInfo.userId}}'>
+          <image src='{{fuserInfo.avatarUrl}}' class='avatar'></image>
+          <view class="nickname">
+            <text>{{fuserInfo.nickName}}</text>
+          </view>
+        </view>
+
+        <view class="borrowstatus">
+          <view class="body-view">
+            <button class="chatBtn" catchtap="goToChat" id='{{id}}'>私聊</button>
+          </view>
+        </view>
+      </view>
+
+
+      <view class="brief">
+        <view class="briefInfo ">
+          <text class="content {{!is_folded?'hide':'show'}}" decode="{{true}}" space="{{true}}">&nbsp;&nbsp; {{bookInf.briefIntro}}</text>
+        </view>
+        <view class="more" wx:if="{{!is_folded}}" bindtap="more">
+          <image src='../../../magic/more.jpg' mode="widthFix" class="state"></image>
+        </view>
+        <view wx:else class="close" bindtap="close"> 收起</view>
+      </view>
+      <!-- brief-->
+      <view class="type">
+        <view class="name">
+          标签
+        </view>
+        <view class="typeall">
+          <view wx:for="{{bookInf.categoryInfList}}" wx:for-index="idx" wx:for-item="item">
+            <view class="typeone">
+              <text>{{item.catgName}}</text>
+            </view>
+          </view>
+
+          <view class="typeone">
+            <text>公开</text>
+          </view>
+          <view class="typeone" wx:if="{{!isCatg}}">
+            <text>暂无分类</text>
+          </view>
+        </view>
+      </view>
+      <view class="moreinfo">
+        <view class="name">
+          更多信息
+        </view>
+        <view class="all">
+          <view class="one">
+            <text>isbn : {{bookInf.isbn}}</text>
+          </view>
+          <view class="oneA" wx:if="{{bookInf.author!=null && bookInf.author!=''}}">
+            <view class="authorOne">作者 :</view>
+            <view class="authorOneContent"> {{bookInf.author}}</view>
+          </view>
+          <view class="one" wx:if="{{bookInf.translator!=null && bookInf.translator!=''}}">
+            <text>翻译 : {{bookInf.translator}}</text>
+          </view>
+          <view class="one" wx:if="{{bookInf.publisher!=null && bookInf.publisher!=''}}">
+            <text>出版社 : {{bookInf.publisher}}</text>
+          </view>
+          <view class="one" wx:if="{{bookInf.pubTime!=null && bookInf.pubTime!=''}}">
+            <text>出版日期 : {{bookInf.pubTime}}</text>
+          </view>
+         <view class="one" wx:if="{{userBook.time!=null && tuserBook.ime!=''}}">
+            <text>加入书架时间 : {{userBook.time}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="footer">
+      <view class="user">
+        <image src='{{userInfo.avatarUrl}}' class='avatar'></image>
+        <view class="nickname">
+          <text>{{userInfo.nickName}}</text>
+          <text>(我)</text>
+        </view>
+      </view>
+      <view class="borrowstatus">
+        <view>
+          <button  class="cancel" catchtap="opt" disabled="{{bdisabled1}}" >
+            申请借阅
+          </button>
+
+
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

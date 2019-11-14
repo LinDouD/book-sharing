@@ -11,7 +11,6 @@ Page({
     bookInf: {},
     borrowState: '',
     privacy: '',
-    time: '',
     is_exist: -1,
     switchChecked: true,
     bookId: -1,
@@ -20,11 +19,25 @@ Page({
 
   },
   onLoad: function(options) {
-    var bookId = options.bookId;
-    this.setData({
-      bookId: bookId,
 
-    })
+    if (JSON.stringify(options)!="{}"){
+      var bookId = options.bookId;
+      var isbn = options.isbn;
+      this.setData({
+        bookId: bookId,
+        isbn: isbn
+
+      })
+    
+    }else{
+  
+      this.setData({
+        bookId: 68,
+        isbn: "10019-2"
+
+      })
+    }
+   
     this.loaddata();
 
   },
@@ -35,66 +48,50 @@ Page({
         app.request({
           url: api.asecond.bdself,
           data: {
-            bookId: that.data.bookId,
+            isbn: that.data.isbn,
+            bookId: that.data.bookId
           },
           success: function(res) {
-            console.log("self", res);
+            console.log("bdself", res);
             if (res.status.is_exist == 2) {
-
               var userBook = res.userBook;
               var bookInf = res.bookInf;
-              var borrowState = '';
-              var privacy = '';
+              var userInf = res.userInf;
+
+              var privacy = res.userBook.privacyS;
               var switchChecked = true;
               var isPrivacy = false;
-              var is = false;
               var isCatg = false;
               if (res.bookInf.categoryInfList != null && res.bookInf.categoryInfList.length != 0) {
                 isCatg = true;
               } else {
                 isCatg = false;
               }
-
-              if (res.bookInf.briefIntro == '' || res.bookInf.briefIntro == null) {
-                bookInf.briefIntro = '暂无简介'
-              } else {
-                bookInf.briefIntro = res.bookInf.briefIntro;
-              }
-
+            
               if (res.userBook.privacy == 0) {
-                privacy = '公开';
                 switchChecked = true;
               } else {
-                privacy = '私密';
                 switchChecked = false;
                 isPrivacy = true; //允许设置是否公开
               }
-
               if (res.userBook.borrowState == 1) {
-                borrowState = "待处理";
                 isPrivacy = false;
-
               } else if (res.userBook.borrowState == 2){
-                  borrowState = "借阅中";
                   isPrivacy = false;
               } else {
-                  borrowState = "无申请";
                   isPrivacy = true;
                 }
             
-              var addTime = res.userBook.addTime;
-              var time = addTime.split('.')[0].split('T')[0];
 
               that.setData({
-                isPrivacy: isPrivacy,
                 userInfo: res.userInfo,
                 userBook: res.userBook,
                 bookInf: res.bookInf,
-                borrowState: borrowState,
-                privacy: privacy,
+                privacy:privacy,
+                isPrivacy: isPrivacy,          
                 switchChecked: switchChecked,
                 is_exist: res.status.is_exist,
-                time: time,
+
                 isCatg: isCatg
               })
             } else {
@@ -198,7 +195,6 @@ Page({
                       icon: 'success',
                       duration: 3000,
                       success:function(){
-                       
                         if (type==0){
                           wx.switchTab({
                             url: '/pages/shelf/shelf'
@@ -214,10 +210,7 @@ Page({
                        
                       }
                     })
-                    
-                  
-                  } else {
-                
+                  } else {     
                     wx.showToast({
                       title: '删除失败',
                       icon: 'none',

@@ -1,0 +1,74 @@
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="输入搜索的关键词" confirm-type="search"></input>
+  </view>
+  <view class="action">
+    <button class="cu-btn line-blue shadow-blur round">搜索</button>
+  </view>
+</view>
+
+
+<scroll-view scroll-y class="indexes" style="margin-top:50px" enable-back-to-top="true">
+
+
+
+  <view class="cu-bar bg-white solid-bottom  ">
+    <view class="action">
+      <text class="cuIcon-title text-orange "></text> 成员列表
+    </view>
+    <view class="action">
+      <button class="cu-btn bg-blue shadow" bindtap="deleteSet">批量删除</button>
+    </view>
+  </view>
+ 
+ <checkbox-group bindchange="checkboxChange">
+  <view class="cu-list menu-avatar" wx:if="{{type==1}} " >
+    <view class="cu-item" wx:for="{{member}}" wx:key="userId" wx:for-item="item" id="{{item.memberId}}" data-friend="{{item.friend}}" catchtap="goToMember">
+      <view class="cu-avatar round lg" style="background-image:url({{item.userInf.avatarUrl}});"></view>
+      <view class="content">
+        <view class="text-grey">{{item.userInf.nickName}}</view>
+
+      </view>
+      <view class="action" style="font-size:20px" wx:if="{{item.ifCreater==1}}">
+        <text class="cuIcon-crown text-yellow"></text>
+      </view>
+      <view wx:if="{{(item.ifCreater!=1)&&deleteSet}}" style="margin-right:25rpx">
+        <checkbox class="round blue" value="{{item.bcMemId}}"></checkbox>
+      </view>
+    </view>
+
+  </view>
+
+ </checkbox-group>
+
+
+<checkbox-group bindchange="checkboxChange">
+  <view class="cu-list menu-avatar" wx:if="{{type==0}}">
+    <view class="cu-item" wx:for="{{post}}" wx:key="postId" wx:for-item="item" id="{{item.postId}}" catchtap="goToPost">
+      <view class="cu-avatar radius lg" style="background-image:url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4250885442,2652050609&fm=26&gp=0.jpg);">
+        <view class="cu-tag badge" wx:if="{{item.count>99}}">{{item.count-1}}</view>
+        <view class="cu-tag badge" wx:else>{{item.count-1}}</view>
+      </view>
+      <view class="content">
+        <view class="text-grey">{{item.title}}</view>
+        <view class="text-gray text-sm">
+          <text class="cuIcon-write text-blue"></text>{{item.userInf.nickName}}{{item.flag==0?'(本人)':""}} </view>
+      </view>
+       <view wx:if="{{deleteSet}}" style="margin-right:25rpx">
+        <checkbox class="round blue" value="{{item.bcMemId}}"></checkbox>
+      </view>
+    </view>
+  </view>
+ </checkbox-group>
+
+<view class="padding flex" style="  justify-content: space-around;" wx:if="{{deleteSet}}">
+<button class="cu-btn round line-blue shadow" style="width:40%" disabled="{{!deleteBtn}}"catchtap="deleteBtn">删除
+ 
+    </button>
+  <button class="cu-btn round line-grey shadow" style="width:40%" catchtap="deleteSet">取消
+   </button>
+
+</view>
+
+</scroll-view>

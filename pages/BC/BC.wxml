@@ -65,7 +65,7 @@
   </view>
   </view>
   <view class='panel-body'>
-      <view class='row' wx:for="{{othercircle_list}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}" bindtap="goToDetailCircle2">
+      <view class='row' wx:for="{{othercircle_list}}" wx:key="{{bookCircleId}}"  id="{{item.bookCircleId}}" bindtap="goToDetailCircle1">
         <view class='row-left'> 
             <image mode='widthFix' class='circle2-image' src="{{item.circlePicPath}}"/>
         </view>

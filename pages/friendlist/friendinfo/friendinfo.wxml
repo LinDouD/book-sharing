@@ -1,0 +1,74 @@
+<!-- background -->
+<view class='bg-cover' style='background-image: url("{{bgCoverUrl}}")'></view>
+
+
+<!-- Login Form -->
+<view class='login-container'>
+  <view class="mainView" bindtap="goToShelf">
+    <text class="cuIcon-home lg text-gray"></text>
+  </view>
+
+  <view class="cu-modal {{modalName=='DialogModal1'?'show':''}}" >
+    <view class="cu-dialog" style="width:500rpx;">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">修改昵称 </view>
+        <view class="action">
+          <text class="cuIcon-close text-red"></text>
+        </view>
+      </view>
+      <view class="padding-sm" >
+        <view class="cu-form-group margin-top-sm">
+          <view class="title">昵称</view>
+          <input placeholder="5个字符以内" bindinput="aliasInput"></input>
+        </view>
+      </view>
+      <view class="cu-bar bg-white justify-end">
+        <view class="action">
+          <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+          <button class="cu-btn bg-green margin-left" bindtap="confirm">确定</button>
+
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="cu-avatar xl round margin-left" style="background-image:url({{userInfo.avatarurl}});"></view>
+
+
+
+  <view class="flex  justify-start" style="width:100%;margin-left:100px;padding:30rpx 30rpx 10rpx 30rpx;">
+    <view class=" padding-sm margin-xs radius">账号：</view>
+     <view class=" padding-sm margin-xs radius">{{userInfo.nickName}}</view>
+    
+    <view class=" padding-sm margin-xs radius"></view>
+  </view>
+
+  <view wx:if="{{flag==2}}" class="flex  padding justify-start" style="width:100%;margin-left:100px;padding:0rpx 30rpx 10rpx 30rpx;" catchtap="editBtn">
+    <view class="padding-sm margin-xs radius">昵称：</view>
+    <view class=" padding-sm margin-xs radius">{{userInfo.name}}</view>
+    <view class="editView" bindtap="showModal" wx:if="{{!isCircle&&isClick}}" data-target="DialogModal1">
+      <text class="cuIcon-edit lg text-gray"></text>
+    </view>
+  </view>
+  <view class="flex  padding justify-start" style="width:100%;margin-left:100px;padding:0rpx 30rpx 10rpx 30rpx;">
+    <view class="padding-sm margin-xs radius">性别：</view>
+    <view class=" padding-sm margin-xs radius">{{userInfo.gender?"男":"女"}}</view>
+  </view>
+
+  <view class="flex   justify-start" style="width:100%;margin-left:100px;padding:0rpx 30rpx 10rpx 30rpx;">
+    <view class="padding-sm margin-xs radius">国家：</view>
+    <view class=" padding-sm margin-xs radius" >{{userInfo.country}}</view>
+  </view>
+
+  <!--  -->
+  <button wx:if="{{flag==2}}" class="login-btn" style="background:red!important;" catchtap="delete">
+    删除好友
+  </button>
+
+  <button wx:if="{{flag!=0&&flag!=2}}" class="login-btn" catchtap="add">
+   {{flag==3? " 添加好友":"已申请"}}
+  </button>
+
+
+</view>

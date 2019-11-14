@@ -1,22 +1,29 @@
 // pages/asecond/posting/posting.js
+const app = getApp();
+var util = require('../../../utils/util');
+var api = require('../../../utils/api.js');
+
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    is_collected: 0,
+    commentList: [],
+    postDetail: {},
+    count: 0,
+    isFriend: 0,
+    content: '',
+    postId:6,
+    isClick:false,
+
+
+
     talks: [],
-    is_input:0,
-    input:'',
-    "post":
-    {
-      "title": "2019书单推荐",
-      "avatarUrl": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJtL29ib9NW5CQ8xXm8qYdJia3yHsKj8nVibWPxthNHiaNE0QCDNib3OTT9Dian4tWrE4ic8Grk50cbtPDvQ/132",
-      "nickName": "徐倩倩",
-      "content": "  看书是件简单的事情，就跟吃一块巧克力一样。推荐几本陪伴过我不同时期的书。《远山淡影 》是我在高铁上看完的。它很薄，一天可读完。推荐原因是新年要到了，旅途可以看看。《飘》应该每个人都知道的书啦！我前前后后读过这本书三遍，在我十几岁的时候读它跟我后来二十几岁读它是完全不一样的感触。十几岁时憧憬恋爱，读它完全就是当偶像剧看。二十几岁时经历恋爱到失恋，它让我有了另一种思考。我很好奇在我三十几岁的时候看它又会是什么样的一番心情。《第二性 》这本书比较长，读起来相对枯燥。我看它的原因是有一段时间我很迷茫，她给我了一种力量吧！书里有着观点放到现在有些过时了，但有一些却让我们惊讶，为什么过了快一世纪了女性还存在着这些话题？男女平等是个永恒话题。《先知》生活不止眼前的苟且，还有诗和远方的田野哈哈！不知道有没有人经历过就是生活压力大的情况下感觉被关在一个黑盒子里，这时候看到一首诗，就像给你的生活投入一束光。我又开始瞎扯了《眼球绮谭 》是我要看还没看的书，我读过绫辻行人的《钟表馆时间》和《十角馆事件》。当时我是因为看了唐人街探案，被刘昊然弟弟帅到才对这类书有兴趣的。打开书以为自己跟刘昊然一样聪明，看完后内心的os是：我去，还有这操作。我果然是个凡人《红楼梦》推荐红楼梦还能因为什么，美啊2019美好的生活是什么？多读书 多睡觉 多喝热水 多思考",
-      "count": 5
-    }
+    is_input: 0,
+    input: '',
+    
 
   },
 
@@ -29,6 +36,7 @@ Page({
     })
   },
 
+//未实现
   favorclick: function (e) {
     var likeFlag = false; //标志，避免多次发请求
     //避免多次点击
@@ -84,7 +92,7 @@ Page({
       }
     })
   },
-
+//未实现
   faBu: function () {
     let that = this;
     if (!that.data.inputValue) {
@@ -134,6 +142,7 @@ Page({
 
     }
   },
+  //未实现
   tapMove: function (e) {
     this.setData({
       scrollTop: 0
@@ -159,15 +168,8 @@ Page({
   },
   showTalks: function () {
     var that = this;
-    if (this.data.is_collected == 1) {
-      that.setData({
-        is_collected: 0
-      })
-    } else {
-      that.setData({
-        is_collected: 1
-      })
-    }
+    that.comment();
+    
 
     // 加载数据
     this.loadTalks();
@@ -179,11 +181,11 @@ Page({
   },
   hideTalks: function () {
     this.setData({
-      is_input:0,
-      input:''
+      is_input: 0,
+      input: ''
     }),
-    // 设置动画内容为：使用绝对定位隐藏整个区域，高度变为0
-    this.animation.bottom("-100%").height("0rpx").step()
+      // 设置动画内容为：使用绝对定位隐藏整个区域，高度变为0
+      this.animation.bottom("-100%").height("0rpx").step()
     this.setData({
       talks: [],
       talksAnimationData: this.animation.export()
@@ -217,23 +219,127 @@ Page({
     wx.hideNavigationBarLoading();
   },
 
-  onScrollLoad: function () {
-    // 加载新的数据
-    // this.loadTalks();
-  },
-
   bindKeyInput: function (e) {
     var that = this;
-    if (e.detail.value!=''){
+    if (e.detail.value != '') {
       that.setData({
-        is_input:1
+        is_input: 1,
+        content: e.detail.value
       })
-    }else{
+    } else {
       that.setData({
         is_input: 0,
-        input:''
+        input: '',
+        content: ''
       })
     }
   },
+
+  onLoad: function (options) {
+    var that = this;
+    var postId = options.id;
+    var flag = options.flag;
+    var disabled = false;
+    if(flag==2){
+     
+      disabled = true;
+    }
+    
+   // var postId = 1;
+
+    this.setData({
+      postId: postId,
+      disabled: disabled
+    })
+
+  
+    app.request({
+      url: api.bsecond.post_detail,
+      data: {
+        postId: that.data.postId,
+
+      },
+      success: function (res) {
+        console.log(res)
+ 
+       if (res.status.is_exist == 1) {
+          that.setData({
+            postDetail: res.data,
+          })
+        }
+        
+      }
+    })
+  },
+  issue: function () {
+    this.setData({
+      is_input: 0
+    })
+    var that = this;
+    var comeTime = util.formatTime(new Date());
+    var content = this.data.content;
+    var postId = this.data.postDetail.postId;
+
+    app.request({
+      url: api.bsecond.post_reply,
+      data: {
+        content: content,
+        comeTime: comeTime,
+        postId: postId
+      },
+      success: function (res) {
+        console.log(res)
+        if (res.status.is_exist == 1) {
+          wx.showToast({
+            title: '发布成功',
+            icon: "success",
+            duration: 2000
+          })
+          var commentList = res.commentList;
+          var count = commentList.length;
+          for (var i = 0; i < commentList.length; i++) {
+            commentList[i].comtTime = commentList[i].comtTime.split('T')[0];
+
+          }
+          that.setData({
+            commentList: commentList,
+            count: count,
+            is_input: 0,
+            input: '',
+            content: ''
+          })
+
+        }
+      }
+    })
+  },
+  comment:function(){
+    var that = this;
+    app.request({
+      url: api.bsecond.comment,
+      data: {
+        postId: that.data.postId,
+
+      },
+      success: function (res) {
+        console.log(res)
+
+        if (res.status.is_exist == 1) {
+          
+          var commentList=  res.data;
+          for (var i = 0; i < commentList.length; i++) {
+            commentList[i].comtTime = commentList[i].comtTime.split('T')[0];
+
+          }
+          that.setData({
+            commentList: commentList,
+            isClick:true
+          })
+ 
+        }
+
+      }
+    })
+  }
 
 })

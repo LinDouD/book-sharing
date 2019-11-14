@@ -1,0 +1,65 @@
+
+<scroll-view scroll-y class="scrollPage">
+
+  <view class="UCenter-bg" style='height:200px;background-image:url({{circleInfo.circlePicPath}})'>
+   
+    
+    <image src="/magic/wave.gif" mode="scaleToFill" class="gif-wave"></image>
+  </view>
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+    <view class="cu-item">
+      <view class="content"  bindtap="btnScore" >
+        
+        <text class="text-grey">创建者：{{userInfo.nickName}}</text>
+      </view>
+    
+    </view>
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/bsecond/info/info?id={{circleInfo.bookCircleId}}&type={{0}}" hover-class="none">
+        <text class="cuIcon-writefill text-cyan"></text>
+        <text class="text-grey">{{circleInfo.bcName}}</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/bsecond/info/info?id={{circleInfo.bookCircleId}}&type={{1}}" hover-class="none">
+        <text class="cuIcon-tagfill text-yellow"></text>
+        <text class="text-grey">简介</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow" bindtap="chooseImageTap">
+      <navigator class="content"  hover-class="none" url="/pages/bsecond/info/info?id={{circleInfo.bookCircleId}}&type={{2}}">
+        <text class="cuIcon-camerafill text-green"></text>
+        <text class="text-grey">背景图片</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow">
+      <navigator class="content"  hover-class="none" url="/pages/bsecond/pmlist/pmlist?id={{circleInfo.bookCircleId}}&type={{0}}">
+        <text class="cuIcon-formfill text-pink"></text>
+        <text class="text-grey">帖子管理</text>
+      </navigator>
+    </view>
+
+     <view class="cu-item arrow" bindtap="showModal" data-target="Modal">
+      <navigator class="content" hover-class="none" url="/pages/bsecond/pmlist/pmlist?id={{circleInfo.bookCircleId}}&type={{1}}">
+        <text class="cuIcon-peoplelist text-orange"></text>
+        <text class="text-grey" >成员管理</text>
+      </navigator>
+    </view>
+ 
+  </view>
+
+  <view class="cu-tabbar-height"></view>
+</scroll-view>
+<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">关于</view>
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close text-red"></text>
+        </view>
+      </view>
+      <view class="padding-xl">
+        <view>成贤学院--丁明亮</view>
+      </view>
+    </view>
+  </view>

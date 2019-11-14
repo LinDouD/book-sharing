@@ -7,67 +7,57 @@ var api = require('../../utils/api.js');
 
 Page({
   data: {
+    count: 0,
+    isMe: true,
+    bCatgId: 0, //分类-所有，文学。。。。
+    isself: 0, //属性-全部，我的，借阅
+    privacy: 2, //状态- 全部，公开，私密
+    bCatgIdTemp: 0,
+    isselfTemp: 0,
+    privacyTemp: 2,
+    isList: false,
+    isSetTrue: false,
     is_login: -1,
-    nullView: [], //每一分类下是否需要空占位
+    emptyView: false, //是否需要空占位
     cat_list: {}, //分类
-    dataSource: [], //每一分类下的所有书籍
-    widHeight: 0 + 'px', //swiper 的高度 ，默认为150
-    currentTab: 0,
-    navScrollLeft: 0,
     exist: true,
-
-    //picker
-    array: ['时间', '字母'],
-    objectArray: [{
-      id: 0,
-      name: '时间'
-    },
-    {
-      id: 1,
-      name: '字母'
-    }
-    ],
-    index: 0,
-
-    indicatorDots: true,
-    autoplay: true,
-    interval: 5000,
-    duration: 1000
-
+    list: [],
+    height: '', //scrollView -height
+    sortName: '筛选',
 
   },
-
-  //时间/字母
-  bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value);
-    var index = e.detail.value;
-    var that = this;
+  sortByTime: function() {
+    console.log("sortByTime")
+    var datas = [];
+    datas = this.data.list;
+    datas.sort(this.compare());
     this.setData({
-      index: e.detail.value
+      list: datas
     })
-    if (index == 0) {
-      //时间排序
-      var datas = [];
-      datas = that.data.dataSource;
-      var cur = that.data.currentTab
-      datas[cur].sort(that.compare());
-      that.setData({
-        dataSource: datas
-      })
-
-    }
-
+    this.setHideSet();
   },
 
   /**
    * 用户存在：加载界面，否则跳转到pc/pc界面（进行授权）
    **/
-  onLoad: function (options) {
+  onLoad: function(options) {
 
     var that = this;
     var mode = "check";
 
-    app.login(mode).then(function (res) {
+    wx.getSystemInfo({
+      success: function(res) {
+        let clientHeight = res.windowHeight;
+        let clientWidth = res.windowWidth;
+        let ratio = 750 / clientWidth;
+        let height = clientHeight * ratio;
+        height = height - 130;
+        that.setData({
+          height: height
+        });
+      }
+    });
+    app.login(mode).then(function(res) {
       that.setData({
         is_login: res.data.result
       })
@@ -90,8 +80,7 @@ Page({
   /**
    * 每次切换tab时重新加载数据 
    **/
-  onShow: function () {
-
+  onShow: function() {
     let is_login = app.globalData.is_login;
     if (is_login == 1) {
       this.loadData();
@@ -103,163 +92,279 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     this.loadData();
   },
 
-  switchNav(event) {
-    var cur = event.currentTarget.dataset.current;
-    //每个tab选项宽度占1/5
-
-    var singleNavWidth = this.data.windowWidth / 5;
-    //tab选项居中                            
-    this.setData({
-      navScrollLeft: (cur - 2) * singleNavWidth
-    })
-    if (this.data.currentTab == cur) {
-      return false;
-    } else {
-      this.setData({
-        currentTab: cur
-
-
-      })
-    }
-  },
-
-  switchTab(event) {
-    var cur = event.detail.current;
-    console.log(cur)
-    var singleNavWidth = this.data.windowWidth / 5;
-    this.setData({
-      currentTab: cur,
-      navScrollLeft: (cur - 2) * singleNavWidth,
-      //绑定数据
-      //  children: event.target.dataset.current
-
-    });
-  },
 
 
 
   //xqq:加载界面数据：分类以及书籍
-  loadData: function () {
-
-    //设置swiper 高度，默认为150
-    var windowWidth = wx.getSystemInfoSync().windowWidth;
-    var windowHeight = wx.getSystemInfoSync().windowHeight;
-    var scroll_height = 750 * windowHeight / windowWidth - 100;
-
+  loadData: function() {
     var that = this;
     var access_token = wx.getStorageSync("access_token");
     app.checkSession({
-      success: function () {
+      success: function() {
         app.request({
-          url: api.shelf.myshelf,
+          url: api.shelf.shelfIndex,
           header: {
             'content-type': 'application/x-www-form-urlencoded',
             'Authorization': access_token
           },
-          success: function (res) {
+          data: {
+            bCatgId: that.data.bCatgId, //所有分类
+            privacy: that.data.privacy, //all
+            isself: that.data.isself //all 
+          },
+          success: function(res) {
             var exist = false;
             console.log("shelf", res)
             //顶部导航条（分类）
-            if (res.status.isSuccess == 2) {
+            if (res.status.isSuccess == 1) {
               exist = true;
-              var book = [];
-              for (var i = 0; i < res.data.cat_list.length; i++) {
-                book.push(res.data.cat_list[i]);
-              };
-              //顶部导航条（分类）
 
-              //书架
-              var datasource = [];
-              var nullview = []; //是否需要空占位
-              var widheight = scroll_height + 'rpx';
-
-              for (var i = 0; i < res.data.catg_book_list.length; i++) {
-                if (res.data.catg_book_list[i].catgId == 0) {
-                  //分类所有-放置在最前
-                  datasource.unshift(res.data.catg_book_list[i].catg_book_list);
-                  //若最后一行只有两本书籍，为保证格式不乱，插入一个空占位
-                  if (res.data.catg_book_list[i].catg_book_list.length % 3 == 2) {
-
-                    nullview.unshift(true);
-                  } else {
-                    nullview.unshift(false);
-                  }
-
-                  continue;
-                }
-
-                //若最后一行只有两本书籍，为保证格式不乱，插入一个空占位
-                if (res.data.catg_book_list[i].catg_book_list.length % 3 == 2) {
-
-                  nullview.push(true);
-                } else {
-                  nullview.push(false);
-                }
-                datasource.push(res.data.catg_book_list[i].catg_book_list);
-
-
+              var emptyView = false;
+              //是否需要空占位
+              if (res.data.count % 3 == 2) {
+                emptyView = true;
               }
               that.setData({
-                cat_list: book,
-                dataSource: datasource,
-                nullView: nullview,
-                widHeight: widheight
+                list: res.data.books,
+                cat_list: res.data.cat_list,
+                count: res.data.count,
+                emptyView: emptyView
+
               })
-
-
-            } else if (res.status.isSuccess == 1)
+            } else
               console.log("shelf", "无此用户")
-            else if (res.status.isSuccess == 3) {
-              console.log("shelf", "无书籍")
-              var book = [];
-              for (var i = 0; i < res.data.cat_list.length; i++) {
-                book.push(res.data.cat_list[i]);
-              };
-              that.setData({
-                cat_list: book,
-
-              })
-            }
-            else
-              console.log("shelf", "openId解密不成功")
 
             that.setData({
               exist: exist
             })
           },
-          complete: function () {
+          complete: function() {
             wx.stopPullDownRefresh();
           }
         });
       }
     })
 
-
   },
 
   //xqq:跳转到书籍详情界面，未完成
-  goToDetailPage: function (e) {
+  goToDetailPage: function(e) {
     var isbn = e.currentTarget.id;
-    var isSelf = true;
-    wx.navigateTo({
-      url: '/pages/shelf/list/list?isbn=' + isbn + '&self=' + isSelf
-    })
+    var count = e.currentTarget.dataset.count;
+    var type = e.currentTarget.dataset.type; //是否是我的书籍
+    var id = e.currentTarget.dataset.bid;
+    var ownerId = e.currentTarget.dataset.ownerid;
+   console.log(e.currentTarget);
+   var flag = "shelf";
 
+   if(count==1){
+     //直接跳转到具体界面
+     if (type) {
+       //我的书籍
+       wx.navigateTo({
+         url: '/pages/asecond/BDself/BDself?bookId=' + id + '&isbn=' + isbn+'&ownerId='+ownerId 
+       })
+     } else {
+       //借阅书籍
+       wx.navigateTo({
+         url: '/pages/asecond/BDother/BDother?borrowId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId 
+       })
+
+     }
+     
+   }else{
+      //否则跳转到列表界面
+     wx.navigateTo({
+       url: '/pages/shelf/list/list?isbn=' + isbn + '&type=' + type + '&flag=' + flag
+     })
+   }
   },
 
   /**
    *特殊写法:比较数组date日期
    */
-  compare: function () {
-    return function (a, b) {
+  compare: function() {
+    return function(a, b) {
       var value1 = Date.parse(a.sortTime);
       var value2 = Date.parse(b.sortTime);
       return value2 - value1;
     }
   },
+
+
+
+  tryDriver: function(e) {
+    console.log(e.currentTarget)
+    var id = e.currentTarget.id;
+    var type = e.currentTarget.dataset.type;
+    var index = e.currentTarget.dataset.item;
+    var that = this;
+    if (type == 0) {
+      //类别
+      that.setData({
+        bCatgIdTemp: id,
+      })
+    } else if (type == 1) {
+      //属性
+      if (index == 1 || index == 0) {
+        //我的 展开状态栏
+        that.setData({
+          isMe: true
+        })
+      } else {
+        that.setData({
+          isMe: false
+        })
+      }
+      that.setData({
+        isselfTemp: index
+      })
+    } else if (type == 2) {
+      //状态
+      that.setData({
+        privacyTemp: index
+      })
+    }
+
+
+
+
+  },
+  onReady: function() {
+    this.animation = wx.createAnimation({
+      timingFunction: "step-start",
+      duration: 400,
+      delay: 0
+    });
+    this.animationSort = wx.createAnimation({
+      duration: 400, // 整个动画过程花费的时间，单位为毫秒
+      timingFunction: "ease", // 动画的类型
+      delay: 0 // 动画延迟参数
+    })
+  },
+  translate: function() {
+    console.log("dd")
+    this.setData({
+      isRuleTrue: true
+    })
+    this.animation.translate(0, 0).step()
+    this.setData({
+      animation: this.animation.export()
+    })
+  },
+
+  translateSort: function() {
+    this.setData({
+      isSortTrue: true
+    })
+    this.animationSort.translate(245, 0).step()
+    this.setData({
+      animationSort: this.animationSort.export()
+    })
+  },
+
+  setHideSet: function() {
+    this.setData({
+      isRuleTrue: false
+    })
+    this.animation.translate(150, 0).step()
+    this.setData({
+      animation: this.animation.export()
+    })
+  },
+
+  sethideSort: function() {
+    console.log("ddd")
+    this.setData({
+      isSortTrue: false
+    })
+    // 设置动画内容为：使用绝对定位隐藏整个区域，高度变为0
+    this.animation.translate(0, 0).step();
+    this.setData({
+      animationSort: this.animationSort.export()
+    })
+  },
+  changeList: function() {
+    var that = this;
+    if (this.data.isList) {
+      that.setData({
+        isList: false
+      })
+    } else {
+      that.setData({
+        isList: true
+      })
+    }
+    this.setHideSet();
+  },
+  okBtn: function() {
+
+    var that = this;
+
+    if (that.data.bCatgId == that.data.bCatgIdTemp &&
+      that.data.privacy == that.data.privacyTemp &&
+      that.data.isself == that.data.isselfTemp) {
+      that.sethideSort();
+    } else {
+      app.checkSession({
+          success: function() {
+            app.request({
+              url: api.shelf.shelfIndex,
+              data: {
+                bCatgId: that.data.bCatgIdTemp,
+                privacy: that.data.privacyTemp,
+                isself: that.data.isselfTemp
+              },
+              success: function(res) {
+                var exist = false;
+                console.log("shelf", res)
+                //顶部导航条（分类）
+                if (res.status.isSuccess == 1) {
+                  exist = true;
+
+                  var emptyView = false;
+                  //是否需要空占位
+                  if (res.data.count % 3 == 2) {
+                    emptyView = true;
+                  }
+                  that.setData({
+                    list: res.data.books,
+                    cat_list: res.data.cat_list,
+                    count: res.data.count,
+                    emptyView: emptyView,
+                    bCatgId: that.data.bCatgIdTemp,
+                    isself: that.data.isselfTemp,
+                    privacy: that.data.privacyTemp,
+                  })
+                  for (var i = 0; i < that.data.cat_list.length; i++) {
+                    if (that.data.cat_list[i].catgId == that.data.bCatgId) {
+                      that.setData({
+                        sortName: that.data.cat_list[i].catgName
+                      })
+                      break;
+                    }
+                  }
+                  that.sethideSort();
+                }
+              }
+            })
+          }
+        }
+      )
+    }
+  },
+  cancelBtn: function() {
+    this.setData({
+      bCatgIdTemp: this.data.bCatgId,
+      isselfTemp: this.data.isself,
+      privacyTemp: this.data.privacy,
+
+    })
+    this.sethideSort();
+  }
 
 })

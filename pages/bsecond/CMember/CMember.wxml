@@ -1,90 +1,117 @@
 <!--pages/bsecond/CMember/CMember.wxml-->
-<view class="con">
+
+<view class="con" wx:if="{{top}}">
+  <view style="font-size:30px;position:fixed;right:10rpx" catchtap="addPost">
+    <text class="cuIcon-add lg text-grey"></text>
+  </view>
+
   <view class="cen">
-    <image style="width:140px;height:140px;" src='{{picPath}}'></image>
+    <image style="width:140px;height:140px;  margin-top: 25px;" src='{{picPath}}'></image>
     <view style="width:20px;"></view>
-    <view class="wenzi">
+    <view class="wenzi" style="  margin-top: 25px;">
       <text>{{bcName}}</text>
       <text class='text-muted ellipsis-3row desc'>{{createTime}}</text>
       <text class='text-muted ellipsis-3row desc'>{{intro}}</text>
-      <button class='create-button'>编辑资料</button>
+      <button class='create-button' catchtap="edit" wx:if="{{flag==1}}">编辑资料</button>
+      <button class='create-button' wx:elif="{{flag==0}}">已加圈</button>
+       <button class='create-button' wx:elif="{{flag==2}} "catchtap="applyCircle">申请加圈</button>
     </view>
+
   </view>
 </view>
 
-<view class="swiper-tab">
-    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">成员</view>
-    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">帖子</view>
-    <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">书架</view>
+
+<view class="header box-shadow" wx:else>
+  <image src="{{picPath}}" mode="scaleToFill" style="width:30px;height:30px;margin-right:15px"></image>
+  <view class="nameView">{{bcName}}</view>
+  <view style="font-size:30px;position:fixed;right:10rpx" catchtap="addPost">
+    <text class="cuIcon-add lg text-grey"></text>
+  </view>
+
 </view>
 
-<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">  
- <!-- 成员 -->  
-    <swiper-item>  
+<view class="swiper-tab marginTop2">
+  <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">成员</view>
+  <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">帖子</view>
+  <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">书架</view>
+</view>
+
+<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+  <!-- 成员 -->
+  <swiper-item>
+    <scroll-view scroll-y="true" style="height: {{height}}rpx" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+
+      <view class="cu-list menu-avatar">
+        <view class="cu-item" wx:for="{{member}}" wx:key="userId" wx:for-item="item" id="{{item.memberId}}" catchtap="goToMember">
+          <view class="cu-avatar round lg" style="background-image:url({{item.userInf.avatarUrl}});">
+
+          </view>
+          <view class="content">
+            <view class="text-grey">{{item.userInf.nickName}}</view>
+
+          </view>
+          <view class="action" style="font-size:20px" wx:if="{{item.ifCreater==1}}">
+            <text class="cuIcon-crown text-yellow"></text>
+          </view>
+
+        </view>
+      </view>
+
+
+    </scroll-view>
+  </swiper-item>
+  <!-- 帖子 -->
+  <swiper-item>
+    <scroll-view scroll-y="true" style="height: {{height}}rpx" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+
+      <view class="cu-list menu-avatar">
+        <view class="cu-item" wx:for="{{post}}" wx:key="postId" wx:for-item="item" id="{{item.postId}}" catchtap="goToPost">
+          <view class="cu-avatar radius lg" style="background-image:url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4250885442,2652050609&fm=26&gp=0.jpg);">
+            <view class="cu-tag badge" wx:if="{{item.count>99}}">{{item.count-1}}</view>
+            <view class="cu-tag badge" wx:elif="{{item.count>1}}">{{item.count-1}}</view>
+          </view>
+          <view class="content">
+            <view class="text-grey">{{item.title}}</view>
+            <view class="text-gray text-sm">
+              <text class="cuIcon-write text-blue"></text>{{item.userInf.nickName}}{{item.flag==0?'(本人)':""}} </view>
+          </view>
+          <view class="action" style="font-size:20px" wx:if="{{item.count>5}}">
+            <text class="cuIcon-hotfill text-red "></text>
+          </view>
+        </view>
+      </view>
+
+
+
+
+
+
+
+
+    </scroll-view>
+  </swiper-item>
+  <!-- 书架 -->
+  <swiper-item>
+    <scroll-view scroll-y="true" style="height: {{height}}rpx" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
       <view class='panel base-padding base-margin-bottom cate-data'>
-  <view class='panel-body'>
-      <view class='row'>
-        <view class='row-left'>
-          <navigator  url='/pages/bsecond/CMember/CMember'>
-            <image mode='widthFix' class='box-shadow' src='/magic/BookCircle/timg.jpg'/>
-          </navigator>
-        </view>
-        <view class='row-right'>
-        <view style="height:20px;"></view>
-          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>成员1</navigator>
-    
-          <view class='text-muted ellipsis-3row'>他酷到没有签名。
+        <view class='panel-body'>
+
+
+          <view wx:for="{{shelf}}" wx:key="{{isbn}}" id='{{item.isbn}}' bindtap="goToDetailPage" data-count="{{item.count}}" data-me="{{item}}" data-ownerid="{{item.ownerId}}" data-bid="{{item.id}}" class='booklist'>
+            <image src="{{item.picPath}}" mode="scaleToFill"></image>
+            <view class="bookView">
+              <view class='font-lv3  ellipsis-2row bookNameView'>
+                {{item.bookName}}
+              </view>
+              <view class='font-lv4  ellipsis-2row authorView'>
+                {{item.author}}
+              </view>
+            </view>
+            <view class="listBorrwo">共{{item.count}}本</view>
           </view>
-        </view>
-      </view>
-      <view class='row'>
-        <view class='row-left'>
-          <navigator  url='/pages/bsecond/CMember/CMember'>
-            <image mode='widthFix' class='box-shadow' src='/magic/BookCircle/timg.jpg'/>
-          </navigator>
-        </view>
-        <view class='row-right'>
-        <view style="height:20px;"></view>
-          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>成员2</navigator>
-      
-          <view class='text-muted ellipsis-3row'>他酷到没有签名。
-        </view>
-        </view>
-      </view>
-</view>
-</view>
-    </swiper-item>  
-    <!-- 帖子 -->  
-    <swiper-item>  
-      <view class='panel base-padding base-margin-bottom cate-data'>
-  <view class='panel-body'>
-      <view class='row'>
-        <view class='row-right'>
-        <view style="height:20px;"></view>
-          <navigator  url='/pages/bsecond/CMember/CMember' class='ellipsis-1row font-lv2'>keras中如何对网络参数修改？</navigator>
-          <view class='text-muted ellipsis-3row'>crash 发表于2019-09-20
-          </view>
-        </view>
-      </view>
-      </view>
-      </view>
-    </swiper-item>  
-    <!-- 书架 -->  
-    <swiper-item>  
-      <view class='box'>
-        <view wx:for="{{bookSource[idx]}}" wx:key="{{isbn}}" id='{{item.isbn}}' bindtap="goToDetailPage" class='book'>
-          <image src="{{item.picPath}}" mode="scaleToFill"></image>
-          <view class='font-lv3  ellipsis-2row'>
-            {{item.bookName}}
-          </view>
-        </view>
 
-        <view wx:if="{{nullView[idx]}}" class='book text-muted'>
         </view>
-
-
-
-
       </view>
-    </swiper-item>  
+    </scroll-view>
+  </swiper-item>
 </swiper>

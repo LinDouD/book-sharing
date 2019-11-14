@@ -1,0 +1,12 @@
+<view class="cu-form-group margin-top">
+		<view class="title">标题</view>
+		<input placeholder="10字短标题" bindinput="input"></input>
+	</view>
+
+  	<view class="cu-form-group align-start">
+		<view class="title">内容</view>
+		<textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="tinput" style="height:30em" placeholder="200百字以内"></textarea>
+	</view>
+<view class="padding flex flex-direction">
+   <button class="cu-btn round line-blue shadow lg" disabled="{{!(titleBtn&&contentBtn)}}" catchtap="addPost">发布帖子</button>
+   </view>

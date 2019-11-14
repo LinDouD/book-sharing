@@ -10,7 +10,7 @@
       </view>
     </view>
     <view class="borrowBtn">
-      <button class="borrowState" disabled="true">{{borrowState}}</button>
+      <button class="borrowState" disabled="true">{{userBook.borrowStateS}}</button>
     </view>
   </view>
 
@@ -27,8 +27,10 @@
 
         <view class="borrowstatus">
           <view class="body-view">
-            <switch checked="{{switchChecked}}" disabled='{{!isPrivacy}}' bindchange="switchChange" />
+          
+             <switch class="sm" checked="{{switchChecked}}" disabled='{{!isPrivacy}}' bindchange="switchChange" ></switch>
           </view>
+
         </view>
       </view>
 
@@ -89,8 +91,8 @@
           <view class="one" wx:if="{{bookInf.pubTime!=null && bookInf.pubTime!=''}}">
             <text>出版日期 : {{bookInf.pubTime}}</text>
           </view>
-          <view class="one" wx:if="{{time!=null && time!=''}}">
-            <text>加入书架时间 : {{time}}</text>
+          <view class="one" wx:if="{{userBook.time!=null && tuserBook.ime!=''}}">
+            <text>加入书架时间 : {{userBook.time}}</text>
           </view>
         </view>
       </view>

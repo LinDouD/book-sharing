@@ -158,3 +158,24 @@ page{
 .clear{zoom:1;}
 .clear:after{content: "\0020";display: block;height: 0;clear: both;}
 .mask{width: 100%;height: 100%;background: rgba(120, 220, 220, 0.5);position: fixed;z-index: 5;top: 0;left: 0;}
+
+
+.order-item {
+  height: 240rpx;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.remove{  
+  width: 160rpx;  
+  height: 100%;  
+  background-color: red; 
+  color: white; 
+  position: absolute;  
+  top: 0;  
+  right: -160rpx;  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+}  

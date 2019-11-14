@@ -1,97 +1,343 @@
 /* pages/shelf/shelf.wxss */
 
-page{
-    width: 100%;
-    height: 100%;
-}
-.nav {
-    height: 80rpx;
-    width: 85%;
-    box-sizing: border-box;
-    overflow: hidden;
-    line-height: 80rpx;
-    background: #f7f7f7;
-    font-size: 16px;
-    white-space: nowrap;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 99;  
-    
-}
-.nav-item {
-    width: 20%;
-    display: inline-block;
-    text-align: center;
-}
-.nav-item.active{
-    color: #2f65bb;
-}
-
-.tab-content{
-    overflow-y: scroll;
-      
-    
-}
-
-
-/*  时间/字母  */
-.section {
-    height: 80rpx;
-    width: 20%;
-    box-sizing: border-box;
-    overflow: hidden;
-    line-height: 80rpx;
-    background: #fae5e5;
-    font-size: 16px;
-    white-space: nowrap;
-    position: fixed;
-    top: 0;
-    left: 85%;
-    z-index: 99;
-    text-align: center;
-    margin-left: -20rpx;
-    
-    
-}
-
-/*书籍*/
-.box{
-  margin-top: 30rpx;
-  margin-right: 20rpx;
-  margin-left: 20rpx;
-  display: flex;
-  justify-content: space-between; 
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  
-}
-.box .book{
-  width:30%;
-  margin-bottom: 40rpx;
-  color: #666;
-   
-}
-
-.book image{
-  width: 100%;
-   height: 300rpx;
-}
-.header{
-  border: 1px red solid;
-  margin-bottom: 70rpx;
-}
-
-.scontainer{
+page {
   width: 100%;
   height: 100%;
 }
 
+/*书籍*/
 
-.swiperPosition{
+.box {
+  margin-top: 30rpx;
+  margin-right: 40rpx;
+  margin-left: 40rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.box1 {
+  margin-top: 20rpx;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.box .book {
+  width: 82px;
+  margin-bottom: 20rpx;
+  color: #666;
+  position: relative;
+}
+
+.book image {
+  width: 82px;
+  height: 120px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+  padding: 0 10px 0 10px;
+  background: #f7f7f7;
+  border-bottom: 1px solid #f7f7f7;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.scontainer {
+  width: 100%;
+  height: 100%;
+}
+
+.sortView {
+  padding-left: 0rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 150rpx;
+  font-size: 30rpx;
+  color: #2f65bb;
+}
+
+.search_arr {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  border: 1px solid #2f65bb;
+  border-radius: 20rpx;
+}
+
+.searchcion {
+  margin: 10rpx 10rpx 10rpx 10rpx;
+  width: 20px;
+  text-align: center;
+}
+
+.search_arr input {
+  margin-left: 10rpx;
+  border-radius: 5px;
+  font-size: 30rpx;
+  vertical-align: middle;
+}
+
+.sousuo {
+  margin-left: 15rpx;
+  margin-right: 20rpx;
+  width: 100rpx;
+  font-size: 30rpx;
+  color: #2f65bb;
+  line-height: 28px;
+  text-align: center;
+  border: 1px solid #2f65bb;
+  border-radius: 10rpx;
+}
+
+.page_row {
+  display: flex;
+  flex-direction: row;
+}
+
+.isRuleShow {
+  display: block;
+}
+
+.isRuleHide {
+  display: none;
+}
+
+.setfloat {
+  position: absolute;
+  top: 42px;
+  right: 10rpx;
+  margin-top: 10rpx;
+  z-index: 3;
+}
+
+.bubble {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0 15px 0 15px;
+  width: 340rpx;
+  line-height: 1.2;
+  text-align: center;
+  color: black;
+  background: #fff;
+}
+
+.bubble {
+  border-radius: 20rpx;
+}
+
+.bubble:after {
+  content: '\00a0';
+  width: 0;
+  height: 0;
+}
+
+.bubble:after {
+  display: block;
+  border-style: solid;
+  border-width: 15px;
+  border-color: transparent transparent #fff transparent;
+}
+
+.bubble:after {
+  position: absolute;
+  z-index: 10;
+  top: -30px;
+  right: 10px;
+}
+
+.li {
+  padding: 10rpx 0 10rpx 0;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  font-size: 35rpx;
+  align-items: center;
+  border-bottom: 1rpx solid #efefef;
+}
+
+.licon {
+  margin-right: 20rpx;
+}
+
+.set-layer {
+  height: 100%;
+  width: 100%;
   position: fixed;
-  bottom: 10rpx;
+  top: 0;
   left: 0;
-  width:100%;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.set-layer-white-space {
+  height: 100%;
+  width: 100%;
+}
+
+.float {
+  position: fixed;
+  z-index: 3;
+  top: 40px;
+  left: 0;
+  /* margin-top:80rpx; */
+}
+
+.iconuse {
+  font-size: 35rpx;
+  font-weight: 400;
+  margin: 10rpx 0 10rpx 11rpx;
+}
+
+.setViewlist {
+  width: 21px;
+  height: 25px;
+}
+
+.animation-element {
+  z-index: 99;
+  width: 580rpx;
+  height: 1175rpx;
+  background-color: #fff;
+  border: 1px solid #f3f0f0;
+  position: absolute;
+  left: -572rpx;
+}
+
+.useage {
+  height: 40rpx;
+}
+
+.useage li {
+  width: 177rpx;
+  margin: 12rpx 7rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #f3f0f0;
+  border-radius: 15rpx;
+  font-size: 30rpx;
+}
+
+.buttom {
+  position: fixed;
+  bottom: 0;
+}
+
+.box1 .booklist {
+  width: 100%;
+  height: 80px;
+  padding: 10rpx 40rpx 0rpx 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #fff;
+}
+
+.booklist image {
+  width: 50px;
+  height: 65px;
+  margin-bottom: 10rpx;
+}
+
+.bookView {
+  height: 65px;
+  flex: 1;
+  padding: 0 0 0 40rpx;
+  border-bottom: 1px solid WhiteSmoke;
+}
+
+.authorView {
+  position: relative;
+  bottom: -50rpx;
+  color: grey;
+}
+
+.bookNameView {
+  position: relative;
+  bottom: -15rpx;
+}
+
+.sortViewBtn {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.okBtn {
+  height: 30px;
+  background: none;
+  width: 100px;
+  line-height: 30px;
+  font-size: 30rpx;
+}
+
+.cancelBtn {
+  font-size: 30rpx;
+  line-height: 30px;
+  width: 100px;
+  height: 30px;
+  background: none;
+}
+
+
+
+.book .box-con {
+  width: 85px;
+  height: 88px;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index:1;
+}
+
+.book .box-text {
+  color: white;
+  text-align: center;
+  transform: rotate(45deg);
+  position: relative;
+  padding: 2px 0;
+  font-size: 20rpx;
+  left: 32px;
+  top: 5px;
+  width: 80px;
+  background-color: #00801c;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+}
+
+.book .box-text:before, .box-text:after {
+  content: "";
+  position: absolute;
+  bottom: -px;
+}
+
+.book .box-text:before {
+  left: 0;
+}
+
+.book .box-text:after {
+  right: 0;
+}
+
+.scrollView {
+  padding-top: 20rpx;
+}
+
+.listBorrwo{
+  font-size: 25rpx;
+  color: green;
 }
