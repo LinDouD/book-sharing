@@ -206,20 +206,35 @@ Page({
     console.log(this.data.imgList)
   
  var that = this;
-    wx.request({
+    wx.uploadFile({
       url: api.bsecond.fileUpload,
       filePath: that.data.imgList[0],
-      method: "POST",
+      method: 'POST',
       name: 'file',
       header: {
         'content-type': 'multipart/form-data'
       },
-    
+      formData: { 'bookCircleId': that.data.bookCircleId },
       success: function (res) {
-      
+       
+/**
+ *  wx.showToast({
+          title: '修改成功',
+          icon:'success'
+        })
 
-
-
+         let pages = getCurrentPages();
+        let prevPage = pages[pages.length - 2];
+        prevPage.loadData();
+        wx.navigateBack({
+          delta: 1
+           })
+ * 
+ * 
+ * 
+ */
+       
+       
       }
     })
 

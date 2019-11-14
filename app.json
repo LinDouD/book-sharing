@@ -1,11 +1,8 @@
 {
   "pages": [
-        "pages/bsecond/info/info",
+    "pages/bsecond/info/info",
     "pages/shelf/shelf",
-
-
-   
-   
+    
     "pages/asecond/BDself/BDself",
     "pages/shelf/list/list",
     "pages/friendlist/friendlist",
