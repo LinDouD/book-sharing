@@ -1,5 +1,5 @@
-var _api_root = 'http://localhost:8080/small/';
-//var _api_root = 'https://www.qqxxy.xyz/sharebook/small/';
+//var _api_root = 'http://localhost:8080/small/';
+var _api_root = 'https://www.qqxxy.xyz/sharebook/small/';
 var api = {
   shelf: {
     shelfIndex: _api_root + 'shelfIndex',
