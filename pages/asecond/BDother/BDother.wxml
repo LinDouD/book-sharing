@@ -38,7 +38,7 @@
           <text class="content {{!is_folded?'hide':'show'}}" decode="{{true}}" space="{{true}}">&nbsp;&nbsp; {{bookInf.briefIntro}}</text>
         </view>
         <view class="more" wx:if="{{!is_folded}}" bindtap="more">
-          <image src='https://101.37.173.235/magic/more.jpg' mode="widthFix" class="state"></image>
+          <image src='http://101.37.173.235/magic/more.jpg' mode="widthFix" class="state"></image>
         </view>
         <view wx:else class="close" bindtap="close"> 收起</view>
       </view>

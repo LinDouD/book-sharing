@@ -45,7 +45,7 @@ Page({
     }
     var that = this;
     if (e.currentTarget.dataset.userid == that.data.user_id) {
-      that.Pop_show('https://101.37.173.235/magic/nozan.png', '不能给自己评论点赞');
+      that.Pop_show('http://101.37.173.235/magic/nozan.png', '不能给自己评论点赞');
       return
     }
     var comment_id = e.currentTarget.dataset.id; //点击当前项的id
@@ -162,7 +162,7 @@ Page({
     }
     console.log(this.data.inputValu)
     if (this.data.val_len >= 140) {
-      this.Pop_show('https://101.37.173.235/magic/nozan.png', '评论超过最大字数限制')
+      this.Pop_show('http://101.37.173.235/magic/nozan.png', '评论超过最大字数限制')
       return
     }
   },
@@ -198,7 +198,7 @@ Page({
     wx.showNavigationBarLoading();
     var that = this;
     var talks = [];
-    var faces = ['https://101.37.173.235/magic/apost/icon1.jpeg', 'https://101.37.173.235/magic/apost/icon2.jpeg', 'https://101.37.173.235/magic/apost/icon3.jpeg'];
+    var faces = ['http://101.37.173.235/magic/apost/icon1.jpeg', 'http://101.37.173.235/magic/apost/icon2.jpeg', 'http://101.37.173.235/magic/apost/icon3.jpeg'];
     var names = ['贝贝', '晶晶', '欢欢', '妮妮'];
     var contents = ['IT实战联盟很不错的', '是的', '楼上说的对'];
     talks = talks.concat(this.data.talks);

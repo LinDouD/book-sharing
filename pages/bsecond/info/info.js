@@ -88,6 +88,13 @@ Page({
         briefInfo: that.data.briefInfo,
         mode: mode
       }
+    }else if(this.data.type==2){
+      mode="picInfo";
+      this.upload();
+      data = {
+        bookCircleId: that.data.bookCircleId,
+        mode: mode
+      }
     }
  
     app.checkSession({
@@ -202,8 +209,7 @@ Page({
   },
 
   upload:function(){
-   
-    console.log(this.data.imgList)
+  console.log("imgList:"+this.data.imgList)
   
  var that = this;
     wx.uploadFile({
@@ -216,6 +222,7 @@ Page({
       },
       formData: { 'bookCircleId': that.data.bookCircleId },
       success: function (res) {
+        console.log("myreseditpic:"+res);
        
 /**
  *  wx.showToast({

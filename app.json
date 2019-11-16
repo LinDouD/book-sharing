@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/bsecond/info/info",
     "pages/shelf/shelf",
+    "pages/bsecond/info/info",
+    
     
     "pages/asecond/BDself/BDself",
     "pages/shelf/list/list",

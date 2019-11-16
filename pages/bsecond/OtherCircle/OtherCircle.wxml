@@ -26,7 +26,7 @@
       <view class='row'>
         <view class='row-left'>
           <navigator  url='/pages/bsecond/CMember/CMember'>
-            <image mode='widthFix' class='box-shadow' src='https://101.37.173.235/magic/BookCircle/timg.jpg'/>
+            <image mode='widthFix' class='box-shadow' src='http://101.37.173.235/magic/BookCircle/timg.jpg'/>
           </navigator>
         </view>
         <view class='row-right'>
@@ -40,7 +40,7 @@
       <view class='row'>
         <view class='row-left'>
           <navigator  url='/pages/bsecond/CMember/CMember'>
-            <image mode='widthFix' class='box-shadow' src='https://101.37.173.235/magic/BookCircle/timg.jpg'/>
+            <image mode='widthFix' class='box-shadow' src='http://101.37.173.235/magic/BookCircle/timg.jpg'/>
           </navigator>
         </view>
         <view class='row-right'>

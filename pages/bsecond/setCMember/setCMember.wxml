@@ -4,7 +4,7 @@
   <view class="UCenter-bg" style='height:200px;background-image:url({{circleInfo.circlePicPath}})'>
    
     
-    <image src="https://101.37.173.235/magic/wave.gif" mode="scaleToFill" class="gif-wave"></image>
+    <image src="http://101.37.173.235/magic/wave.gif" mode="scaleToFill" class="gif-wave"></image>
   </view>
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
     <view class="cu-item">
