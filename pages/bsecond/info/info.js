@@ -10,13 +10,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isUBtn: false,
+    
     imgList: [],
     imgs: [], //本地图片地址数组
     picPaths: [], //网络路径
     type: 2,
     bookCircleId: 6,
     btn: false,
+    isUBtn: false,
 
   },
 
@@ -221,6 +222,8 @@ Page({
         'content-type': 'multipart/form-data'
       },
       formData: { 'bookCircleId': that.data.bookCircleId },
+    
+     
       success: function (res) {
         console.log("myreseditpic:"+res);
        
@@ -242,6 +245,9 @@ Page({
  */
        
        
+      },
+      fail(res){
+        console.log("fail",res)
       }
     })
 

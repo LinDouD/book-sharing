@@ -1,54 +1,69 @@
-<!--/** wx:if='{{is_exist==2}}'**/-->
-<view class="total">
-  <view class="top ">
-    <image class="pic" mode="scaleToFill" src="{{bookInf.picPath}}"></image>
-    <view class="content">
-      <view class="titleView">
-        <text class="title">{{bookInf.bookName}}</text>
+<view class="total" wx:if="{{is_exist}}">
+  <view class="cu-list menu-avatar">
+    <view class="cu-item" style="height:124px;align-items: flex-end;padding:13px 13px 13px 13px;">
+
+      <view class="cu-avatar radius lg shadow-warp " style="background-image:url({{bookInf.picPath}});height:85px;width:62px"></view>
+      <view class="content" style="left:190rpx;height:80px;width:330rpx">
+        <view class="text-black ">
+          {{bookInf.bookName}}
+        </view>
+
+        <view class="text-gray text-sm flex " style="position:fixed;top:75px">
+          <text class="text-cut">
+            {{bookInf.author}}
+          </text>
+        </view>
       </view>
-      <view class="authorView">
-        <text class="author">{{bookInf.author}}</text>
+      <view class="action" style="width:80px;">
+        <button class="cu-btn round line-blue ">{{borrow?userBook.usrBorrowStateS:userBook.borrowStateS}}</button>
       </view>
-    </view>
-    <view class="borrowBtn">
-      <button class="borrowState" disabled="true">{{userBook.usrBorrowStateS}}</button>
     </view>
   </view>
 
   <view class="body">
     <scroll-view scroll-y="true" class="myscroll">
-      <view class="userView">
-        <view class="user" catchtap="goToShelf" id='{{fuserInfo.userId}}'>
-          <image src='{{fuserInfo.avatarUrl}}' class='avatar'></image>
-          <view class="nickname">
-            <text>{{fuserInfo.nickName}}</text>
+
+      <view class="cu-list menu-avatar" style="border-bottom:1px solid #efefef;">
+        <view class="cu-item" style="height:110rpx;padding:0 0 10rpx 0" bindtap="goToFriendInfo">
+
+          <view class="cu-avatar radius lg" style="background-image:url({{fuserInfo.avatarUrl}});height:85rpx ;width:85rpx;"  ></view>
+          <view class="content" style="width:calc(100% - 96rpx - 60rpx - 120rpx - 120rpx);">
+            <view class="text-black">{{fuserInfo.nickName}}</view>
           </view>
+
+          <text class="cuIcon-friendadd lg text-grey" style="font-size:20px;margin-right:50rpx" wx:if="{{!flag}}" >
+         </text>
+          <text class="cuIcon-friend lg text-grey" style="font-size:20px;margin-right:50rpx" wx:else   >
+         </text>
         </view>
 
-        <view class="borrowstatus">
-          <view class="body-view">
-            <button class="chatBtn" catchtap="goToChat" id='{{id}}'>私聊</button>
-          </view>
-        </view>
       </view>
+
 
 
       <view class="brief">
+        <view style="display:flex;align-items: center;">
+          <text class="cuIcon-creativefill text-yellow " style="font-size:12px"></text>
+
+          <view class="name">
+            简介
+          </view>
+        </view>
         <view class="briefInfo ">
-          <text class="content {{!is_folded?'hide':'show'}}" decode="{{true}}" space="{{true}}">&nbsp;&nbsp; {{bookInf.briefIntro}}</text>
+          <text class="content " decode="{{true}}" space="{{true}}">&nbsp;&nbsp;{{bookInf.briefIntro}}
+   </text>
         </view>
-        <view class="more" wx:if="{{!is_folded}}" bindtap="more">
-          <image src='http://101.37.173.235/magic/more.jpg' mode="widthFix" class="state"></image>
-        </view>
-        <view wx:else class="close" bindtap="close"> 收起</view>
       </view>
       <!-- brief-->
-      <view class="type">
-        <view class="name">
-          标签
+      <view class="type ">
+        <view style="display:flex; align-items: center;">
+          <text class="cuIcon-tagfill text-red" style="font-size:12px"></text>
+          <view class="name">
+            标签
+          </view>
         </view>
         <view class="typeall">
-          <view wx:for="{{bookInf.categoryInfList}}" wx:for-index="idx" wx:for-item="item">
+          <view wx:for="{{bookInf.categoryInfList}}" wx:for-index="idx" wx:key="catgId" wx:for-item="item">
             <view class="typeone">
               <text>{{item.catgName}}</text>
             </view>
@@ -57,14 +72,20 @@
           <view class="typeone">
             <text>公开</text>
           </view>
-          <view class="typeone" wx:if="{{!isCatg}}">
+          <view class="typeone" wx:if="{{res.bookInf.categoryInfList.length==0}}">
             <text>暂无分类</text>
           </view>
         </view>
       </view>
+
+
       <view class="moreinfo">
-        <view class="name">
-          更多信息
+        <view style="display:flex; align-items: center;">
+          <text class="cuIcon-writefill text-green" style="font-size:12px"></text>
+
+          <view class="name">
+            更多信息
+          </view>
         </view>
         <view class="all">
           <view class="one">
@@ -97,24 +118,20 @@
     </scroll-view>
 
     <view class="footer">
-      <view class="user">
-        <image src='{{userInfo.avatarUrl}}' class='avatar'></image>
-        <view class="nickname">
-          <text>{{userInfo.nickName}}</text>
-          <text>(我)</text>
-        </view>
-      </view>
-      <view class="borrowstatus">
-        <view>
-          <button wx:if="{{type==0}}" class="cancel" catchtap="opt" disabled="{{bdisabled1}}" id='{{type}}'>
-            取消申请
-          </button>
-          <button wx:if="{{type==1}}" class="cancel cancelcolor" catchtap="opt" disabled="{{bdisabled2}}" id='{{type}}'>
-            {{returnName}}
-          </button>
+      <view class="cu-bar bg-white tabbar border shop">
+        <button class="action" bindtap="chat">
+          <view class="cuIcon-comment text-green">
+            <view class="cu-tag badge"></view>
+          </view>
+          聊天
+        </button>
+        <view class="bg-red submit" wx:if="{{!borrow}}" bindtap="applyBook">申请借阅</view>
+        <view class="bg-green submit" wx:elif="{{borrow&&(userBook.usrBorrowState==2)}}" bindtap="returnBook">归还</view>
+        <view class="bg-red submit" wx:elif="{{borrow&&(userBook.usrBorrowState==1)}}" bindtap="cancelApply">取消申请</view>
 
-        </view>
+        <view class="bg-grey submit " wx:else> {{borrow?userBook.usrBorrowStateS:'不可借阅'}}</view>
       </view>
     </view>
+
   </view>
 </view>

@@ -127,8 +127,6 @@ Page({
                 member: data,
                 flag: res.flag
               })
-
-
             } else { }
 
 
@@ -195,7 +193,7 @@ Page({
           })
         } else {
           wx.navigateTo({
-            url: '/pages/asecond/otherBook/otherBook?bookId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId
+            url: '/pages/asecond/BDother/BDother?bookId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId+'&flag='+'circle'
           })
         }
 
@@ -405,6 +403,7 @@ Page({
         }
       }
     })
-  }
+  },
+
 
 })

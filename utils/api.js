@@ -1,7 +1,9 @@
 //var _api_root = 'http://localhost:8080/small/';
 var _api_root = 'https://www.qqxxy.xyz/sharebook/small/';
 var api = {
+  contact: 'http://localhost:8080/samll/websocket',
   shelf: {
+    search: _api_root +'search',
     shelfIndex: _api_root + 'shelfIndex',
     findBookList: _api_root + 'shelfIndex/findBookList',
     myshelf: _api_root + 'myshelf',
@@ -10,6 +12,7 @@ var api = {
     otherbooklist: _api_root + 'othershelf/list'
   },
   scan: {
+    addShelfByM: _api_root + 'scan/addShelfByM',
     querybook: _api_root + 'scan/book',
     addShelf: _api_root + 'scan/addShelf'
   },
@@ -21,9 +24,14 @@ var api = {
     bdother_other: _api_root + 'asecond/otherself/other',
     privacy: _api_root + 'asecond/bdself/privacy',
     deletebook: _api_root + 'asecond/bdself/deleteBook',
-    bdother_opt: _api_root + 'asecond/bdother/opt'
+    bdother_opt: _api_root + 'asecond/bdother/opt',
+    bdother_cancelApply: _api_root + 'asecond/bdother/cancelApply',
+    applyBook: _api_root + 'asecond/bdother/applyBook',
+    returnBook: _api_root + 'asecond/bdother/return'
+
   },
   bsecond:{
+    
     fileUpload: _api_root + 'fileUpload',
     applyCircle: _api_root + 'applyCircle',
     deleteCMember: _api_root + 'deleteCMember',
@@ -49,6 +57,7 @@ var api = {
     searchbookcirclebcname: _api_root + 'searchBookCircleBCName'
   },
   friendlist: {
+    contact: _api_root +'contact',
     friendlist: _api_root + 'friendlist',
     friendInfo:_api_root + 'friendInfo',
     unfriendInfo: _api_root + 'unfriendInfo',
@@ -58,7 +67,8 @@ var api = {
   },
   chat: {
     chat: _api_root + 'chat',
-    chat_opt: _api_root + 'chat/opt'
+    chat_opt: _api_root + 'chat/opt',
+    chat_history: _api_root + 'chat/history'
   },
   applogin: {
     login: _api_root + 'login',

@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    exist:false,
     bgCoverUrl,
     isClick: false,
     isCircle:false,
@@ -124,6 +125,7 @@ Page({
   },
 
   goToShelf: function () {
+    console.log("gotoshelf")
     var that = this;
     if (that.data.flag==2||that.data.flag==0) {
       wx.navigateTo({
@@ -163,7 +165,8 @@ var that = this;
               that.setData({
                 userInfo: res.data,
                 mid:res.mid,
-                flag:res.flag
+                flag:res.flag,
+                exist:true
               })
               console.log("friendInfo", that.data.userInfo)
             }

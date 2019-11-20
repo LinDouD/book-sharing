@@ -181,7 +181,7 @@ if(this.data.flag=='shelf'){
     } else {
       //借阅书籍
       wx.navigateTo({
-        url: '/pages/asecond/BDother/BDother?borrowId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId
+        url: '/pages/asecond/BDother/BDother?borrowId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId + '&flag=' + 'circle'
       })
 
     }
@@ -193,12 +193,12 @@ if(this.data.flag=='shelf'){
     })
   } else {
     wx.navigateTo({
-      url: '/pages/asecond/otherBook/otherBook?bookId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId
+      url: '/pages/asecond/BDother/BDother?bookId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId + '&flag=' + 'circle'
     })
   }
 } else if (this.data.flag == 'othershelf'){
   wx.navigateTo({
-    url: '/pages/asecond/otherBook/otherBook?bookId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId
+    url: '/pages/asecond/BDother/BDother?bookId=' + id + '&isbn=' + isbn + '&ownerId=' + ownerId+'&flag='+'circle'
   })
 }
 

@@ -3,6 +3,7 @@
 page {
   width: 100%;
   height: 100%;
+  background: #fff
 }
 
 /*书籍*/
@@ -11,6 +12,16 @@ page {
   margin-top: 30rpx;
   margin-right: 40rpx;
   margin-left: 40rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.box1 {
+  margin-top: 20rpx;
+
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -32,6 +43,7 @@ page {
 }
 
 .header {
+  background: #fff!important;
   padding: 0 10px 0 10px;
   background: #f7f7f7;
   border-bottom: 1px solid #f7f7f7;
@@ -51,7 +63,7 @@ page {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 150rpx;
+  
   font-size: 30rpx;
   color: #2f65bb;
 }
@@ -101,6 +113,7 @@ page {
 .isRuleHide {
   display: none;
 }
+
 .setfloat {
   position: absolute;
   top: 42px;
@@ -166,7 +179,7 @@ page {
   top: 0;
   left: 0;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
 }
 
 .set-layer-white-space {
@@ -208,6 +221,7 @@ page {
 }
 
 .useage li {
+   background:#fff;
   width: 177rpx;
   margin: 12rpx 7rpx;
   height: 70rpx;
@@ -224,13 +238,14 @@ page {
   bottom: 0;
 }
 
-.box .booklist {
+.box1 .booklist {
   width: 100%;
   height: 80px;
-  padding: 10rpx 0 0rpx 0;
+  padding: 10rpx 40rpx 0rpx 40rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
+  background: #fff;
 }
 
 .booklist image {
@@ -281,9 +296,7 @@ page {
   background: none;
 }
 
-.click {
-  background: #89dcf8;
-}
+
 
 .book .box-con {
   width: 85px;
@@ -292,6 +305,7 @@ page {
   position: absolute;
   top: 0px;
   right: 0px;
+  z-index:1;
 }
 
 .book .box-text {
@@ -304,7 +318,7 @@ page {
   left: 32px;
   top: 5px;
   width: 80px;
-  background-color: #00801c;
+  
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 }
 

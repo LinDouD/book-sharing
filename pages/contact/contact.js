@@ -1,136 +1,293 @@
-// pages/contact/contact.js
-const app = getApp();
-var inputVal = '';
-var msgList = [];
-var windowWidth = wx.getSystemInfoSync().windowWidth;
-var windowHeight = wx.getSystemInfoSync().windowHeight;
-var keyHeight = 0;
-
-/**
- * 初始化数据
- */
-function initData(that) {
-  inputVal = '';
-
-  msgList = [{
-    speaker: 'server',
-    contentType: 'text',
-    content: '欢迎来到英雄联盟，敌军还有30秒到达战场，请做好准备！'
-  },
-  {
-    speaker: 'customer',
-    contentType: 'text',
-    content: '我怕是走错片场了...'
-  }
-  ]
-  that.setData({
-    msgList,
-    inputVal
-  })
-}
-
-/**
- * 计算msg总高度
- */
-// function calScrollHeight(that, keyHeight) {
-//   var query = wx.createSelectorQuery();
-//   query.select('.scrollMsg').boundingClientRect(function(rect) {
-//   }).exec();
-// }
+// pages/index/to_news/to_news.js  
+var app = getApp();
+var util = require('../../utils/util');
+var api = require('../../utils/api.js');
+var socketOpen = false;
+var SocketTask = false;
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    scrollHeight: '100vh',
-    inputBottom: 0
-  },
+    sendBtn:false,
+    InputBottom: 0,
+    inputValue: '',
+    returnValue: '',
+    list:[] ,
+     senderId:23,
+    receiverId:29
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  },
   onLoad: function (options) {
-    initData(this);
-    this.setData({
-      cusHeadIcon: app.globalData.userInfo.avatarUrl,
-    });
+    if(JSON.stringify(options)!='{}'){
+      this.setData({
+        senderId:options.userId,
+        receiverId:options.fid,
+      })
+    }else{
+      this.setData({
+        senderId:23,
+        receiverId:29
+      })
+    }
+   
+    console.log("list", this.data.list.length)
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  onShow:function(){
+   
+    this.loadData(true);
+  
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 获取聚焦
-   */
-  focus: function (e) {
-    keyHeight = e.detail.height;
-    this.setData({
-      scrollHeight: (windowHeight - keyHeight) + 'px'
-    });
-    this.setData({
-      toView: 'msg-' + (msgList.length - 1),
-      inputBottom: keyHeight + 'px'
-    })
-    //计算msg高度
-    // calScrollHeight(this, keyHeight);
-
-  },
-
-  //失去聚焦(软键盘消失)
-  blur: function (e) {
-    this.setData({
-      scrollHeight: '100vh',
-      inputBottom: 0
-    })
-    this.setData({
-      toView: 'msg-' + (msgList.length - 1)
+  onReady: function () {
+    const height = this.data.projectNum * 90 + 92    // 计算出页面高度
+    wx.pageScrollTo({
+      scrollTop: height,
+      duration: 300
     })
 
-  },
-
-  /**
-   * 发送点击监听
-   */
-  sendClick: function (e) {
-    msgList.push({
-      speaker: 'customer',
-      contentType: 'text',
-      content: e.detail.value
+    var that = this;
+    // 创建Socket
+    SocketTask = wx.connectSocket({
+    // url: 'ws://localhost:8080/small/websocket/'+that.data.senderId,
+      url: 'wss://www.qqxxy.xyz/sharebook/small/websocket/'+that.data.senderId,
+      header: {
+        'content-type': 'application/json'
+      },
+      method: 'post',
+      success: function (res) {
+        console.log('WebSocket连接创建', res)
+      },
+      fail: function (err) {
+        wx.showToast({
+          title: '网络异常！',
+        })
+        console.log(err)
+      },
     })
-    inputVal = '';
+    if (SocketTask) {
+      SocketTask.onOpen(res => {
+        console.log('监听 WebSocket 连接打开事件。', res)
+        console.log(' wx.onSocketError', wx.onSocketError)
+       
+      })
+      SocketTask.onClose(onClose => {
+        console.log('监听 WebSocket 连接关闭事件。', onClose)
+      })
+      SocketTask.onError(onError => {
+        console.log('监听 WebSocket 错误。错误信息', onError)
+      })
+      
+      SocketTask.onMessage(onMessage => {
+        var that = this;
+        var list = that.data.list;
+        var content = JSON.parse(onMessage.data)
+    
+        var time = util.formatTimen(content.dateTime/1000, 'Y-M-D h:m:s');
+        content.dateTime = util.current(time)
+        if(content.flag==1){
+          //数据库插入成功
+          if(content.mType==2){
+            list.push(content)
+            that.setData({
+              list: list
+            })
+            that.pageScrollToBottom();
+          }else{
+            that.loadData(false);
+          }
+        
+
+        }
+        console.log(that.data.list)
+ 
+        console.log('监听WebSocket接受到服务器的消息事件。服务器返回的消息', onMessage)
+      
+      })
+    }
+  },
+
+  // 提交文字
+  submitTo: function (e) {
+    console.log("submitTo")
+    let that = this;
+    let list = that.data.list;
+    let dateTime = util.formatTime(new Date());
+
+       this.setData({
+         sendValue:'',
+         sendBtn: false,
+       })
+  
+    var data = {
+      senderId:that.data.senderId,
+      content: that.data.inputValue,
+      receiverId: that.data.receiverId,
+      dateTime:dateTime,
+      mType: 2,
+       
+    } 
+ //   if (socketOpen) {
+      console.log("submitTo")
+      // 如果打开了socket就发送数据给服务器
+      sendSocketcontent(data)
+   // }
+  },
+  
+  bindKeyInput: function (e) {
+    var inputValue =  e.detail.value.replace(/\s+/g, '')
     this.setData({
-      msgList,
-      inputVal
-    });
+      inputValue: inputValue,
+     
+    })
+   
+    if(this.data.inputValue!=''){
+      this.setData({
+        sendBtn: true
+      })
+    }else{
+      this.setData({
+        sendBtn: false
+      })
+    }
+  
+  },
+
+  onHide: function () {
+    SocketTask.close(function (close) {
+      console.log('关闭 WebSocket 连接。', close)
+    })
+  },
+
+  InputFocus(e) {
+    this.setData({
+      InputBottom: e.detail.height
+    })
+  },
+  InputBlur(e) {
+    this.setData({
+      InputBottom: 0,
+      
+    })
+    },
+  loadData:function(flag){
+    var that = this;
+    app.checkSession({
+      success: function () {
+        app.request({
+          url: api.friendlist.contact,
+          data: {
+            senderId: that.data.senderId,
+            receiverId:that.data.receiverId,
+            offset:0,
+            limit:10
+          },
+          success: function (res) {
+            var list =[]
+            console.log("contact", res)
+            if (res.status.is_exist == 1) {
+              if(res.count!=0){
+                list = spiltTime(res.list)
+              }
+              that.setData({
+                userInfo: res.userInfo,
+                fuserInfo: res.fuserInfo,
+                list:list ,
+                offest:res.count
+              })
+             
+            } else if (res.status.is_exist == 1){
+              that.setData({
+                userInfo: res.userInfo,
+                fuserInfo: res.fuserInfo,
+              })
+            }
+           if(flag){
+             that.pageScrollToBottom();
+           }
+          },
+        });
+      }
+    })
+  },
+  agree: function (e) {
+    var flag = e.currentTarget.dataset.flag;
+    if (flag == 0) {
+      var borrowRes = 1;
+      var messageId = e.currentTarget.id;
+      var mType = e.currentTarget.dataset.type;
+      var time = util.formatTime(new Date());
+      var that = this;
+      var data = {
+        messageId: messageId,
+        mType: mType,
+        borrowRes: borrowRes,
+        dateTime: time,
+        senderId: that.data.receiverId,
+        receiverId: that.data.senderId,
+      }
+      this.opt(data)
+    }
+
 
 
   },
+  disagree: function (e) {
+    var flag = e.currentTarget.dataset.flag;
+    if (flag == 0) {
+      var borrowRes = 2;
+      var messageId = e.currentTarget.id;
+      var mType = e.currentTarget.dataset.type;
+      var time = util.formatTime(new Date());
+      var that = this;
+      var data = {
+        messageId: messageId,
+        mType: mType,
+        borrowRes: borrowRes,
+        dateTime: time,
+        senderId: that.data.receiverId,
+        receiverId: that.data.senderId,
+      }
+      this.opt(data)
+    }
 
-  /**
-   * 退回上一页
-   */
-  toBackClick: function () {
-    wx.navigateBack({})
-  }
+  },
 
+  opt: function (data) {
+    sendSocketcontent(data)
+  },
+
+  // 获取容器高度，使页面滚动到容器底部
+  // 获取容器高度，使页面滚动到容器底部
+  pageScrollToBottom: function () {
+    wx.createSelectorQuery().select('#j_page').boundingClientRect(function (rect) {
+      // 使页面滚动到底部
+      wx.pageScrollTo({
+        scrollTop: rect.bottom + 5000
+      })
+    }).exec()
+  },
+
+
+  
 })
+
+//通过 WebSocket 连接发送数据，需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。
+function sendSocketcontent(data) {
+  console.log('通过 WebSocket 连接发送数据')
+  //if (socketOpen) {
+    SocketTask.send({
+      data: JSON.stringify(data)
+    }, function (res) {
+      console.log('已发送', res)
+    })
+  //} else {
+   // socketMsgQueue.push(msg)
+ // }
+  
+}
+
+function spiltTime(list){
+  for(var i =0 ;i<list.length;i++){
+    list[i].dateTime = util.lcurrent(list[i].dateTime);
+  }
+  return list;
+}
+

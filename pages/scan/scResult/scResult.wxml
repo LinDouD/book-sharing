@@ -1,53 +1,115 @@
-<view class="total" wx:if="{{is_exist==1}}">
-
-  <view class="top ">
-    <image class="pic" mode="widthFix" src="{{picPath}}"></image>
-    <view class="content">
-      <text class="title">{{bookName}}</text>
-      <text class="author">{{author}}</text>
+<view class="total"  wx:if='{{is_exist}}'>
+ <view class="cu-list menu-avatar">
+    <view class="cu-item" style="height:124px;align-items: flex-end;padding:13px 0 13px 13px;">
+      <view class="cu-avatar radius lg"  style="background-image:url({{bookInf.picPath}});height:85px;width:62px"></view>
+      <view class="content" style="left:190rpx;height:80px;width:330rpx">
+      <view class="text-black ">
+					{{bookInf.bookName}}
+        </view>
+       
+        <view class="text-gray text-sm flex " style="position:fixed;top:75px">
+          <text class="text-cut">
+						{{bookInf.author}}
+          </text>
+        </view>
+      </view>
+      <view class="action" style="width:100px">
+        <button class="cu-btn round {{bookInf.bookId==-1?'line-orange':'line-blue'}} " bindtap='showModal2'>{{bookInf.bookId==-1?"加入书架":"已在书架上"}}</button>
+      </view>
     </view>
-    <view class="borrowBtn">
-      <button class="borrowState" bindtap='showModal2' disabled="{{disable}}" >{{!disable?'加入书架':'已加入'}}</button>
-    </view>
+    
   </view>
 
   <view class="body">
     <scroll-view scroll-y="true" class="myscroll">
-      <view class="brief {{is_briefnull==0?'briefInfotype1':'briefInfotype2'}}">
+  
+
+     <view class="brief">
+      <view style="display:flex;align-items: center;">
+      <text class="cuIcon-creativefill text-yellow " style="font-size:12px"></text>
+     
+      <view class="name">
+          简介
+        </view>
+        </view>
         <view class="briefInfo ">
-          <text class="content " decode="{{true}}" space="{{true}}">&nbsp;&nbsp;{{briefIntro}}
+          <text class="content " decode="{{true}}" space="{{true}}">&nbsp;&nbsp;{{bookInf.briefIntro}}
    </text>
         </view>
       </view>
+      <!-- brief-->
+      <view class="type " >
+      <view style="display:flex; align-items: center;">
+      <text class="cuIcon-tagfill text-red" style="font-size:12px"></text>
+        <view class="name">
+          标签
+        </view>
+        </view>
+        <view class="typeall">
+        <view wx:if="{{bookInf.categoryInfList[0].catgId!=-1}}">
+          <view wx:for="{{bookInf.categoryInfList}}" wx:for-index="idx" wx:for-item="item">
+            <view class="typeone">
+              <text>{{item.catgName}}</text>
+            </view>
+          </view>
+          </view>
+           <view class="typeone" wx:else>
+              <text>暂无分类</text>
+            </view>
+        </view>
+      </view>
+
+
       <view class="moreinfo">
+      <view style="display:flex; align-items: center;">
+      <text class="cuIcon-writefill text-green" style="font-size:12px"></text>
+      
         <view class="name">
           更多信息
+        </view>
         </view>
         <view class="all">
 
           <view class="one">
-            <text>isbn:{{isbn}}</text>
-          </view>
-          <view class="one">
-            <text>价格:{{price}}</text>
-          </view>
-          <view class="one">
-            <text>出版信息:{{publisher}}</text>
+            <text>isbn : {{bookInf.isbn}}</text>
           </view>
 
+           <view class="oneA" wx:if="{{bookInf.author!=null && bookInf.author!=''}}">
+           <view class="authorOne">作者 :</view>
+           <view class="authorOneContent"> {{bookInf.author}}</view> 
+            
+          </view>
+
+          <view class="one" wx:if="{{bookInf.translator!=null && bookInf.translator!=''}}">
+            <text>翻译 : {{bookInf.translator}}</text>
+          </view>
+          <view class="one" wx:if="{{bookInf.publisher!=null && bookInf.publisher!=''}}">
+            <text>出版社 : {{bookInf.publisher}}</text>
+          </view>
+          <view class="one" wx:if="{{bookInf.pubTime!=null && bookInf.pubTime!=''}}">
+            <text>出版日期 : {{bookInf.pubTime}}</text>
+          </view>
+          
         </view>
-
       </view>
     </scroll-view>
+
+   
   </view>
 </view>
 
-<modal hidden="{{hiddenModal2}}"  title="设置属性" confirm-text="提交" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
 
-  <radio-group class="radio-group" bindchange="radioChange">
-    <radio class="radio {{item.name=='public'?'myradio':''}}" wx:for-items="{{items}}" wx:key="name" value="{{item.name}}" checked="{{item.checked}}">
-      <text>{{item.value}}</text>
-    </radio>
-  </radio-group>
+
+<modal hidden="{{hiddenModal2}}"  title="{{content}}" confirm-text="提交" cancel-text="取消" bindconfirm="model2confirm" bindcancel="model2cancel">
+
+   <radio-group bindchange="radioChange"  style="display:flex; justify-content: space-around;margin-top:20rpx" >
+      <label class="margin-left-sm" wx:for-items="{{items}}" wx:key="name" >
+        <radio class="olive sm radio {{item.name=='public'?'myradio':''}}"value="{{item.name}}" checked="{{item.checked}}"> 
+       
+        </radio>
+         <text>{{item.value}}</text>
+      </label>
+    </radio-group>
+   
 
 </modal>

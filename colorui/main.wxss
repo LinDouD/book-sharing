@@ -1990,9 +1990,7 @@ button.icon.lg {
 	white-space: nowrap;
 }
 
-::-webkit-scrollbar {
-	display: none;
-}
+
 
 .nav .cu-item {
 	height: 90rpx;
@@ -2514,13 +2512,15 @@ button.icon.lg {
 }
 
 .cu-modal.drawer-modal {
+ 
+  margin-top:110rpx;
 	transform: scale(1);
 	display: flex;
 }
 
 .cu-modal.drawer-modal .cu-dialog {
 	height: 100%;
-	min-width: 200rpx;
+	min-width: 600rpx;
 	border-radius: 0;
 	margin: initial;
 	transition-duration: 0.3s;

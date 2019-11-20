@@ -9,6 +9,7 @@
         </view>
   
     </view>
+
     <form wx:if="{{isShowInputForm}}">
         <view class="weui-cells__title">图书基本信息:</view>
         <view class="weui-cells weui-cells_after-title">
@@ -29,5 +30,6 @@
     <view class="weui-btn-area">
         <button wx:if='{{isShowInputForm}}' class="scanbtn" bindtap="search"> 查询</button>
          <button wx:if='{{!isShowInputForm}}' class="scanbtn"  bindtap="getScancode"> 扫一扫</button>
+  
     </view>
 </view>

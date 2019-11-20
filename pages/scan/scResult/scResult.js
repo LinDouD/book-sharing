@@ -10,9 +10,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    is_exist:false,
     is_briefnull:1,
     windowWidth: '',
-    disable:false,
+   
     pixelRatio:'',
     bookName: '',
     is_exist:-1,  //0:book不存在，1 存在
@@ -49,7 +50,15 @@ Page({
     })
   },
   showModal2: function (e) {
-    this.setData({ hiddenModal2: false })
+    var that = this;
+    var content=""
+    if(this.data.bookInf.bookId!=-1){
+      
+      content = "您的书架里已有"+that.data.count+"本相同书籍"
+    }else{
+      content= "添加新书"
+    }
+    this.setData({ hiddenModal2: false , content:content})
   },
   model2confirm: function (e) {
     var that = this;
@@ -62,55 +71,28 @@ Page({
           url: api.scan.addShelf,
           data: {
             isbn: that.data.isbn,
-            addTimes: time,
+            addTime: time,
             privacy: that.data.index
           },
           success:function(res){
             console.log(res);
-            if(res.data.status==1){
-              //我的书架中已有此书
+            if (res.status.save_success==1){
+             
               wx.showToast({
-                title: '我的书架中已有此书',
+                title: '添加成功',
                 icon:'none',
                 duration: 2000
               })
-              that.setData({
-                disable:true
-              })
-            } else if (res.data.status == 2){
-              //保存书籍
-              if(res.data.save_success==0){
-                //保存失败
-                wx.showToast({
-                  title: '添加失败',
-                  icon: 'none',
-                  duration: 2000
-                })
-                
-              } else {
-                //保存成功
-                wx.showToast({
-                  title: '添加成功',
-                  icon: 'success',
-                  duration: 2000
-                })
-                that.setData({
-                  disable: true
-                })
-
-              }
-            }
-            else{
-              //用户不存在
+              
+            } else if (res.data.status == 0){
+              //保存失败
               wx.showToast({
-                title: '此用户不存在请重新授权登陆',
-                icon: 'success',
+                title: '添加失败',
+                icon: 'none',
                 duration: 2000
-              })
-              wx.navigateTo({
-                url: "/pages/index/index"
-              })
+              }) 
             }
+            that.loaddata();
           },
           
         })
@@ -122,13 +104,29 @@ Page({
     this.setData({ hiddenModal2: true })
   },
   onLoad: function (options) {
-    var pages = getCurrentPages();
-    var prevPage = pages[pages.length - 2]; 
-    prevPage.setData({
-      isbn: ''
-    })
-    var id = options.id;
+  
+    
     var that = this;
+    if(JSON.stringify(options)!='{}'){
+      var pages = getCurrentPages();
+      var prevPage = pages[pages.length - 2];
+      prevPage.setData({
+        isbn: ''
+      })
+      var isbn = options.id;
+      that.setData({
+        isbn: isbn
+      })
+    }else{
+      that.setData({
+        isbn: '10019-2047'
+        //10019-2047
+        //9780324168624
+      })
+    
+
+    }
+   
     //1.动态获取设备屏幕的高度，然后计算scroll view的高度
     wx.getSystemInfo({
       success: function (res) {
@@ -139,44 +137,52 @@ Page({
         });
       }
     });
-    this.setData({
-      isbn: id
-    })
+   
     this.loaddata();
   },
 
+   /**
+     * scan/scResult 查询
+     * param: isbn
+     * res:bookInf{
+     *     包括：List<CategoryInf>)
+     *          ifnull(bookId -1)
+     *          ifnull(catgId -1)
+     * }
+     *    is_exist:0,1
+     **/
+
   loaddata: function () {
     var that=this;
-    var id = this.data.isbn
+    var isbn = this.data.isbn
     app.checkSession({success:function(){
       app.request({
         url: api.scan.querybook,
         data: {
-          isbn: id
+          isbn: isbn
         },
         success: function (res) {
           that.setData({
             is_exist: res.status.is_exist
           })
           if (res.status.is_exist == 1) {
-            var briefIntro = res.book.briefIntro;
-            var is_briefnull = 1;
-
             if (res.book.briefIntro == null || res.book.briefIntro == '') {
-              briefIntro = "无简介";
-              is_briefnull = 0;
-
+              res.book.briefIntro = "";
             }
             that.setData({
-              is_briefnull:is_briefnull,
-              publisher:res.book.publisher,
-              price:res.book.price,
-              bookName: res.book.bookName,
-              picPath: res.book.picPath,
-              briefIntro: briefIntro,
-              author: res.book.author
+              bookInf:res.book,
+              is_exist:true,
+              count:res.count
             })
             console.log("scResult", res)
+          }else{
+            that.setData({
+              is_exist:false
+            })
+            wx.showToast({
+              title: '查无此书',
+              icon:'none'
+            })
           }
 
         },

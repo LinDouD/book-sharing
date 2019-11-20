@@ -1,4 +1,5 @@
 <!-- background -->
+<view  wx:if="{{exist}}">
 <view class='bg-cover' style='background-image: url("{{bgCoverUrl}}")'></view>
 
 
@@ -70,5 +71,7 @@
    {{flag==3? " 添加好友":"已申请"}}
   </button>
 
+
+</view>
 
 </view>

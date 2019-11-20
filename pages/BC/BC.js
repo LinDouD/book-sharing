@@ -25,35 +25,10 @@ Page({
   //事件处理函数
   onLoad: function (options) {
    
-    var that = this;
-    app.login().then(function (res) {
-
-      that.setData({
-        is_login: res.data.result
-      })
-      if (res.data.result == 0) {
-
-        console.log("用户不存在，跳转到授权界面");
-        wx.switchTab({
-          url: "/pages/PC/PC"
-        })
-      }
-      else {
-        that.loadMyCircle();
-      }
-    })
+   this.loadMyCircle();
   },
   onShow: function () {
-    if (app.globalData.is_login != 1) {
-      console.log("用户不存在，跳转到授权界面");
-      wx.switchTab({
-        url: "/pages/PC/PC"
-      })
-    }
-    let is_login = app.globalData.is_login;
-    if (is_login == 1) {
-      this.loadMyCircle();
-    }
+   
   },
   /**
  * 页面相关事件处理函数--监听用户下拉动作

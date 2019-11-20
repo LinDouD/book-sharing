@@ -33,8 +33,8 @@ Page({
     }else{
   
       this.setData({
-        bookId: 68,
-        isbn: "10019-2"
+        bookId: 58,
+        isbn: "9787121355950"
 
       })
     }
@@ -232,9 +232,8 @@ Page({
   },
   applyBtn:function(e){
     var that = this;
-    var self = 'self'
     wx.navigateTo({
-      url: '/pages/chat/chat?id=' + that.data.bookId + '&self=' + self
+      url: '/pages/ztemp/ztemp?bookId=' + that.data.bookId + '&isbn=' + that.data.isbn + '&ownerId=' + that.data.userInfo.userId
     })
   },
 

@@ -1,0 +1,49 @@
+<view class="cu-bar bg-white solid-bottom " style="position:fixed;top:0rpx;width:100%;z-index:99">
+  <view class="action">
+    申请列表
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-green shadow" bindtap="history">历史</button>
+  </view>
+</view>
+
+<view wx:if="{{exist}}" style="margin-top:100rpx">
+  <view class="cu-card article " wx:for="{{message}}" wx:key="messageId" wx:for-item="item">
+
+
+    <view class="cu-item shadow">
+      <view class="cu-bar bg-white solid-bottom " style="min-height: 80rpx;">
+        <view class='action'>
+          <text class='cuIcon-titles text-orange '></text> {{item.mType==0?"申请提示":"归还提示"}}
+        </view>
+        <view class='action' style="font-size:20px" bindtap="goToContact" data-send="{{item.senderId}}" data-receive="{{item.receiverId}}" id="{{item.messageId}}" data-type="{{item.mType}}">
+          <text class='cuIcon-comment text-orange ' style="font-size:42rpx"></text>
+        </view>
+      </view>
+      <view class="title" style="line-height: 80rpx;">
+        <view class="text-cut">书名：{{book.bookName}}</view>
+      </view>
+      <view class="content">
+        <image src="{{book.picPath}}" mode="aspectFill" style="width:130rpx;height:70px"></image>
+        <view class="desc">
+
+          <view> 借阅人：{{item.nickName}}</view>
+          <view>
+            {{item.mType==0?"申请日期":"归还日期"}}：{{item.dateTime}}
+          </view>
+
+          <view>
+            <button wx:if="{{item.borrowRes==0||item.borrowRes==1}}" class="cu-btn round  shadow {{!item.borrowRes==1?'bg-orange':'line-orange'}}" style="float:right" catchtap="agree" id="{{item.messageId}}" data-type="{{item.mType}}" data-flag="{{item.borrowRes}}">{{item.borrowRes==0?'同意':'已同意'}}</button>
+
+            <button wx:if="{{item.borrowRes==0||item.borrowRes==2}}" class="cu-btn round line-grey shadow" style="float:right;margin-right:20rpx" catchtap="disagree" id="{{item.messageId}}" data-type="{{item.mType}}" data-flag="{{item.borrowRes}}">{{item.borrowRes==0?'拒绝':'已拒绝'}}</button>
+
+            <button wx:if="{{item.borrowRes==3}}" class="cu-btn round line-grey shadow" style="float:right;margin-right:20rpx">已失效</button>
+
+
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

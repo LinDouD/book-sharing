@@ -1,5 +1,9 @@
 /* pages/BC/BC.wxss */
 /*图书圈*/
+
+Page{
+  background: #fff;
+}
 .bold100{
   font-weight: 100;
 }

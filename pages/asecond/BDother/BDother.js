@@ -3,56 +3,70 @@
 const app = getApp();
 var util = require('../../../utils/util');
 var api = require('../../../utils/api.js');
+var socketOpen = false;
+var SocketTask = false;
+
+
 Page({
   data: {
-    disabled: false,
-    bdisabled1: true,
-    bdisabled2: true,
-    returnName: "还书",
-    type: 0,
-    is_folded: 0,
+
     userBook: {},
     userInfo: {},
     bookInf: {},
     fuserInfo: {},
-    is_exist: 0,
+    is_exist: false,
     isbn: '',
-    isCatg: true,
     borrowId: -1,
     ownerId: 0
 
 
   },
+
   onLoad: function(options) {
-    
+
     var that = this;
 
     if (JSON.stringify(options) != "{}") {
-      var borrowId = options.borrowId;
+      var borrowId = '';
+      var bookId = '';
       var isbn = options.isbn;
-      var ownerId = options.ownerId;
+      var ownerId = 0;
+      var userId = 0;
+      var flag = options.flag;
+      if (flag == 'circle') {
+        bookId = options.bookId
+        ownerId = options.ownerId
+      } else if (flag = 'shelf') {
+        borrowId = options.borrowId
+        userId = options.userId
+      }
       that.setData({
         isbn: isbn,
+        bookId: bookId,
         borrowId: borrowId,
-        ownerId: ownerId
+        ownerId: ownerId,
+        bookId: bookId,
+        userId: userId,
+        flag: flag
       })
 
-    }else{
+    } else {
       that.setData({
-        isbn: isbn,
-        borrowId: borrowId,
-        ownerId: ownerId
+        isbn: '9789882161320',
+        borrowId: 56,
+        ownerId: 23
       })
     }
-
-   
-   
-
 
   },
 
   onShow: function() {
-    this.loaddata();
+    if (this.data.flag == 'circle') {
+      this.loaddataCircle();
+    } else if (this.data.flag = 'shelf') {
+      this.loaddata();
+    }
+
   },
   loaddata: function() {
 
@@ -60,7 +74,7 @@ Page({
     var data = {
       isbn: that.data.isbn,
       borrowId: that.data.borrowId,
-      ownerId: that.data.ownerId
+      ownerId: that.data.userId
     };
     var url = api.asecond.bdother;
     app.checkSession({
@@ -71,85 +85,67 @@ Page({
           success: function(res) {
             console.log(res);
             if (res.status.is_exist == 1) {
+              that.setData({
+                fuserInfo: res.fuserInfo,
+                userBook: res.userBook,
+                bookInf: res.bookInf,
+                flag: res.flag,
+                is_exist: true,
+                borrow: res.borrow,
+                ownerId: res.fuserInfo.userId
+              })
 
-
-              var bookInf = res.bookInf;
-
-              var isCatg = false;
-              var type = 0;
-              var bdisabled1 = true;
-              var bdisabled2 = true;
-              if (res.bookInf.categoryInfList != null && res.bookInf.categoryInfList.length != 0) {
-                isCatg = true;
-              } else {
-                isCatg = false;
-              }
-              if (res.userBook.usrBorrowState == 1) {
-
-                type = 0; //取消申请btn
-                bdisabled1 = false;
-                that.setData({
-                  type: type,
-                  bdisabled1: bdisabled1,
-                })
-
-              } else if (res.userBook.usrBorrowState == 2) {
-
-                type = 1; //归还
-                bdisabled2 = false;
-                that.setData({
-                  type: type,
-                  bdisabled2: bdisabled2,
-                  returnName: "归还"
-                })
-              } else if (res.userBook.usrBorrowState == 3) {
-                type = 1; //归还
-                bdisabled2 = true;
-                that.setData({
-                  type: type,
-                  bdisabled2: bdisabled2,
-                  returnName: "还书中"
-
-                })
-              } else if (res.userBook.usrBorrowState == 4) {
-
-                type = 1; //归还
-                bdisabled2 = true;
-                that.setData({
-                  type: type,
-                  bdisabled2: bdisabled2,
-                  returnName: "已还书"
-                })
-              } else if (res.userBook.usrBorrowState == 5) {
-
-                type = 0; //取消申请
-                bdisabled1 = true;
-                that.setData({
-                  type: type,
-                  bdisabled2: bdisabled2
-                })
-              } else {
-                type = 0; //取消申请
-                bdisabled1 = true;
-                that.setData({
-                  type: type,
-                  bdisabled2: bdisabled2
-                })
-              }
+            } else {
+              that.setData({
+                is_exist: false
+              })
             }
-            that.setData({
+          },
+        });
 
-              fuserInfo: res.fuserInfo,
-              userInfo: res.userInfo,
-              userBook: res.userBook,
-              bookInf: res.bookInf,
+      }
+    })
 
-              is_exist: res.status.is_exist,
+  },
 
-              isCatg: isCatg
-            })
-            console.log("iscATG", that.data)
+  loaddataCircle: function() {
 
+    var that = this;
+    var data = {
+      isbn: that.data.isbn,
+      bookId: that.data.bookId,
+      ownerId: that.data.ownerId
+    };
+    var url = api.asecond.otherBook
+    app.checkSession({
+      success: function() {
+        app.request({
+          url: url,
+          data: data,
+          success: function(res) {
+            console.log(res);
+            if (res.status.is_exist == 1) {
+              if (res.borrow) {
+                that.setData({
+                  borrowId: res.userBook.borrowId
+                })
+              }
+              that.setData({
+                fuserInfo: res.fuserInfo,
+                userBook: res.userBook,
+                bookInf: res.bookInf,
+                flag: res.flag,
+                is_exist: true,
+                borrow: res.borrow,
+                userId: res.userId,
+
+              })
+
+            } else {
+              that.setData({
+                is_exist: false
+              })
+            }
           },
         });
 
@@ -173,41 +169,31 @@ Page({
     })
   },
 
+  goToChat: function() {
+    //self --id ==borrowId
+    //other --id == bookId
+    var self = ''
+    if (this.data.self) {
+      self = 'oself';
+    } else {
+      self = 'other';
+    }
 
-
-  opt: function(e) {
     var that = this;
-    var time = util.formatTime(new Date());
-    var ownerId = this.data.ownerId;
-    var type = e.currentTarget.id;
-    var mode = '';
-    var data = {};
-    var content = '';
+    wx.navigateTo({
+      url: '/pages/chat/chat?id=' + e.currentTarget.id + '&self=' + self
+    })
+  },
+  cancelApply: function() {
+    var that = this;
+    var data = {
+      borrowId: that.data.borrowId, //borrowId
+    }
 
-
-    if (type == 0) {
-      mode = 'cancel';
-      content = '确认要取消申请本书籍?';
-      data = {
-        id: that.data.borrowId, //borrowId
-        mode: mode,
-        time: time,
-        fid: ownerId
-      }
-    } else if (type == 1) {
-      mode = 'return';
-      content = '确认要归还本书籍?';
-      data = {
-        id: that.data.borrowId, //borrowId
-        mode: mode,
-        time: time,
-        fid: ownerId
-      }
-    } 
 
     wx.showModal({
       title: '提示',
-      content: content,
+      content: '确认要取消申请本书籍?',
       success: function(res) {
         if (res.confirm) {
           console.log('用户点击确定')
@@ -215,27 +201,27 @@ Page({
           app.checkSession({
             success: function() {
               app.request({
-                url: api.asecond.bdother_opt,
+                url: api.asecond.bdother_cancelApply,
                 data: data,
                 success: function(res) {
-                  if (res.data.save_success == 0) {
+                  if (res.status.save_success == 0) {
                     //保存失败
                     wx.showToast({
-                      title: '修改失败',
+                      title: '取消失败',
                       icon: 'none',
                       duration: 2000,
-                      success:function(){
-                        that.loaddata();
+                      success: function() {
+                        that.onShow();
                       }
 
                     })
                   } else {
-
-                    that.onShow();
-
                     wx.showToast({
-                      title: '修改成功',
-                      duration: 2000
+                      title: '取消成功',
+                      duration: 2000,
+                      success: function() {
+                        that.onShow();
+                      }
                     })
                   }
 
@@ -251,27 +237,114 @@ Page({
     })
   },
 
-  goToShelf: function(e) {
-    if (this.data.self) {
-      wx.navigateTo({
-        url: '/pages/shelf/othershelf/othershelf?fid=' + e.currentTarget.id
-      })
-    }
-
-  },
-  goToChat: function() {
-    //self --id ==borrowId
-    //other --id == bookId
-    var self = ''
-    if (this.data.self) {
-      self = 'oself';
-    } else {
-      self = 'other';
-    }
+  applyBook: function() {
 
     var that = this;
-    wx.navigateTo({
-      url: '/pages/chat/chat?id=' + e.currentTarget.id + '&self=' + self
+    var time = util.formatTime(new Date());
+    wx.showModal({
+      title: '提示',
+      content: '确认要借阅本书籍?',
+      success: function(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          app.checkSession({
+            success: function() {
+              app.request({
+                url: api.asecond.applyBook,
+                data: {
+                  bookId: that.data.bookId,
+                  time: time,
+                  ownerId: that.data.ownerId,
+                  userId: that.data.userId,
+                },
+                success: function(res) {
+                  if (res.status.save_success == 0) {
+                    //保存失败
+                    wx.showToast({
+                      title: '借阅失败',
+                      icon: 'none',
+                      duration: 2000
+                    })
+                  } else {
+                    wx.showToast({
+                      title: '借阅成功',
+                      duration: 2000
+                    })
+                  }
+                  that.onShow();
+
+                },
+
+              });
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
+  },
+  returnBook: function() {
+
+    var that = this;
+    var time = util.formatTime(new Date());
+    wx.showModal({
+      title: '提示',
+      content: '确认归还本书籍?',
+      success: function(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          app.checkSession({
+            success: function() {
+              app.request({
+                url: api.asecond.returnBook,
+                data: {
+                  borrowId: that.data.borrowId,
+                  time: time,
+                  ownerId: that.data.ownerId,
+                  userId: that.data.userId,
+                },
+                success: function(res) {
+                  if (res.status.save_success == 0) {
+                    //保存失败
+                    wx.showToast({
+                      title: '归还失败',
+                      icon: 'none',
+                      duration: 2000
+                    })
+                  } else {
+                    wx.showToast({
+                      title: '归还成功',
+                      duration: 2000
+                    })
+                  }
+                  that.onShow();
+
+                },
+
+              });
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  goToFriendInfo:function(){
+    var that = this;
+    wx.navigateTo({
+      url: '/pages/friendlist/friendinfo/friendinfo?fid=' + that.data.ownerId
+    })
+  },
+
+  chat:function(){
+    var that = this;
+    wx.navigateTo({
+      url: '/pages/contact/contact?userId=' +that.data.userId+ '&fid=' + that.data.ownerId
+    })
+
   }
+
+
 })

@@ -1,56 +1,67 @@
-<view class="total" wx:if='{{is_exist==2}}'>
-  <view class="top ">
-    <image class="pic" mode="scaleToFill" src="{{bookInf.picPath}}"></image>
-    <view class="content">
-      <view class="titleView">
-        <text class="title">{{bookInf.bookName}}</text>
+<view class="total"  wx:if='{{is_exist==2}}'>
+ <view class="cu-list menu-avatar">
+    <view class="cu-item" style="height:124px;align-items: flex-end;padding:13px 13px 13px 13px;">
+      <view class="cu-avatar radius lg"  style="background-image:url({{bookInf.picPath}});height:85px;width:62px"></view>
+      <view class="content" style="left:190rpx;height:80px;width:330rpx">
+      <view class="text-black ">
+          {{bookInf.bookName}}
+        </view>
+       
+        <view class="text-gray text-sm flex " style="position:fixed;top:75px">
+          <text class="text-cut">
+            {{bookInf.author}}
+          </text>
+        </view>
       </view>
-      <view class="authorView">
-        <text class="author">{{bookInf.author}}</text>
+      <view class="action" style="width:80px">
+      
+        <button class="cu-btn radius line-blue">{{userBook.borrowStateS}}</button>
       </view>
-    </view>
-    <view class="borrowBtn">
-      <button class="borrowState" disabled="true">{{userBook.borrowStateS}}</button>
     </view>
   </view>
 
   <view class="body">
     <scroll-view scroll-y="true" class="myscroll">
-      <view class="userView">
-        <view class="user">
-          <image src='{{userInfo.avatarUrl}}' class='avatar'></image>
-          <view class="nickname">
-            <text>{{userInfo.nickName}}</text>
-            <text>({{privacy}})</text>
-          </view>
-        </view>
 
-        <view class="borrowstatus">
-          <view class="body-view">
-          
-             <switch class="sm" checked="{{switchChecked}}" disabled='{{!isPrivacy}}' bindchange="switchChange" ></switch>
-          </view>
-
-        </view>
+<view class="cu-list menu-avatar" style="border-bottom:1px solid #efefef">
+    <view class="cu-item" style="height:100rpx;padding-bottom:10rpx">
+      <view class="cu-avatar radius lg" style="background-image:url({{userInfo.avatarUrl}});height:85rpx ;width:85rpx"></view>
+      <view class="content">
+        <view class="text-grey">{{userInfo.nickName}}</view>
+     
       </view>
+      <view class="action" style="margin-right:20rpx">
+        <switch class="sm" checked="{{switchChecked}}" disabled='{{!isPrivacy}}' bindchange="switchChange" ></switch>
+      </view>
+    </view>
+    
+  </view>
+ 
+      
 
-
-      <view class="brief">
+     <view class="brief" style="margin-top:20rpx">
+      <view style="display:flex;align-items: center;">
+      <text class="cuIcon-creativefill text-yellow " style="font-size:12px"></text>
+     
+      <view class="name">
+          简介
+        </view>
+        </view>
         <view class="briefInfo ">
-          <text class="content {{!is_folded?'hide':'show'}}" decode="{{true}}" space="{{true}}">&nbsp;&nbsp; {{bookInf.briefIntro}}</text>
+          <text class="content " decode="{{true}}" space="{{true}}">&nbsp;&nbsp;{{bookInf.briefIntro}}
+   </text>
         </view>
-        <view class="more" wx:if="{{!is_folded}}" bindtap="more">
-          <image src='http://101.37.173.235/magic/more.jpg' mode="widthFix" class="state"></image>
-        </view>
-        <view wx:else class="close" bindtap="close"> 收起</view>
       </view>
       <!-- brief-->
-      <view class="type">
+      <view class="type " >
+      <view style="display:flex; align-items: center;">
+      <text class="cuIcon-tagfill text-red" style="font-size:12px"></text>
         <view class="name">
           标签
         </view>
+        </view>
         <view class="typeall">
-          <view wx:for="{{bookInf.categoryInfList}}" wx:for-index="idx" wx:for-item="item">
+        <view wx:for="{{bookInf.categoryInfList}}" wx:for-index="idx" wx:for-item="item">
             <view class="typeone">
               <text>{{item.catgName}}</text>
             </view>
@@ -67,8 +78,12 @@
 
 
       <view class="moreinfo">
+      <view style="display:flex; align-items: center;">
+      <text class="cuIcon-writefill text-green" style="font-size:12px"></text>
+      
         <view class="name">
           更多信息
+        </view>
         </view>
         <view class="all">
 
@@ -82,7 +97,7 @@
             
           </view>
 
-          <view class="one" wx:if="{{bookInf.translator!=null && bookInf.translator!=''}}">
+           <view class="one" wx:if="{{bookInf.translator!=null && bookInf.translator!=''}}">
             <text>翻译 : {{bookInf.translator}}</text>
           </view>
           <view class="one" wx:if="{{bookInf.publisher!=null && bookInf.publisher!=''}}">
@@ -94,6 +109,7 @@
           <view class="one" wx:if="{{userBook.time!=null && tuserBook.ime!=''}}">
             <text>加入书架时间 : {{userBook.time}}</text>
           </view>
+          
         </view>
       </view>
     </scroll-view>
@@ -102,7 +118,7 @@
 
       <view class="footerView">
         <view class="deleteView">
-          <button class="deleteBtn"bindtap='deleteBook'> 移除书籍 </button>
+          <button class="deleteBtn" bindtap='deleteBook' disabled="{{userBook.borrowState!=0}}"> 移除书籍 </button>
         </view>
 
         <view class="checkView">
@@ -111,5 +127,7 @@
 
       </view>
     </view>
+
   </view>
 </view>
+

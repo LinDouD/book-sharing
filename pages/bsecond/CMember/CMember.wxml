@@ -1,9 +1,6 @@
 <!--pages/bsecond/CMember/CMember.wxml-->
 
 <view class="con" wx:if="{{top}}">
-  <view style="font-size:30px;position:fixed;right:10rpx" catchtap="addPost">
-    <text class="cuIcon-add lg text-grey"></text>
-  </view>
 
   <view class="cen">
     <image style="width:140px;height:140px;  margin-top: 25px;" src='{{picPath}}'></image>
@@ -12,9 +9,12 @@
       <text>{{bcName}}</text>
       <text class='text-muted ellipsis-3row desc'>{{createTime}}</text>
       <text class='text-muted ellipsis-3row desc'>{{intro}}</text>
+      <view style="display:flex">
       <button class='create-button' catchtap="edit" wx:if="{{flag==1}}">编辑资料</button>
       <button class='create-button' wx:elif="{{flag==0}}">已加圈</button>
-       <button class='create-button' wx:elif="{{flag==2}} "catchtap="applyCircle">申请加圈</button>
+      <button class='create-button' wx:elif="{{flag==2}} " catchtap="applyCircle">申请加圈</button>
+      <text class="cuIcon-edit lg text-grey" style="font-size: 15px;"  catchtap="addPost"></text>
+      </view>
     </view>
 
   </view>
@@ -24,8 +24,8 @@
 <view class="header box-shadow" wx:else>
   <image src="{{picPath}}" mode="scaleToFill" style="width:30px;height:30px;margin-right:15px"></image>
   <view class="nameView">{{bcName}}</view>
-  <view style="font-size:30px;position:fixed;right:10rpx" catchtap="addPost">
-    <text class="cuIcon-add lg text-grey"></text>
+  <view style="font-size:20px;position:fixed;right:10rpx" catchtap="addPost">
+    <text class="cuIcon-edit lg text-grey"></text>
   </view>
 
 </view>
@@ -40,7 +40,6 @@
   <!-- 成员 -->
   <swiper-item>
     <scroll-view scroll-y="true" style="height: {{height}}rpx" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
-
       <view class="cu-list menu-avatar">
         <view class="cu-item" wx:for="{{member}}" wx:key="userId" wx:for-item="item" id="{{item.memberId}}" catchtap="goToMember">
           <view class="cu-avatar round lg" style="background-image:url({{item.userInf.avatarUrl}});">
@@ -63,24 +62,24 @@
   <!-- 帖子 -->
   <swiper-item>
     <scroll-view scroll-y="true" style="height: {{height}}rpx" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
-
-      <view class="cu-list menu-avatar">
-        <view class="cu-item" wx:for="{{post}}" wx:key="postId" wx:for-item="item" id="{{item.postId}}" catchtap="goToPost">
-          <view class="cu-avatar radius lg" style="background-image:url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4250885442,2652050609&fm=26&gp=0.jpg);">
-            <view class="cu-tag badge" wx:if="{{item.count>99}}">{{item.count-1}}</view>
-            <view class="cu-tag badge" wx:elif="{{item.count>1}}">{{item.count-1}}</view>
-          </view>
-          <view class="content">
-            <view class="text-grey">{{item.title}}</view>
-            <view class="text-gray text-sm">
-              <text class="cuIcon-write text-blue"></text>{{item.userInf.nickName}}{{item.flag==0?'(本人)':""}} </view>
-          </view>
-          <view class="action" style="font-size:20px" wx:if="{{item.count>5}}">
-            <text class="cuIcon-hotfill text-red "></text>
+      <view>
+        <view class="cu-list menu-avatar">
+          <view class="cu-item" wx:for="{{post}}" wx:key="postId" wx:for-item="item" id="{{item.postId}}" catchtap="goToPost">
+            <view class="cu-avatar radius lg" style="background-image:url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4250885442,2652050609&fm=26&gp=0.jpg);">
+              <view class="cu-tag badge" wx:if="{{item.count>99}}">{{item.count-1}}</view>
+              <view class="cu-tag badge" wx:elif="{{item.count>1}}">{{item.count-1}}</view>
+            </view>
+            <view class="content">
+              <view class="text-grey">{{item.title}}</view>
+              <view class="text-gray text-sm">
+                <text class="cuIcon-write text-blue"></text>{{item.userInf.nickName}}{{item.flag==0?'(本人)':""}} </view>
+            </view>
+            <view class="action" style="font-size:20px" wx:if="{{item.count>5}}">
+              <text class="cuIcon-hotfill text-red "></text>
+            </view>
           </view>
         </view>
       </view>
-
 
 
 
