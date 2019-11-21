@@ -6,7 +6,7 @@
   </view>
 </view>  
 
-<view class='flex ' style="margin-top:8rpx">
+<view class='flex ' style="margin-top:100rpx">
   <scroll-view class="flex1" scroll-y scroll-into-view="{{toView}}" style='height:calc(100vh - 102rpx)'>
 
  <view class='flex alic pt15 pb10 pl10 pr10 mt10' style="background:#fff;height:30px" catchtap="goToMessage">
