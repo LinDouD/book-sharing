@@ -14,7 +14,7 @@
         </view>
       </view>
       <view class="action" style="width:100px">
-        <button class="cu-btn round {{bookInf.bookId==-1?'line-orange':'line-blue'}} " bindtap='showModal2'>{{bookInf.bookId==-1?"加入书架":"已在书架上"}}</button>
+        <button class="cu-btn round {{bookInf.bookId==-1?'line-orange':'line-blue'}} " bindtap='showModal2' disabled="{{!isLogin}}">{{bookInf.bookId==-1?"加入书架":"已在书架上"}}</button>
       </view>
     </view>
     

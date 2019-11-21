@@ -53,6 +53,9 @@ Page({
     })
   },
   onShow: function () {
+    this.setData({
+      input:""
+    })
     this.loadData();
   },
 
@@ -145,9 +148,22 @@ Page({
     wx.navigateTo({
       url: '/pages/friendlist/friendMessage/friendMessage' 
     })
-  }
- 
+  },
+  goToSearch: function (e) {
+    wx.navigateTo({
+      url: '/pages/searchFriend/searchFriend'
+    })
+  },
 
+  chat: function (e) {
+    var fid = e.currentTarget.id;
+    var userId = e.currentTarget.dataset.userid;
+    var that = this;
+    wx.navigateTo({
+      url: '/pages/contact/contact?userId=' + userId + '&fid=' + fid
+    })
+
+  },
 
 })
 

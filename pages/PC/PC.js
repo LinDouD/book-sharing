@@ -5,6 +5,7 @@ var util = require('../../utils/util');
 var api = require('../../utils/api.js');
 Page({
   data: {
+    isLogin:false,
     userInfo: {},
     isSuccess:false
   },
@@ -15,6 +16,24 @@ Page({
     })
   },
   onLoad: function () {
+    console.log("pconload")
+    console.log(app.globalData.is_login)
+    var that = this;
+  
+    if (app.globalData.is_login){
+    
+     that.setData({
+       isLogin:true,
+       isSuccess:true
+     })
+    }else{
+      that.setData({
+        isSuccess : false,
+        isLogin: true,
+      })
+      
+    }
+   
   },
 
   onShow:function(){
@@ -73,6 +92,8 @@ Page({
   },
   myAddress: function (e) {
     wx.navigateTo({ url: '../addressList/addressList' });
-  }
+  },
+ 
+
 
 })

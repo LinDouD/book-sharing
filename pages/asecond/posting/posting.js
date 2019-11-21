@@ -340,6 +340,13 @@ Page({
 
       }
     })
-  }
+  },
+  goDetail: function (e) {
+    var that = this;
+
+    wx.navigateTo({
+      url: '/pages/friendlist/friendinfo/friendinfo?fid=' + e.currentTarget.id
+    })
+  },
 
 })

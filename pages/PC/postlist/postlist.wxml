@@ -1,0 +1,26 @@
+<view wx:if="{{exist}}">
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="搜索帖子" confirm-type="search" bindinput="searchIcon" bindconfirm="search"></input>
+  </view>
+</view>
+
+  <view class="cu-list menu-avatar" style="margin-top:100rpx">
+
+    <view class="cu-item" wx:for="{{list}}" wx:key="postId" wx:for-item="item" id="{{item.postId}}" bindtap="goToPost">
+   <view class="cu-avatar radius lg" style="background-image:url(https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4250885442,2652050609&fm=26&gp=0.jpg);"></view>
+      <view class="content">
+        <view class="text-black">{{item.title}}</view>
+        <view class="text-gray text-sm flex">
+          <text class="text-cut">
+							<text class="cuIcon-discover text-orange lg  margin-right-xs"></text> {{item.bcName}}
+          </text>
+        </view>
+      </view>
+      <view class="action">
+        <view class="text-grey text-xs">{{item.pubTime}}</view>
+      </view>
+    </view>
+  </view>
+  </view>

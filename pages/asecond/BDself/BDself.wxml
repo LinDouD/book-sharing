@@ -106,8 +106,8 @@
           <view class="one" wx:if="{{bookInf.pubTime!=null && bookInf.pubTime!=''}}">
             <text>出版日期 : {{bookInf.pubTime}}</text>
           </view>
-          <view class="one" wx:if="{{userBook.time!=null && tuserBook.ime!=''}}">
-            <text>加入书架时间 : {{userBook.time}}</text>
+          <view class="one" wx:if="{{userBook.addTime!=null && tuserBook.addTime!=''}}">
+            <text>加入书架时间 : {{userBook.addTime}}</text>
           </view>
           
         </view>

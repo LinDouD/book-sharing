@@ -1,45 +1,33 @@
 {
   "pages": [
-      "pages/shelf/shelf",
+    "pages/shelf/shelf",
+    "pages/friendlist/friendlist",
+    "pages/searchFriend/searchFriend",
+    "pages/PC/messageInfo/messageInfo",
+    "pages/PC/postlist/postlist",
     "pages/contact/contact",
     "pages/scan/inputBook/inputBook",
-        "pages/scan/scan",
+    "pages/scan/scan",
     "pages/asecond/BDother/BDother",
-      
-  
-      "pages/bsecond/CMember/CMember",
+    "pages/bsecond/CMember/CMember",
     "pages/BC/BC",
     "pages/ztemp/ztemp",
     "pages/ztemp/history/history",
     "pages/asecond/BDself/BDself",
-   
-   
-
     "pages/scan/scResult/scResult",
-    
-      "pages/bsecond/info/info",
-   
-    
-   
+    "pages/bsecond/info/info",
     "pages/shelf/list/list",
-    "pages/friendlist/friendlist",
-  
     "pages/friendlist/friendinfo/friendinfo",
     "pages/bsecond/setCMember/setCMember",
     "pages/bsecond/pmlist/pmlist",
-
     "pages/bsecond/addPostN/addPostN",
-
     "pages/asecond/posting/posting",
-    
     "pages/asecond/SearchBC/SearchBC",
     "pages/friendlist/friendMessage/friendMessage",
-   
     "pages/shelf/othershelf/othershelf",
     "pages/PC/PC",
     "pages/index/index",
     "pages/logs/logs",
-   
     "pages/historicrecord/historicrecord",
     "pages/addfriend/addfriend"
   ],

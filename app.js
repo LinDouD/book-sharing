@@ -144,7 +144,6 @@ App({
   },
 
   globalData: {
-    is_login: 0,
     loginCode: null,
     access_token: null,
     is_auth: 0    //登录后返回的授权状态：0未授权，1已授权

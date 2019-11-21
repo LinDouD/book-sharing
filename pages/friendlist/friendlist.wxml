@@ -1,14 +1,12 @@
-<view class='head flex alic borderbe0'>
-  <view class='flex justc alic box bgf ml10 borRad'>
-    <view class='flex justc alic box'>
-      <icon type="search" size="20" class='ml5 mr10' />
-      <input placeholder='搜索' type='search' value='{{val}}' bindconfirm='search' class='{{focus?"flex1":"w"}}' bindfocus='setFocus' bindblur='setFocus'></input>
-    </view>
-    <image src='../img/say.png' class='ml5 mr10 say'></image>
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="搜索好友" confirm-type="search" bindinput="searchIcon" bindconfirm="search" value="{{searchName}}"></input>
+     
   </view>
-</view>
+</view>  
 
-<view class='flex '>
+<view class='flex ' style="margin-top:8rpx">
   <scroll-view class="flex1" scroll-y scroll-into-view="{{toView}}" style='height:calc(100vh - 102rpx)'>
 
  <view class='flex alic pt15 pb10 pl10 pr10 mt10' style="background:#fff;height:30px" catchtap="goToMessage">
@@ -24,7 +22,7 @@
     <block wx:for='{{friendlist}}' wx:for-index='idx'>
       <view class='lh30 fz16 color9e ml10' id='{{item.firstChar}}'>{{item.firstChar}}</view>
       <view class='bgf fz14'>
-        <view class="borderbe0" wx:for='{{item.friendLists}}' data-index='{{index}}' wx:key='id' wx:for-item='n' id='{{n.id}}'catchtap="goDetail">
+        <view class="borderbe0" wx:for='{{item.friendLists}}' data-index='{{index}}' wx:key='id' wx:for-item='n' id='{{n.id}}' data-userid="{{n.mid}}" catchtap="chat">
 
           <view class='flex alic  ml10 pt15 pb10'>
             <image src='{{n.avatarUrl}}' class='img mr15'></image>

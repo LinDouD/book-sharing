@@ -1,5 +1,5 @@
 <!--一登陆授权后根据openid 加载-->
-<view class="scontainer">
+<view class="scontainer" wx:if="{{isLogin}}">
   <!-- header -->
   <view class="header box-shadow">
 
@@ -112,7 +112,7 @@
 
   <!-- body -->
 
-  <scroll-view scroll-y="true" style="margin-top:100rpx" wx:if='{{exist}}' class="scrollView" wx:if='{{is_login==1}}'>
+  <scroll-view scroll-y="true" style="margin-top:100rpx" wx:if='{{exist}}' class="scrollView" >
     <view class='box' wx:if="{{!isList}}">
       <view wx:for="{{list}}" wx:key="{{isbn}}" id='{{item.isbn}}' bindtap="goToDetailPage" data-count="{{item.count}}" data-type="{{item.type}}" data-bid="{{item.id}}" data-ownerid="{{item.ownerId}}" class='book'>
         <view class="box-con" wx:if="{{!item.type}}">
@@ -149,3 +149,8 @@
 
 
 </view>
+
+
+<view class="bg-white flex-sub margin-right radius shadow-lg" wx:else>
+    <image src="https://image.weilanwl.com/gif/loading-1.gif" mode="aspectFit" class="gif-white response" style="height:300px;"></image>
+  </view>

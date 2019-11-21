@@ -1,0 +1,21 @@
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="搜索好友" confirm-type="search" bindinput="searchIcon" bindconfirm="search" value="{{searchName}}"></input>
+     
+  </view>
+   <button class="cu-btn text-blue " style="background:none;" bindtap="cancel">取消</button>
+</view>  
+
+  
+  <view class="cu-list menu-avatar" wx:if="{{exist}}" style="margin-top:100rpx">
+    <view class="cu-item"  wx:for="{{list}}" wx:for-item="item" wx:key="friendId" id="{{item.fid}}" data-userid="{{item.uid}}" bindtap="chat">
+      <view class="cu-avatar round lg" style="background-image:url('{{item.avatarUrl}}');"></view>
+      <view class="content">
+        <view class="text-black" wx:if='{{item.aliasu!=""}}'>{{item.aliasu}}({{item.nickName}})</view>
+          <view class="text-black" wx:else>{{item.nickName}}</view>
+      </view>
+     
+    </view>
+   
+  </view>

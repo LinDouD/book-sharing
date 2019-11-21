@@ -6,6 +6,8 @@ var api = require('../../utils/api.js');
 
 Page({
   data: {
+    second: false,
+    isLogin: false,
     count: 0,
     bCatgIdTemp: 0,
     isselfTemp: 0,
@@ -26,42 +28,46 @@ Page({
 
   },
 
-  
 
-  onReady: function () {
+
+  onReady: function() {
     this.animation = wx.createAnimation({
       timingFunction: "step-start",
       duration: 400,
       delay: 0
     });
-   
+
   },
 
   /**
    * 用户存在：加载界面，否则跳转到pc/pc界面（进行授权）
    **/
   onLoad: function() {
+    console.log("shelfonload")
     var that = this;
-   
-      var mode = "check";
-      app.login(mode).then(function (res) {
-        that.setData({
-          is_login: res.data.result
-        })
-        // is_login:-1(code为null)，0(用户不存在)，1(用户存在)
-        if (res.data.result == 0) {
-          wx.switchTab({
-            url: "/pages/PC/PC"
-          })
-        } else {
-          app.globalData.is_login = 1;
-          that.setData({
-            is_login: app.globalData.is_login,
-          })
-          that.onShow();
-        }
+    var mode = "check";
+    app.login(mode).then(function(res) {
+      console.log("shelfonload---login")
+      that.setData({
+        second: true
       })
-    
+
+      if (res.data.result == 1) {
+        that.setData({
+          isLogin: true
+        })
+        app.globalData.is_login = 1;
+        that.onShow();
+
+      } else {
+        console.log('3')
+        app.globalData.is_login = 0;
+        wx.switchTab({
+          url: "/pages/PC/PC"
+        })
+      }
+    })
+
     wx.getSystemInfo({
       success: function(res) {
         let clientHeight = res.windowHeight;
@@ -74,30 +80,36 @@ Page({
         });
       }
     });
-   
+
   },
 
   /**
    * 每次切换tab时重新加载数据 
    **/
   onShow: function() {
-    console.log("onshow")
     var that = this;
-    let is_login = app.globalData.is_login;
-    if (is_login == 1) {
+    console.log("onshow")
+    if (app.globalData.is_login) {
+      this.setData({
+        isLogin: true
+      })
+      let is_login = app.globalData.is_login;
       var data = {
-    bCatgId: that.data.bCatgId, //所有分类
-    privacy: that.data.privacy, //all
-    isself: that.data.isself //all 
-  }
-  var catgName = that.data.catgName
-
-     
+        bCatgId: that.data.bCatgId, //所有分类
+        privacy: that.data.privacy, //all
+        isself: that.data.isself //all 
+      }
+      var catgName = that.data.catgName
       that.loadData(data, catgName);
-      
     } else {
-      //重新授权
+      if (this.data.second) {
+        wx.switchTab({
+          url: "/pages/PC/PC"
+        })
+      }
+
     }
+
   },
 
   /**
@@ -108,10 +120,10 @@ Page({
   },
 
   /**
-  *特殊写法:比较数组date日期
-  */
-  compare: function () {
-    return function (a, b) {
+   *特殊写法:比较数组date日期
+   */
+  compare: function() {
+    return function(a, b) {
       var value1 = Date.parse(a.sortTime);
       var value2 = Date.parse(b.sortTime);
       return value2 - value1;
@@ -124,17 +136,17 @@ Page({
    * 
    */
 
-  tryDriver: function (e) {
+  tryDriver: function(e) {
     console.log(e.currentTarget)
     var id = e.currentTarget.id;
     var type = e.currentTarget.dataset.type;
     var index = e.currentTarget.dataset.item;
     var that = this;
-   
+
     if (type == 0) {
       //类别
-      var  catgName = e.currentTarget.dataset.name;
-      
+      var catgName = e.currentTarget.dataset.name;
+
       that.setData({
         bCatgIdTemp: id,
         catgNameTemp: catgName
@@ -160,9 +172,9 @@ Page({
         privacyTemp: index
       })
     }
-   
+
     console.log(
-      
+
       that.data.privacyTemp, that.data.isselfTemp, that.data.bCatgIdTemp,
       that.data.privacy, that.data.isself, that.data.bCatgId
     )
@@ -174,7 +186,7 @@ Page({
    * translate 右侧动画控制
    * 
    */
-  translate: function () {
+  translate: function() {
     this.setData({
       isRuleTrue: true
     })
@@ -186,10 +198,10 @@ Page({
 
 
   /**
-     * setHideSet 右侧动画隐藏
-     * 
-     */
-  setHideSet: function () {
+   * setHideSet 右侧动画隐藏
+   * 
+   */
+  setHideSet: function() {
     this.setData({
       isRuleTrue: false
     })
@@ -198,13 +210,13 @@ Page({
       animation: this.animation.export()
     })
   },
-  
+
 
   /*
    * changeList 列表-图墙切换
    * 
    */
-  changeList: function () {
+  changeList: function() {
     var that = this;
     if (this.data.isList) {
       that.setData({
@@ -224,7 +236,7 @@ Page({
     })
   },
 
- /**
+  /**
    * loadData
    * 加载所有书籍，包括
    * 借阅的书籍：若有多个书籍--跳转进入为列表，否则直接进入详情界面
@@ -240,9 +252,9 @@ Page({
    *      myUserId---myUserId
    */
 
-  
-  loadData: function (data, catgName) {
-    console.log("data",data)
+
+  loadData: function(data, catgName) {
+    console.log("data", data)
     var that = this;
     var access_token = wx.getStorageSync("access_token");
     app.checkSession({
@@ -253,7 +265,7 @@ Page({
             'content-type': 'application/x-www-form-urlencoded',
             'Authorization': access_token
           },
-         data:data,
+          data: data,
 
           success: function(res) {
             var exist = false;
@@ -273,23 +285,23 @@ Page({
                 emptyView: emptyView,
                 myUserId: res.myUserId,
                 catgName: catgName,
-                catgNameTemp:catgName,
-                 bCatgId: that.data.bCatgIdTemp,
+                catgNameTemp: catgName,
+                bCatgId: that.data.bCatgIdTemp,
                 privacy: that.data.privacyTemp,
                 isself: that.data.isselfTemp
 
               })
-            } else{
+            } else {
               console.log("shelf", "无此用户")
               that.setData({
                 error: "暂无书籍"
               })
             }
-             
+
 
             that.setData({
               exist: exist
-              
+
             })
           },
           complete: function() {
@@ -300,7 +312,7 @@ Page({
     })
   },
 
- 
+
 
   /**
    * okBtn 筛选确认
@@ -317,10 +329,10 @@ Page({
       that.data.isself == that.data.isselfTemp) {
       that.hideModal();
     } else {
-      var data={
+      var data = {
         bCatgId: that.data.bCatgIdTemp,
-          privacy: that.data.privacyTemp,
-            isself: that.data.isselfTemp
+        privacy: that.data.privacyTemp,
+        isself: that.data.isselfTemp
       }
       var catgName = that.data.catgNameTemp
       console.log(catgName)
@@ -328,13 +340,13 @@ Page({
       that.hideModal();
     }
   },
- 
+
   /**
    * sortByTime
    * 根据时间排序 最近
    * 
    */
-  sortByTime: function () {
+  sortByTime: function() {
     console.log("sortByTime")
     var datas = [];
     datas = this.data.list;
@@ -357,7 +369,7 @@ Page({
    *              type true  我的 false 借阅
    * 
    */
-  goToDetailPage: function (e) {
+  goToDetailPage: function(e) {
     var that = this;
     var isbn = e.currentTarget.id;
     var count = e.currentTarget.dataset.count;
@@ -390,39 +402,38 @@ Page({
     }
   },
 
-/**
-     * showModal 左侧动画隐藏
-     * 
-     */
+  /**
+   * showModal 左侧动画隐藏
+   * 
+   */
   showModal(e) {
     this.setData({
       modalName: e.currentTarget.dataset.target
     })
   },
   searchIcon(e) {
-    var bookName= e.detail.value.replace(/\s+/g, '');
+    var bookName = e.detail.value.replace(/\s+/g, '');
     this.setData({
-      bookName:bookName
+      bookName: bookName
     })
-    },
-    search:function(){
-      if (this.data.bookName == "" || typeof (this.data.bookName) == "undefined"){
-        this.clean();
-       this.onShow();
-      }
-      else{
+  },
+  search: function() {
+    if (this.data.bookName == "" || typeof(this.data.bookName) == "undefined") {
+      this.clean();
+      this.onShow();
+    } else {
       var that = this;
       var bookName = this.data.bookName;
       var ownerId = this.data.myUserId;
       app.checkSession({
-        success: function () {
+        success: function() {
           app.request({
             url: api.shelf.search,
             data: {
               bookName: bookName,
               ownerId: ownerId
             },
-            success: function (res) {
+            success: function(res) {
               console.log("search", res)
               var exist = false;
               that.clean();
@@ -439,32 +450,32 @@ Page({
                   count: res.data.count,
                   emptyView: emptyView,
                 })
-              } else if (res.status.isSuccess == 0){
+              } else if (res.status.isSuccess == 0) {
                 console.log("search", "无此图书")
                 that.setData({
                   error: "无此图书",
-                  list:[],
-                  
+                  list: [],
+
                 })
 
-              
+
               }
             },
           });
         }
       })
-      }
-    },
-
-    clean:function(){
-      this.setData({
-        catgName: '筛选',
-        bCatgId: 0, //分类-所有，文学。。。。
-        isself: 0, //属性-全部，我的，借阅
-        privacy: 2, //状态- 全部，公开，私密
-        isMe: true, //我的 展开状态栏
-       
-      })
     }
+  },
+
+  clean: function() {
+    this.setData({
+      catgName: '筛选',
+      bCatgId: 0, //分类-所有，文学。。。。
+      isself: 0, //属性-全部，我的，借阅
+      privacy: 2, //状态- 全部，公开，私密
+      isMe: true, //我的 展开状态栏
+
+    })
+  }
 
 })

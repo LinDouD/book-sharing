@@ -1,0 +1,33 @@
+
+<view wx:if="{{exist}}">
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="搜索好友" value="{{input}}"bindfocus="goToSearch"></input>
+  </view>
+</view>
+
+  <view class="cu-list menu-avatar" style="margin-top:100rpx">
+    <view class="cu-item" wx:for="{{list}}" wx:key="messageId" wx:for-item="item" bindtap="chat" id="{{item.senderId}}" data-userid="{{item.receiverId}}">
+      <view class="cu-avatar round lg" style="background-image:url({{item.avatarUrl}});"></view>
+      <view class="content">
+        <view class="text-black">{{item.nickName}}</view>
+        <view class="text-gray text-sm flex">
+          <text class="text-cut" wx:if="{{item.mType==0}}">
+							<text class=" margin-right-xs"></text> 借阅申请
+          </text>
+          <text class="text-cut" wx:elif="{{item.mType==1}}">
+							<text class="cuIcon-infofill text-red  margin-right-xs"></text> 还书提醒
+          </text>
+          <text class="text-cut" wx:else>
+							<text class="cuIcon-infofill text-red  margin-right-xs"></text> {{item.content}}
+          </text>
+        </view>
+      </view>
+      <view class="action">
+        <view class="text-grey text-xs">{{item.dataTime}}</view>
+        <view class="cu-tag round bg-grey sm">5</view>
+      </view>
+    </view>
+  </view>
+    </view>

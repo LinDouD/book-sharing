@@ -91,7 +91,7 @@
      
       <view class="cu-list menu-avatar" wx:for="{{commentList}}" wx:key="{{commentId}}" wx:for-item="item">
         <view class="cu-item1" >
-          <view class="cu-avatar round lg" style="background-image:url({{item.userInf.avatarUrl}});"></view>
+          <view class="cu-avatar round lg" style="background-image:url({{item.userInf.avatarUrl}});" catchtap="goDetail" id="{{item.userId}}"></view>
     
           <view class="contentView">
            

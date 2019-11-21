@@ -104,13 +104,13 @@
           <view class="one" wx:if="{{bookInf.pubTime!=null && bookInf.pubTime!=''}}">
             <text>出版日期 : {{bookInf.pubTime}}</text>
           </view>
-          <view class="one" wx:if="{{userBook.borrowTimeS!=null && userBook.borrowTimeS!=''}}">
-            <text>申请日期 : {{userBook.borrowTimeS}}</text>
+          <view class="one" wx:if="{{userBook.borrowTime!=null && userBook.borrowTime!=''}}">
+            <text>申请日期 : {{userBook.borrowTime}}</text>
           </view>
-          <view class="one" wx:if="{{userBook.returnDateTimeS!=null && userBook.returnDateTimeS!=''}}">
-            <text>归还日期 : {{userBook.returnDateTimeS}} </text>
+          <view class="one" wx:if="{{userBook.returnDateTime!=null && userBook.returnDateTime!=''}}">
+            <text>归还日期 : {{userBook.returnDateTime}} </text>
           </view>
-          <view class="one" wx:if="{{userBook.borrowDateTimeS!=null && borrowDateTime!=''}}">
+          <view class="one" wx:if="{{userBook.borrowDateTime!=null && borrowDateTime!=''}}">
             <text>成功借阅日期 : {{userBook.borrowDateTime}}</text>
           </view>
         </view>

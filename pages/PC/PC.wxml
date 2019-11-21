@@ -1,5 +1,7 @@
 <!--pages/PC/PC.wxml-->
-<view class="userinfo">
+
+<view wx:if="{{isLogin}}">
+<view class="userinfo" >
   <button wx:if="{{!isSuccess}}" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" class="userinfo-btn"> 点击微信授权 </button>
   <block wx:else>
     <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
@@ -23,27 +25,33 @@
   </view>
   <view class="person-line"></view>
   <view class="list-item">
-  <navigator url="../addfriend/addfriend">
+  <view>
     <view>添加好友</view>
-  </navigator>
+  </view>
   </view>
   <view class="person-line"></view>
   <view class="list-item">
-  <navigator url="../contact/contact">
+  <navigator url="pages/PC/messageInfo/messageInfot">
     <view>我的消息</view>
   </navigator>
   </view>
   <view class="person-line"></view>
   <view class="list-item">
-    <navigator url="../posting/posting">
+    <navigator url="/pages/PC/postlist/postlist">
     <view>我的发帖</view>
   </navigator>
   </view>
   <view class="person-line"></view>
   <view class="list-item">
-  <navigator url="../historicrecord/historicrecord">
+  <view>
     <view>历史记录</view>
-  </navigator>
+  </view>
   </view>
 </view>
 <view class="separate"></view>
+
+</view>
+
+<view class="bg-white flex-sub margin-right radius shadow-lg" wx:else>
+    <image src="https://image.weilanwl.com/gif/loading-1.gif" mode="aspectFit" class="gif-white response" style="height:300px;"></image>
+  </view>

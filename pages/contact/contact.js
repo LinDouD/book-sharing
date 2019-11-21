@@ -46,7 +46,7 @@ Page({
     var that = this;
     // 创建Socket
     SocketTask = wx.connectSocket({
-    // url: 'ws://localhost:8080/small/websocket/'+that.data.senderId,
+    //url: 'ws://localhost:8080/small/websocket/'+that.data.senderId,
       url: 'wss://www.qqxxy.xyz/sharebook/small/websocket/'+that.data.senderId,
       header: {
         'content-type': 'application/json'
@@ -264,7 +264,13 @@ Page({
       })
     }).exec()
   },
-
+  goDetail: function (e) {
+var that= this;
+   
+    wx.navigateTo({
+      url: '/pages/friendlist/friendinfo/friendinfo?fid=' + that.data.fuserInfo.userId
+    })
+  },
 
   
 })
@@ -286,7 +292,13 @@ function sendSocketcontent(data) {
 
 function spiltTime(list){
   for(var i =0 ;i<list.length;i++){
-    list[i].dateTime = util.lcurrent(list[i].dateTime);
+ //   list[i].dateTime = util.lcurrent(list[i].dateTime);
+    if (list[i].mType==2){
+      list[i].dateTime = util.lcurrent(list[i].dateTime);
+    }else{
+      list[i].dateTime = list[i].dateTime.split("T")[0]
+    }
+    
   }
   return list;
 }

@@ -1,4 +1,8 @@
 /* pages/PC/PC.wxss */
+
+Page{
+  background: #fff;
+}
 .userinfo {
   display: flex;
   flex-direction: column;
