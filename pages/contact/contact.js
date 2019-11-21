@@ -81,7 +81,9 @@ Page({
         var content = JSON.parse(onMessage.data)
     
         var time = util.formatTimen(content.dateTime/1000, 'Y-M-D h:m:s');
+        console.log(time);
         content.dateTime = util.current(time)
+        console.log(content.dateTime);
         if(content.flag==1){
           //数据库插入成功
           if(content.mType==2){
@@ -114,6 +116,7 @@ Page({
        this.setData({
          sendValue:'',
          sendBtn: false,
+         
        })
   
     var data = {
@@ -124,10 +127,18 @@ Page({
       mType: 2,
        
     } 
+   
  //   if (socketOpen) {
       console.log("submitTo")
       // 如果打开了socket就发送数据给服务器
       sendSocketcontent(data)
+
+
+    data.dateTime = data.dateTime.split(" ")[1].split(":")[0] + ':'+data.dateTime.split(" ")[1].split(":")[1]
+    list.push(data);
+    this.setData({
+      list: list
+    })
    // }
   },
   
@@ -177,13 +188,14 @@ Page({
             senderId: that.data.senderId,
             receiverId:that.data.receiverId,
             offset:0,
-            limit:10
+            limit:100
           },
           success: function (res) {
             var list =[]
             console.log("contact", res)
             if (res.status.is_exist == 1) {
               if(res.count!=0){
+                console.log(res.list)
                 list = spiltTime(res.list)
               }
               that.setData({
@@ -292,6 +304,7 @@ function sendSocketcontent(data) {
 
 function spiltTime(list){
   for(var i =0 ;i<list.length;i++){
+    console.log(list[i].dateTime)
  //   list[i].dateTime = util.lcurrent(list[i].dateTime);
     if (list[i].mType==2){
       list[i].dateTime = util.lcurrent(list[i].dateTime);

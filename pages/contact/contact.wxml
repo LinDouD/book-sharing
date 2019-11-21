@@ -14,7 +14,7 @@
         <view class="date "  wx:if="{{item.mType==2}}"> {{item.dateTime}}</view>
       <view wx:else>
 
-        <view class="cu-card article " style="padding:10rpx;width: 250px;">
+        <view class="cu-card article " style="padding:10rpx;width: 300px;">
 
           <view class="cu-item shadow" style="padding-top:10rpx;padding-right:10rpx;padding-left=10rpx">
             <view class="cu-bar bg-white solid-bottom " style="min-height: 80rpx;">
@@ -64,7 +64,7 @@
         </view>
       <view wx:else>
 
-        <view class="cu-card article " style="padding:10rpx;width:250px;">
+        <view class="cu-card article " style="padding:10rpx;width:300px;">
 
           <view class="cu-item shadow" style="padding-top:10rpx;padding-right:10rpx;padding-left=10rpx">
             <view class="cu-bar bg-white solid-bottom " style="min-height: 80rpx;">
