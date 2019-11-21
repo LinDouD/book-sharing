@@ -227,8 +227,7 @@ Page({
       success: function (res) {
         console.log("myreseditpic:"+res);
        
-/**
- *  wx.showToast({
+       wx.showToast({
           title: '修改成功',
           icon:'success'
         })
@@ -239,11 +238,7 @@ Page({
         wx.navigateBack({
           delta: 1
            })
- * 
- * 
- * 
- */
-       
+  
        
       },
       fail(res){
