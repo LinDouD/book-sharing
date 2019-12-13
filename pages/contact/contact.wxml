@@ -2,8 +2,8 @@
 <view class="cu-chat">
   <block wx:for="{{list}}">
 
-    <view class="cu-item" wx:for-item="item" wx:if="{{item.senderId!=senderId}}">
-      <view class="cu-avatar radius" style="background-image:url({{fuserInfo.avatarUrl}});" catchtap="goDetail"></view>
+    <view class="cu-item" wx:for-item="item" wx:if="{{item.senderId==senderId}}">
+      <view class="cu-avatar radius" style="background-image:url({{userInfo.avatarUrl}});"></view>
 
       
         <view class="main" wx:if="{{item.mType==2}}">
@@ -14,65 +14,14 @@
         <view class="date "  wx:if="{{item.mType==2}}"> {{item.dateTime}}</view>
       <view wx:else>
 
-        <view class="cu-card article " style="padding:10rpx;width: 300px;">
+        <view class="cu-card article " style="padding:10rpx">
 
           <view class="cu-item shadow" style="padding-top:10rpx;padding-right:10rpx;padding-left=10rpx">
             <view class="cu-bar bg-white solid-bottom " style="min-height: 80rpx;">
               <view class='action' style="padding:0">
-                <text class='cuIcon-titles text-orange '></text> {{item.mType==0?"申请提示":"归还提示"}}
-          
+                <text class='cuIcon-titles text-orange '></text> {{item.mType==0?"申请借阅":"归还书籍"}}
               </view>
 
-            </view>
-            <view class="title" style="line-height: 80rpx;">
-              <view class="text-cut">书名：{{item.bookInf.bookName}}</view>
-            </view>
-            <view class="content">
-              <image src="{{item.bookInf.picPath}}" mode="aspectFill" style="width:130rpx;height:70px"></image>
-              <view class="desc">
-
-                <view> 借阅人：{{fuserInfo.nickName}}</view>
-                <view>
-                  {{item.mType==0?"申请日期":"归还日期"}}：{{item.dateTime}}
-                </view>
-
-                <view>
-  <button wx:if="{{item.borrowRes==0||item.borrowRes==1}}" class="cu-btn round  shadow {{!item.borrowRes==1?'bg-orange':'line-orange'}}" style="float:right" catchtap="agree" id="{{item.messageId}}" data-type="{{item.mType}}" data-flag="{{item.borrowRes}}">{{item.borrowRes==0?'同意':'已同意'}}</button>
-
-                  <button wx:if="{{item.borrowRes==0||item.borrowRes==2}}" class="cu-btn round line-grey shadow" style="float:right;margin-right:20rpx" catchtap="disagree" id="{{item.messageId}}" data-type="{{item.mType}}" data-flag="{{item.borrowRes}}">{{item.borrowRes==0?'拒绝':'已拒绝'}}</button>
-
-                  <button wx:if="{{item.borrowRes==3}}" class="cu-btn round line-grey shadow" style="float:right;margin-right:20rpx">已失效</button>
-
-                </view>
-              </view>
-            </view>
-          </view>
-
-        </view>
-
-      </view>
-
-    </view>
-    <view wx:if="{{item.senderId==senderId}}">
-
-    <view class="cu-item  {{item.mType==2?'self':'self1'}}"  >
-        <view class="main " wx:if="{{item.mType==2}}">
-          <view class="content bg-green shadow ">
-            <text>{{item.content}}</text>
-          </view>
-          <view class="date ">{{item.dateTime}}</view>
-        </view>
-      <view wx:else>
-
-        <view class="cu-card article " style="padding:10rpx;width:300px;">
-
-          <view class="cu-item shadow" style="padding-top:10rpx;padding-right:10rpx;padding-left=10rpx">
-            <view class="cu-bar bg-white solid-bottom " style="min-height: 80rpx;">
-              <view class='action'>
-              <text class='cuIcon-titles text-orange '></text> {{item.mType==0?"申请借阅":"归还书籍"}}
-              </view>
-               
-              
             </view>
             <view class="title" style="line-height: 80rpx;">
               <view class="text-cut">书名：{{item.bookInf.bookName}}</view>
@@ -87,11 +36,59 @@
                 </view>
 
                 <view>
-                
                   <button wx:if="{{item.borrowRes==0}}" class="cu-btn round  shadow line-orange" style="float:right">待同意</button>
                   <button wx:if="{{item.borrowRes==1}}" class="cu-btn round  shadow line-orange" style="float:right">已同意</button>
                   <button wx:elif="{{item.borrowRes==3}}" class="cu-btn round line-grey shadow" style="float:right;margin-right:20rpx">已取消</button>
                   <button wx:elif="{{item.borrowRes==2}}" class="cu-btn round line-grey shadow" style="float:right;margin-right:20rpx">已拒绝</button>
+                </view>
+              </view>
+            </view>
+          </view>
+
+        </view>
+
+      </view>
+
+    </view>
+    <view class="cu-item {{item.mType==2?'self':''}}" wx:if="{{item.senderId!=senderId}}">
+    
+        <view class="main " wx:if="{{item.mType==2}}">
+          <view class="content bg-green shadow ">
+            <text>{{item.content}}</text>
+          </view>
+          <view class="date ">{{item.dateTime}}</view>
+        </view>
+
+
+      <view wx:else>
+
+        <view class="cu-card article " style="padding:10rpx;width:250px;">
+
+          <view class="cu-item shadow" style="padding-top:10rpx;padding-right:10rpx;padding-left=10rpx">
+            <view class="cu-bar bg-white solid-bottom " style="min-height: 80rpx;">
+              <view class='action'>
+                <text class='cuIcon-titles text-orange '></text> {{item.mType==0?"申请提示":"归还提示"}}
+              </view>
+              
+            </view>
+            <view class="title" style="line-height: 80rpx;">
+              <view class="text-cut">书名：{{item.bookInf.bookName}}</view>
+            </view>
+            <view class="content">
+              <image src="{{item.bookInf.picPath}}" mode="aspectFill" style="width:130rpx;height:70px"></image>
+              <view class="desc">
+
+                <view> 借阅人：{{fuserInfo.nickName}}</view>
+                <view>
+                  {{item.mType==0?"申请日期":"归还日期"}}：{{item.dateTime}}
+                </view>
+
+                <view>
+                  <button wx:if="{{item.borrowRes==0||item.borrowRes==1}}" class="cu-btn round  shadow {{!item.borrowRes==1?'bg-orange':'line-orange'}}" style="float:right" catchtap="agree" id="{{item.messageId}}" data-type="{{item.mType}}" data-flag="{{item.borrowRes}}">{{item.borrowRes==0?'同意':'已同意'}}</button>
+
+                  <button wx:if="{{item.borrowRes==0||item.borrowRes==2}}" class="cu-btn round line-grey shadow" style="float:right;margin-right:20rpx" catchtap="disagree" id="{{item.messageId}}" data-type="{{item.mType}}" data-flag="{{item.borrowRes}}">{{item.borrowRes==0?'拒绝':'已拒绝'}}</button>
+
+                  <button wx:if="{{item.borrowRes==3}}" class="cu-btn round line-grey shadow" style="float:right;margin-right:20rpx">已失效</button>
 
 
                 </view>
@@ -104,10 +101,10 @@
 
       </view>
 
-      <view class="cu-avatar radius " style="background-image:url({{userInfo.avatarUrl}}); " catchtap="goDetail"></view>
+      <view class="cu-avatar radius " style="background-image:url({{fuserInfo.avatarUrl}}); "></view>
 
     </view>
-</view>
+
 
   </block>
 </view>

@@ -1,5 +1,5 @@
 <!--pages/BC/BC.wxml-->
-<view wx:if="{{isLogin}}">
+
 <!--  搜索框  -->
 <view class='search content'>
     <label>
@@ -79,5 +79,4 @@
 
 
  </view>
-</view>
 </view>

@@ -177,7 +177,6 @@ var that = this;
     })
   },
   add:function(){
-    if(this.data.flag==3){
     var mode = "add";
     var addTime = util.formatTime(new Date());
     var that = this;
@@ -214,7 +213,6 @@ var that = this;
         });
       }
     })
-    }
   },
   delete:function(){
     var mode ="delete";
@@ -249,7 +247,6 @@ var that = this;
 
                           var prevPage = pages[pages.length - 2]; //上一页面
 
-                          prevPage.onShow();
                           wx.navigateBack({ //返回
 
                             delta: 1

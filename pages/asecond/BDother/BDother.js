@@ -85,16 +85,6 @@ Page({
           success: function(res) {
             console.log(res);
             if (res.status.is_exist == 1) {
-              if (res.userBook.borrowTime != null && res.userBook.borrowTime.length != 0) 
-                res.userBook.borrowTime = res.userBook.borrowTime.split("T")[0]
-              
-
-              if (res.userBook.returnDateTime != null && res.userBook.returnDateTime.length != 0)
-                res.userBook.returnDateTime = res.userBook.returnDateTime.split("T")[0]
-
-              if (res.userBook.borrowDateTime != null && res.userBook.borrowDateTime.length != 0)
-                res.userBook.borrowDateTime = res.userBook.borrowDateTime.split("T")[0]
-
               that.setData({
                 fuserInfo: res.fuserInfo,
                 userBook: res.userBook,

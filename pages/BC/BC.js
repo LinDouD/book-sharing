@@ -5,7 +5,6 @@ var api = require('../../utils/api.js');
 
 Page({
   data: {
-    isLogin:false,
     is_login: 0,
     nullView: [],
     bcName:'',
@@ -25,34 +24,10 @@ Page({
   },
   //事件处理函数
   onLoad: function (options) {
-    console.log("bconload")
-    console.log(app.globalData.is_login)
-    var that = this;
-    if (app.globalData.is_login){
-      this.setData({
-        isLogin:true
-      })
-    }else{
-      wx.switchTab({
-        url: "/pages/PC/PC"
-      })
-    }
    
-  
+   this.loadMyCircle();
   },
   onShow: function () {
-    if (app.globalData.is_login) {
-      this.setData({
-        isLogin: true
-      })
-      this.loadMyCircle();
-    } else {
-      if(!this.data.is_login){
-      wx.switchTab({
-        url: "/pages/PC/PC"
-      })
-      }
-    }
    
   },
   /**

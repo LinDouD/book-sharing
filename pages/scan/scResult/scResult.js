@@ -13,7 +13,7 @@ Page({
     is_exist:false,
     is_briefnull:1,
     windowWidth: '',
-    isLogin:false,
+   
     pixelRatio:'',
     bookName: '',
     is_exist:-1,  //0:book不存在，1 存在
@@ -33,13 +33,6 @@ Page({
      
     ]
 
-  },
-  onShow:function(){
-    if (app.globalData.is_login){
-      this.setData({
-        isLogin:true
-      })
-    }
   },
 
   radioChange: function (e) {

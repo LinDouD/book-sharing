@@ -1,7 +1,7 @@
 //var _api_root = 'http://localhost:8080/small/';
 var _api_root = 'https://www.qqxxy.xyz/sharebook/small/';
 var api = {
- contact: 'http://localhost:8080/samll/websocket',
+  contact: 'http://localhost:8080/samll/websocket',
   shelf: {
     search: _api_root +'search',
     shelfIndex: _api_root + 'shelfIndex',
@@ -31,6 +31,7 @@ var api = {
 
   },
   bsecond:{
+    
     fileUpload: _api_root + 'fileUpload',
     applyCircle: _api_root + 'applyCircle',
     deleteCMember: _api_root + 'deleteCMember',
@@ -73,12 +74,7 @@ var api = {
     login: _api_root + 'login',
   },
   pc: {
-    pc: _api_root + 'PC',
-    postList: _api_root + 'postList',
-    messageList: _api_root + 'messageList'
-  },
-  search:{
-    friend: _api_root + 'searchfList', 
+    pc: _api_root + 'PC'
   }
 };
 module.exports = api;

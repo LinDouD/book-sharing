@@ -45,10 +45,10 @@ const lcurrent = date => {
 
   if (nowTimeYear == year && nowTimeMonth == month && nowTimeDay == day) {
     return [hour, minute].map(formatNumber).join(':')
-  } else if (nowTimeYear == year &&nowTimeMonth == month){
-    return [month, day].map(formatNumber).join('-') 
+  } else if (nowTimeYear == year){
+    return [month, day].map(formatNumber).join('-') + ' ' + [hour, minute].map(formatNumber).join(':')
   }else{
-    return [year, month, day].map(formatNumber).join('-') 
+    [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
   }
 
 

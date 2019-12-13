@@ -65,9 +65,6 @@ Page({
       var circleId = options.circleId;
       this.data.circleId = circleId;
     }
-  },
-
-  onShow:function(){
     this.getCircleInfo();
   },
   /** 

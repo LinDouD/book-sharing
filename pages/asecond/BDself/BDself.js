@@ -82,8 +82,7 @@ Page({
               } else {
                   isPrivacy = true;
                 }
-              if (res.userBook.addTime != null && res.userBook.addTime.length != 0)
-                res.userBook.addTime = res.userBook.addTime.split("T")[0]
+            
 
               that.setData({
                 userInfo: res.userInfo,

@@ -57,7 +57,7 @@
     <view class=" padding-sm margin-xs radius">{{userInfo.gender?"男":"女"}}</view>
   </view>
 
-  <view class="flex   justify-start" style="width:100%;margin-left:100px;padding:0rpx 30rpx 10rpx 30rpx;" wx:if='{{userInfo.country!=""}}'>
+  <view class="flex   justify-start" style="width:100%;margin-left:100px;padding:0rpx 30rpx 10rpx 30rpx;">
     <view class="padding-sm margin-xs radius">国家：</view>
     <view class=" padding-sm margin-xs radius" >{{userInfo.country}}</view>
   </view>

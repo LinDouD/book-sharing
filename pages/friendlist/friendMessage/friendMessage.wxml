@@ -1,4 +1,4 @@
-<view class="cu-bar bg-white solid-bottom ">
+<view class="cu-bar bg-white solid-bottom margin-top">
   <view class="action">
     <text class="cuIcon-title text-orange "></text> 消息列表
   </view>
